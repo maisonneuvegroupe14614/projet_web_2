@@ -41,11 +41,18 @@ class Utilisateur {
         self::$database->execute();
     }
 
-    public static function listeAmis () {
+    public static function listeAmis ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT CONCAT(Uami.prenom,\" \",Uami.nom), 
-            CONCAT(Util.prenom,\" \",Util.nom)) AS nomAmi FROM  Ami JOIN  Utilisateur Util ON Util.courriel=Ami.courrielUtil 
-            JOIN Utilisateur Uami ON Uami.courriel=Ami.courrielAmi WHERE  courrielUtil=\"guy@hotmail.com\" OR courrielAmi=\"guy@hotmail.com\";");
+        self::$database->query("SELECT courriel, motPasse, nom, prenom, idStatut, ville, province, pays, dateCreation 
+          FROM Ami JOIN  Utilisateur ON courriel=courrielAmi WHERE courrielUtil='$courriel'");
+        return self::$database->liste("Utilisateur");
+    }
+
+    public static function desinscription ($user_mail) {
+        self::initialiserDB();
+        self::$database->query("DELETE FROM message WHERE message.courrielUtil = '$user_mail' OR message.courrielAmi =
+          '$user_mail'; DELETE FROM Utilisateur WHERE Utilisateur.courriel = '$user_mail'");
+        self::$database->execute();
     }
 
 

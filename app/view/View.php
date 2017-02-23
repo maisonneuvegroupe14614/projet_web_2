@@ -9,7 +9,7 @@
 
 
 class View {
-    public function load ($view, $data=null, $data2=null) {
+    public function load ($view, $data=null, $data2=null , $data3= null) {
         require "templates/common/header.php";
         require "templates/".$view.".php";
         require "templates/common/footer.php";

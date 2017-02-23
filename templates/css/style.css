@@ -1,0 +1,929 @@
+*
+{
+	margin: 0 0 0 0;
+}
+
+@font-face
+{
+	font-family: menu_titres_articles_1;
+	src: url('http://127.0.0.1:8008/projet_web_2-martine/templates/font/menu_titres_articles/Roboto-Regular.ttf');
+}
+
+@font-face
+{
+	font-family: menu_titres_articles_2;
+	src: url('http://127.0.0.1:8008/projet_web_2-martine/templates/font/menu_titres_articles/Philosopher-Regular.ttf');
+}
+
+#conteneur
+{
+	width: 1407px;
+	margin: auto auto;
+}
+
+/* Style de l'en-tête */
+header
+{
+	width: 100%;
+	height: 121px;
+	padding-top: 19px;
+	background-color: #91c4dc;
+	border-radius: 25px;
+}
+
+header section
+{
+	width: 97%;
+	height: 102px;
+	margin: auto auto;
+	background-color: #91c4dc;
+	box-shadow: 0px 0px 3px 10px white;
+	border-radius: 15px;
+}
+
+section #hamburger
+{
+	float: right;
+	margin-top: -50px;
+	margin-right: 10px;
+	margin-left:208px;
+}
+
+
+
+
+/* Reset */
+#menu,
+#menu ul,
+#menu li,
+#menu a {
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+/* Menu */
+
+
+#menu li 
+{
+	/*margin-top: -25px;*/
+	position: relative;
+	list-style: none;
+	float: left;
+	/*display: block;*/
+	height: 40px; /*39px;*/
+}
+
+/* Liens */
+#menu li a 
+{
+	display: block;
+	padding: 0 14px;
+
+	line-height: 41px;
+	text-decoration: none;
+	
+	border-left: 1px solid #240705; 
+	border-right: 1px solid #240705;  
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 22px;
+
+	color: #91C4DC; 
+	text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+}
+
+#menu li:first-child a{ border-left: none; }
+#menu li:last-child  a{ border-right: none; }
+
+#menu-principal>ul>li a[class="actif"]
+{
+	 color: #91C4DC;
+	 height:40px;
+	 background:    -moz-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:      -o-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:     -ms-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);  
+	 background: -webkit-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:         linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+}
+
+#menu-principal>ul >li:first-child a[class="actif"]
+{
+	 color: #91C4DC;
+	 height:40px;
+	-webkit-border-radius: 4px 0 0 5px;
+	   -moz-border-radius: 4px 0 0 5px;
+	        border-radius: 4px 0 0 5px;
+	 background:    -moz-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:      -o-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:     -ms-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);  
+	 background: -webkit-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:         linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+}
+
+#menu-principal>ul >li:last-child a[class="actif"]
+{
+	 color: #91C4DC;
+	 height:40px;
+	-webkit-border-radius: 0 4px 5px 0;
+	   -moz-border-radius: 0 4px 5px 0;
+	        border-radius: 0 4px 5px 0;
+	 background:    -moz-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:      -o-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:     -ms-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);  
+	 background: -webkit-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:         linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+}
+
+#menu li:hover > a
+{
+	 color: #91C4DC;
+	 height:40px;
+	 background:    -moz-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:      -o-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:     -ms-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);  
+	 background: -webkit-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+	 background:         linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
+}
+
+#menu-principal>ul >li:first-child:hover a
+{
+	-webkit-border-radius: 4px 0 0 5px;
+	   -moz-border-radius: 4px 0 0 5px;
+	        border-radius: 4px 0 0 5px;
+}
+
+#menu-principal>ul>li:last-child:hover a
+{
+	-webkit-border-radius: 0 4px 5px 0;
+	   -moz-border-radius: 0 4px 5px 0;
+	        border-radius: 0 4px 5px 0;
+}
+
+/* Sous Menu */
+#menu ul 
+{
+	position: absolute;
+	top: 39px;
+	left: 0;
+	
+/*	background: #584534; */
+	
+	/*background:    -moz-linear-gradient(top, #91C4DC 0%,#1A3A49 100%);
+	background:      -o-linear-gradient(top, #91C4DC 0%,#1A3A49 100%);
+	background:     -ms-linear-gradient(top, #91C4DC 0%,#1A3A49 100%);  
+	background: -webkit-linear-gradient(top, #91C4DC 0%,#1A3A49 100%);*/
+	background: #1A3A49;
+	
+	-webkit-border-radius: 5px 5px 5px 5px;
+	   -moz-border-radius: 5px 5px 5px 5px;
+			border-radius: 5px 5px 5px 5px;
+}
+
+#menu li:hover > ul { opacity: 1; }
+
+/* Le sous-menu est initialement caché  */
+#menu ul li 
+{
+	/*  height: 0;  */
+	
+	display: none;  /* On peut faire : overflow: hidden;  */
+	padding: 0;
+}
+
+
+/* En cas de survol d'un élément du menu */
+#menu li:hover > ul li 
+{
+	height: 50px;
+	
+	display: block;  /* On obtient le même effet avec:  overflow: visible;  */
+	padding: 0;
+}
+
+/*  Apparence du sous-menu    */
+#menu ul li a 
+{
+	width: 280px;
+	padding: 4px 0 4px 20px;
+	margin: 0;
+
+	border: 1px solid #51A2C8;
+	/*border-bottom: 1px solid #51A2C8;*/
+}
+
+
+/* Pas de soulignement du dernier élément du sous-menu   */
+#menu ul li:last-child a { border: none; }
+
+#menu ul li:last-child a:hover
+{
+	-webkit-border-radius: 0 0 5px 5px;
+	   -moz-border-radius: 0 0 5px 5px;
+			border-radius: 0 0 5px 5px;
+}
+
+#menu-principal
+{
+	width: 53%;
+	height: 59px;
+	margin-left: 76.5%;
+	/*border: solid 1px;*/
+}
+
+
+
+
+
+
+/* Style de la section centrale */
+#conteneur>section
+{
+	margin: auto auto;
+	width: 94%;
+	height: 800px;
+	background-image: url("http://127.0.0.1:8008/projet_web_2-martine/templates/images/fond2.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
+}
+
+#menu-gauche
+{
+	margin-left: -20px;
+	width: 26%;
+	float: left;
+}
+
+#menu-gauche ul li
+{
+	width: 100%;
+	list-style-type: none;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	font-size: 14pt;
+	transition: font-size 0.75s;
+}
+
+#menu-gauche ul li:hover
+{
+    font-size: 20pt;
+}
+
+#menu-gauche li a
+{
+	text-decoration: none;
+	color: #7C3840;
+}
+
+
+#util
+{
+	margin-left: 10%;
+}
+
+#publications
+{
+	position: absolute;
+	z-index: 1;
+	width: 35%;
+	height: 64%;
+	left: 32%;
+	overflow: scroll;
+}
+
+.publication a
+{
+	font-size: 8pt;
+	color: 7C3840;
+}
+
+.droite
+{
+	margin-right: 17%;
+}
+
+.centre
+{
+	margin-top: -40px;
+	margin-left: 45%;
+	-webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+	transform: rotate(-20deg);
+}
+
+.publication
+{
+  position: relative;
+  width: 350px;
+  height: 110px;
+  background: #ffffc5;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 2em 1.5em;
+  color: rgba(0,0,0, .8);
+  text-shadow: 0 1px 0 #fff;
+  line-height: 1.5;
+  margin: 60px auto;
+}
+
+.publication:before, .publication:after
+{
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0 15px 10px rgba(0,0,0, 0.7);
+  -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+.publication:after
+{
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+
+
+/* Style du pied de page */
+footer
+{
+	position:fixed;
+	bottom: 0;
+	width: 1407px;
+	height: 121px;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	padding-top: 19px;
+	background-color: #91c4dc;
+	border-radius: 25px;
+}
+
+footer section
+{
+	width: 97%;
+	height: 102px;
+	margin: auto auto;
+	background-color: #91c4dc;
+	box-shadow: 0px 0px 3px 10px white;
+	border-radius: 15px;
+}
+
+footer section a:nth-child(2)
+{
+	margin-left: 30%;
+}
+
+footer section a:nth-child(5)
+{
+	margin-left: 30%;
+	margin-right: 280px;
+}
+
+footer section a
+{
+	text-decoration: none;
+	color: #7C3840;
+	margin-right: 300px;
+}
+
+footer p
+{
+	text-align: center;
+	color: #7C3840;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.Punaise_copie {
+  background-image: url("Punaise copie.png");
+  position: absolute;
+  left: 659px;
+  top: 531px;
+  width: 78px;
+  height: 74px;
+  z-index: 116;
+}
+.Punaise {
+  background-image: url("Punaise.png");
+  position: absolute;
+  left: 659px;
+  top: 255px;
+  width: 78px;
+  height: 74px;
+  z-index: 115;
+}
+.Astuces {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 197.562px;
+  top: 439px;
+  z-index: 114;
+}
+.Tuteur {
+  background-image: url("Tuteur.png");
+  position: absolute;
+  left: 135px;
+  top: 388px;
+  width: 40px;
+  height: 35px;
+  z-index: 113;
+}
+.Calque_80 {
+  background-image: url("Calque 80.png");
+  position: absolute;
+  left: 151px;
+  top: 344px;
+  width: 27px;
+  height: 34px;
+  z-index: 112;
+}
+.Ampoule {
+  background-image: url("Ampoule.png");
+  position: absolute;
+  left: 147px;
+  top: 433px;
+  width: 30px;
+  height: 34px;
+  z-index: 111;
+}
+.Tutorats {
+  font-size: 33.333px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 196.406px;
+  top: 384.5px;
+  z-index: 110;
+}
+.Bob_Léponge__étudiant {
+  font-size: 25px;
+  font-family: "Roboto";
+  color: rgb(26, 58, 73);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 919.922px;
+  top: 156.113px;
+  z-index: 108;
+}
+.Calque_37 {
+  background-image: url("Calque 37.png");
+  position: absolute;
+  left: 144px;
+  top: 299px;
+  width: 37px;
+  height: 28px;
+  z-index: 107;
+}
+.Créer_une_publication {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(148, 142, 143);
+  line-height: 1.2;
+  position: absolute;
+  left: 195.797px;
+  top: 350.095px;
+  z-index: 102;
+}
+.Mes_amis {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 196.25px;
+  top: 301.5px;
+  z-index: 101;
+}
+.Forme_2_copie {
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 875px;
+  top: 726px;
+  width: 25px;
+  height: 23px;
+  z-index: 100;
+}
+.Forme_1_copie {
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 667px;
+  top: 724px;
+  width: 25px;
+  height: 22px;
+  z-index: 99;
+}
+.Partager_copie {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 690.25px;
+  top: 729.095px;
+  z-index: 98;
+}
+.Forme_3_copie {
+  border-width: 1px;
+  border-color: rgb(113, 113, 113);
+  border-style: solid;
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 465px;
+  top: 448px;
+  width: 22px;
+  height: 26px;
+  z-index: 97;
+}
+.Forme_3 {
+  border-width: 1px;
+  border-color: rgb(113, 113, 113);
+  border-style: solid;
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 465px;
+  top: 727px;
+  width: 22px;
+  height: 26px;
+  z-index: 96;
+}
+.Suivre_copie {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 496.828px;
+  top: 453.5px;
+  z-index: 95;
+}
+.Suivre {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 496.828px;
+  top: 728.5px;
+  z-index: 94;
+}
+.Évaluer_copie {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 905.25px;
+  top: 728.5px;
+  z-index: 93;
+}
+.Forme_2 {
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 874px;
+  top: 450px;
+  width: 25px;
+  height: 23px;
+  z-index: 92;
+}
+.Nouveau_tutorat_CSS3_disponible_dès_mars_2017_p {
+  font-size: 25px;
+  font-family: "Philosopher";
+  color: rgb(26, 58, 73);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 540px;
+  top: 331.75px;
+  z-index: 91;
+}
+.Devenez_ami_avec_notre_nouveau_tuteur_M__Tagne_ {
+  font-size: 25px;
+  font-family: "Philosopher";
+  color: rgb(26, 58, 73);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 549px;
+  top: 615.75px;
+  z-index: 90;
+}
+.Forme_1 {
+  background-color: rgb(124, 56, 64);
+  position: absolute;
+  left: 666px;
+  top: 448px;
+  width: 25px;
+  height: 22px;
+  z-index: 89;
+}
+.Partager {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 689.25px;
+  top: 453.095px;
+  z-index: 88;
+}
+.Évaluer {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 904.25px;
+  top: 452.5px;
+  z-index: 87;
+}
+.Shape_6_copy {
+  background-color: rgb(255, 255, 197);
+  position: absolute;
+  left: 430px;
+  top: 557px;
+  width: 568px;
+  height: 211px;
+  z-index: 86;
+}
+.Shape_7_copy_2 {
+  background-image: url("Shape 7 copy 2.png");
+  opacity: 0.988;
+  position: absolute;
+  left: 679px;
+  top: 581px;
+  width: 324px;
+  height: 221px;
+  z-index: 85;
+}
+.Shape_7_copy_2 {
+  background-image: url("Shape 7 copy 2.png");
+  opacity: 0.988;
+  position: absolute;
+  left: 426px;
+  top: 582px;
+  width: 324px;
+  height: 221px;
+  z-index: 84;
+}
+.Shape_6 {
+  background-color: rgb(255, 255, 197);
+  position: absolute;
+  left: 430px;
+  top: 279px;
+  width: 568px;
+  height: 211px;
+  z-index: 83;
+}
+.Shape_7_copy {
+  background-image: url("Shape 7 copy.png");
+  opacity: 0.988;
+  position: absolute;
+  left: 679px;
+  top: 303px;
+  width: 325px;
+  height: 221px;
+  z-index: 82;
+}
+.Shape_7 {
+  background-image: url("Shape 7.png");
+  opacity: 0.988;
+  position: absolute;
+  left: 425px;
+  top: 304px;
+  width: 325px;
+  height: 221px;
+  z-index: 81;
+}
+.Copyright_©_2017__Groupe_14614_ {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  text-align: left;
+  position: absolute;
+  left: 561.797px;
+  top: 1021.095px;
+  z-index: 80;
+}
+.Boîte_de_réception {
+  font-size: 33.333px;
+  font-family: "Roboto";
+  color: rgb(145, 196, 220);
+  line-height: 1.2;
+  text-align: left;
+  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  position: absolute;
+  left: 1017.715px;
+  top: 258.151px;
+  z-index: 78;
+}
+.Trouver_des_amis {
+  font-size: 33.333px;
+  font-family: "Roboto";
+  color: rgb(145, 196, 220);
+  line-height: 1.2;
+  text-align: left;
+  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  position: absolute;
+  left: 1024.96px;
+  top: 297px;
+  z-index: 77;
+}
+.Se_déconnecter {
+  font-size: 33.333px;
+  font-family: "Roboto";
+  color: rgb(145, 196, 220);
+  line-height: 1.2;
+  text-align: left;
+  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
+  position: absolute;
+  left: 1038.405px;
+  top: 338px;
+  z-index: 76;
+}
+.Shape_3 {
+  background-image: url("Shape 3.png");
+  position: absolute;
+  left: 1015px;
+  top: 336px;
+  width: 276px;
+  height: 76px;
+  z-index: 75;
+}
+.Shape_4 {
+  background-image: url("Shape 4.png");
+  position: absolute;
+  left: 1015px;
+  top: 295px;
+  width: 276px;
+  height: 76px;
+  z-index: 74;
+}
+.Shape_5 {
+  background-image: url("Shape 5.png");
+  position: absolute;
+  left: 1014px;
+  top: 254px;
+  width: 276px;
+  height: 76px;
+  z-index: 73;
+}
+.Politique_de_confidentialité {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 723.25px;
+  top: 957.095px;
+  z-index: 72;
+}
+.Conditions_d_utilisation {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 721.797px;
+  top: 930.5px;
+  z-index: 71;
+}
+.Plan_du_site {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 506.25px;
+  top: 954.5px;
+  z-index: 70;
+}
+.À_propos {
+  font-size: 21px;
+  font-family: "Roboto";
+  color: rgb(124, 56, 64);
+  line-height: 1.2;
+  position: absolute;
+  left: 506.562px;
+  top: 930.933px;
+  z-index: 69;
+}
+.hamberger {
+  background-image: url("hamberger.png");
+  position: absolute;
+  left: 1244px;
+  top: 157px;
+  width: 24px;
+  height: 24px;
+  z-index: 68;
+}
+.scholarnet {
+  font-size: 100px;
+  font-family: "Pricedown";
+  color: rgb(26, 58, 73);
+  line-height: 1.2;
+  text-align: left;
+  text-shadow: 0px 13px 18px rgba(0, 0, 0, 0.75);
+  position: absolute;
+  left: 124.594px;
+  top: 60.5px;
+  z-index: 67;
+}
+.Terre {
+  background-image: url("Terre.png");
+  position: absolute;
+  left: 281px;
+  top: 26px;
+  width: 184px;
+  height: 184px;
+  z-index: 66;
+}
+.Header {
+  background-image: url("Header.png");
+  position: absolute;
+  left: 64px;
+  top: 0px;
+  width: 1263px;
+  height: 229px;
+  z-index: 65;
+}
+.Shape_1 {
+  background-image: url("Shape 1.png");
+  position: absolute;
+  left: 1015px;
+  top: 181px;
+  width: 276px;
+  height: 110px;
+  z-index: 64;
+}
+.Footer {
+  background-image: url("Footer.png");
+  position: absolute;
+  left: 71px;
+  top: 857px;
+  width: 1263px;
+  height: 235px;
+  z-index: 63;
+}
+.fond_dégradé {
+  background-image: url("fond dégradé.png");
+  position: absolute;
+  left: 128px;
+  top: 161px;
+  width: 1152px;
+  height: 825px;
+  z-index: 62;
+}
+*/

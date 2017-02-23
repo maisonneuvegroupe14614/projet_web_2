@@ -42,8 +42,6 @@ class ClientController extends Controller {
     }
 
     public function confirmationInscription () {
-
-
         /*construction de la table des erreurs*/
         foreach ($_POST as $key => $value) {
             if(empty($value)){
@@ -65,7 +63,7 @@ class ClientController extends Controller {
         while (list(, $val) = each($tab_error)) {
             if ($val) {
                 $error_bool = true;
-                break;    /* Vous pourriez aussi utiliser 'break 1;' ici. */
+                break;
             }
             $error_bool = false;
         }
@@ -86,10 +84,29 @@ class ClientController extends Controller {
 
     }
 
+    public function desinscription () {
+        $this->view->load('desinscription/index',$_SESSION["courriel"]);
+    }
+
+    public function confirmationDesinscription () {
+        echo '<h1>'.$_SESSION["courriel"].'</h1>';
+        Utilisateur::desinscription($_SESSION["courriel"]);
+        session_destroy();
+        header("Location:identification");
+    }
+
     public function espace () {
-        $publication = Publication::find($_SESSION["courriel"]);
+        $data["publication"] = Publication::find($_SESSION["courriel"]);
+        $data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
         $param = $this->request->getParam();
-        $this->view->load('espace/index',$publication, $param);
+        $this->view->load('espace/index',$data, $param);
+    }
+
+    public function ami () {
+        $data["publication"] = Publication::find($this->request->getParam());
+        $data["utilisateur"] = Utilisateur::listeAmis($this->request->getParam());
+        $param = $this->request->getParam();
+        $this->view->load('ami/index',$data, $param);
     }
 
     public function testAllUsers () {
@@ -125,5 +142,10 @@ class ClientController extends Controller {
     public function ajouterPublication () {
         Publication::Enregistrer($_POST["publications"],$_POST["url"],$this->request->getParam());
         header("Location:../espace/".$this->request->getParam());
+    }
+
+    public function ajouterPublicationAmi () {
+        Publication::Enregistrer($_POST["publications"],$_POST["url"],$this->request->getParam());
+        header("Location:../ami/".$this->request->getParam());
     }
 }

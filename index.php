@@ -16,6 +16,7 @@ require_once 'app/database/Database.php';
 require_once 'app/models/Utilisateur.php';
 require_once 'app/models/Publication.php';
 require_once 'app/models/Evaluation.php';
+require_once 'app/validation/Validation.php';
 
 $url = $_SERVER['REQUEST_URI'];
 
