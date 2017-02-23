@@ -42,12 +42,48 @@ class ClientController extends Controller {
     }
 
     public function confirmationInscription () {
-        Utilisateur::enregistrer($_POST['courriel'],$_POST['mpasse'],$_POST['nom'],
-            $_POST['prenom'],$_POST["statut"],$_POST['ville'],$_POST['province'],$_POST['pays']);
 
-        $_SESSION["courriel"]=$_POST['courriel'];
 
-        header("Location:espace/".$_SESSION['courriel']);
+        /*construction de la table des erreurs*/
+        foreach ($_POST as $key => $value) {
+            if(empty($value)){
+                $tab_error['empty'] = "erreur ! veuillez verifier tous les champs";
+            }
+        }
+        $validation = new Validation();
+        $tab_error['nom']=$validation->validate_alpha($_POST['nom']);
+        $tab_error['prenom']=$validation->validate_alpha($_POST['prenom']);
+        $tab_error['ville']=$validation->validate_alpha($_POST['ville']);
+        $tab_error['province']=$validation->validate_alpha($_POST['province']);
+        $tab_error['pays']=$validation->validate_alpha($_POST['pays']);
+        $tab_error['email']=$validation->validate_email($_POST['courriel']);
+        $tab_error['mpasse']=$validation->validate_password($_POST['mpasse']);
+        if($_POST['mpasse']!==$_POST['mpasse_conf']){
+            $tab_error['conf_mot_passe'] = "veuillez reconfirmer votre mot de passe";
+        }
+        /*verification de la table d'erreur*/
+        while (list(, $val) = each($tab_error)) {
+            if ($val) {
+                $error_bool = true;
+                break;    /* Vous pourriez aussi utiliser 'break 1;' ici. */
+            }
+            $error_bool = false;
+        }
+
+        if(!$error_bool){
+            Utilisateur::enregistrer($_POST['courriel'],$_POST['mpasse'],$_POST['nom'],
+                $_POST['prenom'],$_POST["statut"],$_POST['ville'],$_POST['province'],$_POST['pays']);
+
+            $_SESSION["courriel"]=$_POST['courriel'];
+
+            header("Location:espace/".$_SESSION['courriel']);
+
+        }
+        else{
+            $this->view->load('inscription/index',$tab_error);
+            var_dump($tab_error);
+        }
+
     }
 
     public function espace () {
