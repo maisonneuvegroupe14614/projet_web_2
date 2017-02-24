@@ -10,6 +10,7 @@
 
     <script src="../validation/parsley.min.js"></script>
     <link href="../validation/parsley.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo path; ?>templates/css/style.css">
     <title>Dashboard</title>
     <style>
         .container {
@@ -20,3 +21,24 @@
         }
     </style>
 </head>
+
+<div id="conteneur">
+    <header>
+        <section>
+            <img id="logo" src="<?php echo path; ?>templates/images/logo.png" width="297" height="100"></img>
+
+            <nav id="menu-principal">
+                <ul id="menu">
+                    <li>
+                        <a href="#"><img id="hamburger" src="<?php echo path; ?>templates/images/hamburger.png" width="54" height="57"></img></a>
+                        <ul>
+                            <li><a href="#">Boite de réception</a></li>
+                            <li><a href="#">Trouver des amis</a></li>
+                            <li><a href="#">Se déconnecter</a></li>
+                            <!-- <li><a href="#">Boissons</a></li> -->
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+    </header>

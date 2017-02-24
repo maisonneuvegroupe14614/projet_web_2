@@ -1,7 +1,11 @@
+/*************************************
+ * Style de la page utilisateur      *
+ *************************************/
 *
 {
 	margin: 0 0 0 0;
 }
+
 
 @font-face
 {
@@ -17,11 +21,12 @@
 
 #conteneur
 {
-	width: 1407px;
+	/*width: 1407px;*/
+	width: 1200px;
 	margin: auto auto;
 }
 
-/* Style de l'en-tête */
+/* Style de l'en-tï¿½te */
 header
 {
 	width: 100%;
@@ -51,8 +56,9 @@ section #hamburger
 
 
 
+/* Menu principal*/
 
-/* Reset */
+/* Menu reset */
 #menu,
 #menu ul,
 #menu li,
@@ -61,9 +67,6 @@ section #hamburger
 	padding: 0;
 	border: none;
 }
-
-/* Menu */
-
 
 #menu li 
 {
@@ -86,7 +89,7 @@ section #hamburger
 	
 	border-left: 1px solid #240705; 
 	border-right: 1px solid #240705;  
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
 	font-weight: bold;
 	font-size: 22px;
 
@@ -183,22 +186,22 @@ section #hamburger
 
 #menu li:hover > ul { opacity: 1; }
 
-/* Le sous-menu est initialement caché  */
+/* Le sous-menu est initialement cachï¿½  */
 #menu ul li 
 {
 	/*  height: 0;  */
 	
-	display: none;  /* On peut faire : overflow: hidden;  */
+	display:none;  /* On peut faire : overflow: hidden;  */
 	padding: 0;
 }
 
 
-/* En cas de survol d'un élément du menu */
+/* En cas de survol d'un ï¿½lï¿½ment du menu */
 #menu li:hover > ul li 
 {
 	height: 50px;
 	
-	display: block;  /* On obtient le même effet avec:  overflow: visible;  */
+	display:block;  /* On obtient le mï¿½me effet avec:  overflow: visible;  */
 	padding: 0;
 }
 
@@ -214,7 +217,7 @@ section #hamburger
 }
 
 
-/* Pas de soulignement du dernier élément du sous-menu   */
+/* Pas de soulignement du dernier ï¿½lï¿½ment du sous-menu   */
 #menu ul li:last-child a { border: none; }
 
 #menu ul li:last-child a:hover
@@ -278,19 +281,21 @@ section #hamburger
 }
 
 
-#util
-{
-	margin-left: 10%;
-}
-
 #publications
 {
 	position: absolute;
 	z-index: 1;
 	width: 35%;
-	height: 64%;
+	height: 70.5%;
 	left: 32%;
 	overflow: scroll;
+}
+
+#util
+{
+	margin-left: 25px;
+	color: #7C3840;
+	font-size: 14pt;
 }
 
 .publication a
@@ -319,7 +324,7 @@ section #hamburger
 {
   position: relative;
   width: 350px;
-  height: 110px;
+  height: 100px;
   background: #ffffc5;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -339,7 +344,7 @@ section #hamburger
   left: 10px;
   width: 50%;
   top: 80%;
-  max-width: 300px;
+  max-width:300px;
   background: rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 15px 10px rgba(0,0,0, 0.7);
   -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
@@ -366,9 +371,8 @@ section #hamburger
 /* Style du pied de page */
 footer
 {
-	position:fixed;
 	bottom: 0;
-	width: 1407px;
+	width: 1200px;
 	height: 121px;
 	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
 	padding-top: 19px;
@@ -412,16 +416,67 @@ footer p
 
 
 
+/* Adaptativitï¿½ */
+@media screen and (min-resolution: 97dpi)
+{
+    #publications
+	{
+        height: 63.5%;
+    }
+}
 
 
 
+/*************************************
+ * Style de la page d'inscription    *
+ *************************************/
+.bs-callout-warning
+{
+	color: #7C3840;
+	font-size: 22pt;
+	text-align: center;
+	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
+}
 
+.bs-callout-info
+{
+	font-size: 22pt;
+	text-align: center;
+	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
+}
 
+form label
+{
+	display:inline-block;
+	width: 350px;
+	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	color: #1A3A49;
+	margin-left: 25%;
+	margin-bottom: 10px;
+}
 
+form input
+{
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	border: 2px solid #1A3A49;
+	border-radius: 5px;
+	box-shadow: 6px 6px 6px 1px lightgrey inset;
+}
 
+select
+{
+	font-size: 16pt;
+}
 
-
-
+.button
+{
+	float: right;
+	width: 300px;
+	height: 45px;
+	border-radius: 5px;
+}
 
 
 
@@ -500,7 +555,7 @@ footer p
   top: 384.5px;
   z-index: 110;
 }
-.Bob_Léponge__étudiant {
+.Bob_Lï¿½ponge__ï¿½tudiant {
   font-size: 25px;
   font-family: "Roboto";
   color: rgb(26, 58, 73);
@@ -520,7 +575,7 @@ footer p
   height: 28px;
   z-index: 107;
 }
-.Créer_une_publication {
+.Crï¿½er_une_publication {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(148, 142, 143);
@@ -612,7 +667,7 @@ footer p
   top: 728.5px;
   z-index: 94;
 }
-.Évaluer_copie {
+.ï¿½valuer_copie {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(124, 56, 64);
@@ -631,7 +686,7 @@ footer p
   height: 23px;
   z-index: 92;
 }
-.Nouveau_tutorat_CSS3_disponible_dès_mars_2017_p {
+.Nouveau_tutorat_CSS3_disponible_dï¿½s_mars_2017_p {
   font-size: 25px;
   font-family: "Philosopher";
   color: rgb(26, 58, 73);
@@ -672,7 +727,7 @@ footer p
   top: 453.095px;
   z-index: 88;
 }
-.Évaluer {
+.ï¿½valuer {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(124, 56, 64);
@@ -740,7 +795,7 @@ footer p
   height: 221px;
   z-index: 81;
 }
-.Copyright_©_2017__Groupe_14614_ {
+.Copyright_ï¿½_2017__Groupe_14614_ {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(124, 56, 64);
@@ -751,7 +806,7 @@ footer p
   top: 1021.095px;
   z-index: 80;
 }
-.Boîte_de_réception {
+.Boï¿½te_de_rï¿½ception {
   font-size: 33.333px;
   font-family: "Roboto";
   color: rgb(145, 196, 220);
@@ -779,7 +834,7 @@ footer p
   top: 297px;
   z-index: 77;
 }
-.Se_déconnecter {
+.Se_dï¿½connecter {
   font-size: 33.333px;
   font-family: "Roboto";
   color: rgb(145, 196, 220);
@@ -820,7 +875,7 @@ footer p
   height: 76px;
   z-index: 73;
 }
-.Politique_de_confidentialité {
+.Politique_de_confidentialitï¿½ {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(124, 56, 64);
@@ -850,7 +905,7 @@ footer p
   top: 954.5px;
   z-index: 70;
 }
-.À_propos {
+.ï¿½_propos {
   font-size: 21px;
   font-family: "Roboto";
   color: rgb(124, 56, 64);
@@ -917,8 +972,8 @@ footer p
   height: 235px;
   z-index: 63;
 }
-.fond_dégradé {
-  background-image: url("fond dégradé.png");
+.fond_dï¿½gradï¿½ {
+  background-image: url("fond dï¿½gradï¿½.png");
   position: absolute;
   left: 128px;
   top: 161px;

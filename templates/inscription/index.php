@@ -1,3 +1,4 @@
+<section>
 <div class="bs-callout bs-callout-warning hidden">
     <h4>Erreur!</h4>
     <p>Le formulaire n'est pas valide</p>
@@ -60,6 +61,7 @@
 
 </form>
 
+</section>
 <script type="text/javascript">
     $(function () {
         $('#form1').parsley().on('field:validated', function() {
