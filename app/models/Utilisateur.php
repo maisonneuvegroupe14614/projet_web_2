@@ -38,7 +38,7 @@ class Utilisateur {
         self::$database->bind(':ville', $ville);
         self::$database->bind(':province', $province);
         self::$database->bind(':pays', $pays);
-        self::$database->execute();
+        return $result = self::$database->execute();
     }
 
     public static function listeAmis ($courriel) {

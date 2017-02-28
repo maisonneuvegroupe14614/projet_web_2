@@ -69,12 +69,17 @@ class ClientController extends Controller {
         }
 
         if(!$error_bool){
-            Utilisateur::enregistrer($_POST['courriel'],$_POST['mpasse'],$_POST['nom'],
+            $enregistrer = Utilisateur::enregistrer($_POST['courriel'],$_POST['mpasse'],$_POST['nom'],
                 $_POST['prenom'],$_POST["statut"],$_POST['ville'],$_POST['province'],$_POST['pays']);
+            if($enregistrer) {
+                $_SESSION["courriel"]=$_POST['courriel'];
 
-            $_SESSION["courriel"]=$_POST['courriel'];
+                header("Location:espace/".$_SESSION['courriel']);
+            } else {
+                header("Location:inscription");
+            }
 
-            header("Location:espace/".$_SESSION['courriel']);
+
 
         }
         else{
@@ -147,5 +152,9 @@ class ClientController extends Controller {
     public function ajouterPublicationAmi () {
         Publication::Enregistrer($_POST["publications"],$_POST["url"],$this->request->getParam());
         header("Location:../ami/".$this->request->getParam());
+    }
+
+    public function ajouterQuiz () {
+        $this->view->load('quiz/index');
     }
 }
