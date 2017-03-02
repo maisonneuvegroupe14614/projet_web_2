@@ -157,4 +157,19 @@ class ClientController extends Controller {
     public function ajouterQuiz () {
         $this->view->load('quiz/index');
     }
+
+    public function addQuiz () {
+        Publication::Enregistrer($_POST["nomQuiz"],"dasdasdsafdfdg","michael@hotmail.com");
+        $denierId = Publication::dernier();
+        foreach ($_POST["questionnaire"] as $data) {
+            if($data["question"]==$data["reponses"]["noQuestion"]) {
+                Question::enregistrer($denierId,$data["question"],$data["valeur"],$data["reponses"]["reponse"]);
+            } else {
+                Question::enregistrer($denierId,$data["question"],$data["valeur"],0);
+            }
+
+        }
+
+        echo "success";
+    }
 }
