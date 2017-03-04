@@ -2,25 +2,44 @@
 
 session_start();
 
+/**
+ * Class ClientController
+ */
 class ClientController extends Controller {
     public function __construct($view,$request) {
         parent::__construct($view,$request);
     }
 
+    /**
+     * Identification
+     *
+     * Sert a afficher la page de login aux utilisateur si aucune session n'est presente
+     *
+     * @return mixed
+     */
     public function identification () {
         if(isset($_SESSION["courriel"])) {
             header("Location:espace/".$_SESSION['courriel']);
         } else {
-            $this->view->load('login/index');
+            return $this->view->load('login/index');
         }
-
     }
 
+    /**
+     * Logout
+     *
+     * Detruit la session et redirige au login
+     */
     public function logout () {
         session_destroy();
         header("Location:identification");
     }
 
+    /**
+     * Verifier Identification
+     *
+     * Verifier si le mot de passe correspond avec le hash bcryt du mot de passe de la bd
+     */
     public function verifierIdentification () {
         $password = $_POST["password"];
         $user = Utilisateur::find($_POST["user"]);
@@ -32,6 +51,11 @@ class ClientController extends Controller {
         }
     }
 
+    /**
+     * Inscription
+     *
+     * Sert a afficher la page d'inscription aux utilisateurs si aucune session n'est presente
+     */
     public function inscription () {
         if(isset($_SESSION["courriel"])) {
             header("Location:espace/".$_SESSION['courriel']);
@@ -41,13 +65,19 @@ class ClientController extends Controller {
 
     }
 
+    /**
+     * Confirmation Inscription
+     *
+     * Insertion dans la bd d'un nouvel utilisateur et validation des champs
+     */
     public function confirmationInscription () {
-        /*construction de la table des erreurs*/
+        //Construction de la table des erreurs
         foreach ($_POST as $key => $value) {
             if(empty($value)){
                 $tab_error['empty'] = "erreur ! veuillez verifier tous les champs";
             }
         }
+
         $validation = new Validation();
         $tab_error['nom']=$validation->validate_alpha($_POST['nom']);
         $tab_error['prenom']=$validation->validate_alpha($_POST['prenom']);
@@ -89,10 +119,20 @@ class ClientController extends Controller {
 
     }
 
+    /**
+     * Deinscription
+     *
+     * Sert a afficher la page de desinscription aux utilisateurs si aucune session n'est presente
+     */
     public function desinscription () {
         $this->view->load('desinscription/index',$_SESSION["courriel"]);
     }
 
+    /**
+     * ConfirmationDesinscription
+     *
+     * Efface un utilisateur de la bd et detruit la session
+     */
     public function confirmationDesinscription () {
         echo '<h1>'.$_SESSION["courriel"].'</h1>';
         Utilisateur::desinscription($_SESSION["courriel"]);
@@ -100,11 +140,28 @@ class ClientController extends Controller {
         header("Location:identification");
     }
 
+    /**
+     * Espace
+     *
+     * Affiche l'espace de l'utilisateur
+     *
+     * @return mixed
+     */
     public function espace () {
         $data["publication"] = Publication::find($_SESSION["courriel"]);
         $data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
         $param = $this->request->getParam();
-        $this->view->load('espace/index',$data, $param);
+        return $this->view->load('espace/index',$data, $param);
+    }
+
+    public function getNotificationPub () {
+        $notification["all"] = NotificationPub::all();
+        $notification["message"] = NotificationPub::allType($_SESSION["courriel"],"message");
+        $notification["tutorat"] = NotificationPub::allType($_SESSION["courriel"],"tutorat");
+        $notification["astuce"] = NotificationPub::allType($_SESSION["courriel"],"astuce");
+        $notification["quiz"] = NotificationPub::allType($_SESSION["courriel"],"quiz");
+        echo json_encode($notification);
+
     }
 
     public function ami () {
@@ -145,31 +202,50 @@ class ClientController extends Controller {
     }
 
     public function ajouterPublication () {
-        Publication::Enregistrer($_POST["publications"],$_POST["url"],$this->request->getParam());
+        Publication::Enregistrer(1,"",$_POST["publications"],$_POST["url"],$this->request->getParam());
         header("Location:../espace/".$this->request->getParam());
     }
 
     public function ajouterPublicationAmi () {
-        Publication::Enregistrer($_POST["publications"],$_POST["url"],$this->request->getParam());
+        Publication::Enregistrer(1,"",$_POST["publications"],$_POST["url"],$this->request->getParam());
+        NotificationPub::enregistrer("message",$this->request->getParam(),NotificationPub::last());
         header("Location:../ami/".$this->request->getParam());
     }
 
-    public function ajouterQuiz () {
-        $this->view->load('quiz/index');
+    public function afficherAjouterQuiz () {
+        $this->view->load('quiz/afficherAjouter');
     }
 
-    public function addQuiz () {
-        Publication::Enregistrer($_POST["nomQuiz"],"dasdasdsafdfdg","michael@hotmail.com");
+    public function ajouterQuiz () {
+        Publication::Enregistrer(3,$_POST["nomQuiz"],"","","michael@hotmail.com");
         $denierId = Publication::dernier();
         foreach ($_POST["questionnaire"] as $data) {
-            if($data["question"]==$data["reponses"]["noQuestion"]) {
-                Question::enregistrer($denierId,$data["question"],$data["valeur"],$data["reponses"]["reponse"]);
-            } else {
-                Question::enregistrer($denierId,$data["question"],$data["valeur"],0);
-            }
-
+                Question::Enregistrer($data["question"],$data["valeur"],"multiple",$denierId);
+                $denierIdQuestion = Question::dernier();
+                foreach ($_POST["choix"] as $choix) {
+                    if($data["question"]==$choix["noQuestion"]) {
+                        Question::EnregistrerChoix($choix["noChoix"],$choix["choix"], $choix["reponse"],
+                            $denierId,$denierIdQuestion);
+                    }
+                }
         }
 
         echo "success";
     }
+
+    public function afficherQuizUtilisateur () {
+        $data["quiz"] = Publication::allQuiz();
+        $this->view->load("quiz/afficherQuizUtilisateur",$data);
+    }
+
+    public function afficherQuizById () {
+        $param = $this->request->getParam();
+        $data["quiz"] = Publication::findQuiz($param);
+        $data["question"] = Question::find($param);
+        $data["choix"] = Question::allChoix($param);
+        $this->view->load("quiz/afficherQuizById", $data);
+//        echo "<pre>".print_r($data,true)."</pre>";
+    }
+
+
 }

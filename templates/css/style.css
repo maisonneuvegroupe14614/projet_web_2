@@ -6,6 +6,15 @@
 	margin: 0 0 0 0;
 }
 
+.form-control {
+	padding:20px;
+}
+
+input:focus {
+	border-color: #cfdc00;
+	box-shadow: 0 0 5px rgba(207, 220, 0, 0.4);
+}
+
 
 @font-face
 {
@@ -477,8 +486,6 @@ select
 	height: 45px;
 	border-radius: 5px;
 }
-
-
 
 
 

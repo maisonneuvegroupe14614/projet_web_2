@@ -37,6 +37,7 @@
         <a href="../logout">Logout</a>
         <a href="../confirmationDeinscription">Desinscrire</a>
     </div>
+    <div id="notificationResult"></div>
     <div id="publications">
             <?php foreach($data["publication"] as $publication) {
             echo "<div class='publication'><img src=\"http://localhost:8888/projet_web_2/templates/images/punaise.png\"  width=\"30\" height=\"30\" class=\"centre\"><br>
@@ -57,12 +58,66 @@
     foreach ($data["utilisateur"] as $utilisateur) {
         echo "<a href=../ami/$utilisateur->courriel>".$utilisateur->courriel."</a><br>";
     }
-    ?></section>
+    ?>
+
+
+
+    </section>
     <!--<form action="verifierIdentification" method="post">
         <br><br>User : <input type="text" name="user"> <br>
         Password: <input type="password" name="password"> <br><br>
         <input type="submit">
     </form>-->
 
+    <script>
+
+        function timedRefresh(timeoutPeriod) {
+            setTimeout(update,timeoutPeriod);
+        }
+
+        /**
+         * Notifications Ajax
+         *
+         * Mis a jour des donnees dynamique avec ajax a chaque minute
+         */
+        function update() {
+            $.get("../getNotificationPub", function (data) {
+                var btnMessage;
+                var btnTutorat;
+                var btnAstuce;
+                var btnQuiz;
+                console.log(data);
+                data = JSON.parse(data);
+                console.log(data);
+                console.log(data.length);
+                var tutoratNb = data.tutorat.length;
+                var messageNb = data.message.length;
+                var astuceNb = data.astuce.length;
+                var quizNb = data.quiz.length;
+
+                console.log(tutoratNb);
+                console.log(messageNb);
+                console.log(astuceNb);
+                console.log(quizNb);
+
+                //Bouton bootstrap nombre de notifications
+                btnMessage = '<button class="btn btn-primary" type="button"> Messages <span class="badge">'+messageNb+'' +
+                    '</span></button><br>';
+                btnTutorat = '<button class="btn btn-primary" type="button"> Tutorats <span class="badge">'+tutoratNb+'' +
+                    '</span></button><br>';
+                btnAstuce = '<button class="btn btn-primary" type="button"> Astuces <span class="badge">'+astuceNb+'' +
+                    '</span></button><br>';
+                btnQuiz = '<button class="btn btn-primary" type="button"> Quiz <span class="badge">'+quizNb+'' +
+                    '</span></button><br>';
+
+                $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+                //Mis a jour des donnees a chaque minute
+                timedRefresh(60000);
+            });
+        }
+
+        update();
+
+    </script>
 
 </section>

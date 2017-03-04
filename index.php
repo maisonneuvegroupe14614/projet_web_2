@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michael
- * Date: 2017-02-13
- * Time: 6:26 PM
- */
 
 require_once 'app/request/Request.php';
 require_once 'app/controllers/Controller.php';
@@ -16,6 +10,7 @@ require_once 'app/database/Database.php';
 require_once 'app/models/Utilisateur.php';
 require_once 'app/models/Publication.php';
 require_once 'app/models/Question.php';
+require_once 'app/models/NotificationPub.php';
 require_once 'app/models/Evaluation.php';
 require_once 'app/validation/Validation.php';
 
