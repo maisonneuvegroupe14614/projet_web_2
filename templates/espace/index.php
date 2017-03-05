@@ -78,7 +78,7 @@
         /**
          * Notifications Ajax
          *
-         * Mis a jour des donnees dynamique avec ajax a chaque minute
+         * Mis a jour des donnees dynamique avec ajax avec interval
          */
         function update() {
             $.get("../getNotificationPub", function (data) {
@@ -94,15 +94,26 @@
                 var messageNb = data.message.length;
                 var astuceNb = data.astuce.length;
                 var quizNb = data.quiz.length;
+                var messageAll = data.messageAll.length;
 
-                console.log(tutoratNb);
-                console.log(messageNb);
-                console.log(astuceNb);
-                console.log(quizNb);
+
+                var str="";
+                for(var i=0;i<data.messageAll.length;i++) {
+                    if(data.messageAll[i].notificationVue==null) {
+                        str += '<mark><a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="#">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a></mark><br><br>';
+
+                    } else {
+                        console.log("hello");
+                        console.log(data.messageAll[i]);
+                        str += '<a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="#">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a><br><br>';
+                    }
+                    }
+
+
+                btnMessage = '<div class="btn-group"><button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Messages <span class="badge">'+messageNb+'</span></button><div class="dropdown-menu">'+str+'</div></div><br>';
 
                 //Bouton bootstrap nombre de notifications
-                btnMessage = '<button class="btn btn-primary" type="button"> Messages <span class="badge">'+messageNb+'' +
-                    '</span></button><br>';
+
                 btnTutorat = '<button class="btn btn-primary" type="button"> Tutorats <span class="badge">'+tutoratNb+'' +
                     '</span></button><br>';
                 btnAstuce = '<button class="btn btn-primary" type="button"> Astuces <span class="badge">'+astuceNb+'' +
@@ -111,8 +122,26 @@
                     '</span></button><br>';
 
                 $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
-                //Mis a jour des donnees a chaque minute
-                timedRefresh(60000);
+
+
+                $(".messageAll").on("click" , function () {
+                    var clicked = $(this).data("notification");
+                    $.ajax({
+                        url : '../updateNotification',
+                        type : 'POST',
+                        data: { id: clicked },
+                        success : function(resultat, statut){
+                            console.log(resultat+statut);
+                        },
+                        error : function(resultat, statut, erreur){
+                            console.log(resultat+statut+erreur);
+                        }
+                    });
+                });
+
+
+                //Mis a jour des donnees a 5 secondes
+                timedRefresh(5000);
             });
         }
 

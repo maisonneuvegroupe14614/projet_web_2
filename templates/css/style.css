@@ -6,10 +6,6 @@
 	margin: 0 0 0 0;
 }
 
-.form-control {
-	padding:20px;
-}
-
 input:focus {
 	border-color: #cfdc00;
 	box-shadow: 0 0 5px rgba(207, 220, 0, 0.4);
@@ -454,7 +450,7 @@ footer p
 	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
 }
 
-form label
+/*form label
 {
 	display:inline-block;
 	width: 350px;
@@ -472,7 +468,7 @@ form input
 	border: 2px solid #1A3A49;
 	border-radius: 5px;
 	box-shadow: 6px 6px 6px 1px lightgrey inset;
-}
+}*/
 
 select
 {

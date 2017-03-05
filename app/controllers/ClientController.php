@@ -155,11 +155,11 @@ class ClientController extends Controller {
     }
 
     public function getNotificationPub () {
-        $notification["all"] = NotificationPub::all();
-        $notification["message"] = NotificationPub::allType($_SESSION["courriel"],"message");
-        $notification["tutorat"] = NotificationPub::allType($_SESSION["courriel"],"tutorat");
-        $notification["astuce"] = NotificationPub::allType($_SESSION["courriel"],"astuce");
-        $notification["quiz"] = NotificationPub::allType($_SESSION["courriel"],"quiz");
+        $notification["messageAll"] = NotificationPub::all($_SESSION["courriel"],"message");
+        $notification["message"] = NotificationPub::allNotSeen($_SESSION["courriel"],"message");
+        $notification["tutorat"] = NotificationPub::allNotSeen($_SESSION["courriel"],"tutorat");
+        $notification["astuce"] = NotificationPub::allNotSeen($_SESSION["courriel"],"astuce");
+        $notification["quiz"] = NotificationPub::allNotSeen($_SESSION["courriel"],"quiz");
         echo json_encode($notification);
 
     }
@@ -245,6 +245,11 @@ class ClientController extends Controller {
         $data["choix"] = Question::allChoix($param);
         $this->view->load("quiz/afficherQuizById", $data);
 //        echo "<pre>".print_r($data,true)."</pre>";
+    }
+
+    public function updateNotification () {
+        NotificationPub::update($_POST["id"]);
+        echo "success";
     }
 
 
