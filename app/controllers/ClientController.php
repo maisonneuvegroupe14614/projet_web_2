@@ -148,10 +148,16 @@ class ClientController extends Controller {
      * @return mixed
      */
     public function espace () {
-        $data["publication"] = Publication::find($_SESSION["courriel"]);
-        $data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
-        $param = $this->request->getParam();
-        return $this->view->load('espace/index',$data, $param);
+        if (isset($_SESSION["courriel"])) {
+            //$data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
+            $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+            $data["publication"] = Publication::find($_SESSION["courriel"]);
+            $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+            $data2=$param = $this->request->getParam();
+            return $this->view->load('espace/index', $data, $data2);
+        } else {
+            header("Location:identification");
+        }
     }
 
     public function getNotificationPub () {
@@ -164,11 +170,97 @@ class ClientController extends Controller {
 
     }
 
-    public function ami () {
-        $data["publication"] = Publication::find($this->request->getParam());
-        $data["utilisateur"] = Utilisateur::listeAmis($this->request->getParam());
-        $param = $this->request->getParam();
-        $this->view->load('ami/index',$data, $param);
+    public function tutorats() {
+        $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+        $data["publication"] = Publication::find_etudiant_tutorats($_SESSION["courriel"]);
+        $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+        if (isset($_SESSION["courriel"])) {
+            $this->view->load('espace/index', $data);
+        } else {
+            header("Location:identification");
+        }
+    }
+
+    public function astuces() {
+        $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+        $data["publication"] = Publication::find_etudiant_astuces($_SESSION["courriel"]);
+        $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+        if (isset($_SESSION["courriel"])) {
+            $this->view->load('espace/index', $data);
+        } else {
+            header("Location:identification");
+        }
+    }
+
+    public function mes_amis() {
+        $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+        $data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
+        $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+        if (isset($_SESSION["courriel"])) {
+            $this->view->load('espace/index', $data);
+        } else {
+            header("Location:identification");
+        }
+    }
+
+    public function ami() {
+        $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+        $data["liste_mes_amis"] = Utilisateur::listeAmis($_SESSION['courriel']);
+        $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+        $data["publication_ami"] = Publication::find($this->request->getParam());
+        $data["utilisateur_ami"] = Utilisateur::listeAmis($this->request->getParam());
+        $data["courriel_xx"] = $this->request->getParam();
+        $data2 = $this->request->getParam();
+        $list_demande = Utilisateur::all_demande();
+        $data["btn_ajouter"] = 1;
+        $demande_envoye = trim($_SESSION['courriel']) . trim($data["courriel_xx"]);
+        $demande_recu = trim($data["courriel_xx"]) . trim($_SESSION['courriel']);
+        foreach ($list_demande as $demande) {
+            $demande = trim($demande->courrielAmi) . trim($demande->courrielUtil);
+            if ($demande == $demande_recu) {
+                $data["btn_ajouter"] = 2;
+            } elseif ($demande == $demande_envoye) {
+                $data["btn_ajouter"] = 3;
+            }
+        }
+        if (isset($_SESSION["courriel"])) {
+            $this->view->load('ami/index', $data, $data2);
+        } else {
+            header("Location:identification");
+        }
+    }
+
+    public function demande_ami() {
+        $list_demande = Utilisateur::all_demande();
+        $inser_demande = true;
+        $ma_demande = $_SESSION['courriel'] . $_POST['demande_ami'];
+        foreach ($list_demande as $demande) {
+            $demandeAB = trim($demande->courrielUtil) . trim($demande->courrielAmi);
+            $demandeBA = trim($demande->courrielAmi) . trim($demande->courrielUtil);
+            if (($ma_demande == $demandeAB) || ($ma_demande == $demandeBA)) {
+                $inser_demande = false;
+                break;
+            }
+        }
+        if ($inser_demande) {
+            Utilisateur::demande_ami($_SESSION['courriel'], $_POST['demande_ami']);
+            header("Location:" . path . "client/ami/" . $_POST['demande_ami']);
+        }
+    }
+
+    public function accepte_ami() {
+        if (isset($_POST['accepte_ami'])) {
+            Utilisateur::accepte_demande ($_SESSION['courriel'],$_POST['accepte_ami']);
+            Utilisateur::ajouter_ami($_SESSION['courriel'],$_POST['accepte_ami']);
+            header("Location:espace/".$_SESSION['courriel']);
+        }
+        if (isset($_POST['refuse_ami'])) {
+            Utilisateur::refuse_demande ($_SESSION['courriel'],$_POST['refuse_ami']);
+            header("Location:espace/".$_SESSION['courriel']);
+        }
+    }
+    public function retirer_ami() {
+        echo '<h1>je veut retirer un amis  </h1>'.$_POST['retirer_ami'];
     }
 
     public function testAllUsers () {
@@ -202,7 +294,7 @@ class ClientController extends Controller {
     }
 
     public function ajouterPublication () {
-        Publication::Enregistrer(1,"",$_POST["publications"],$_POST["url"],$this->request->getParam());
+        Publication::enregistrer(1,"",$_POST["publications"],$_POST["url"],$this->request->getParam());
         header("Location:../espace/".$this->request->getParam());
     }
 
@@ -212,8 +304,11 @@ class ClientController extends Controller {
         header("Location:../ami/".$this->request->getParam());
     }
 
+    /**
+     * @return mixed
+     */
     public function afficherAjouterQuiz () {
-        $this->view->load('quiz/afficherAjouter');
+        return $this->view->load('quiz/afficherAjouter');
     }
 
     public function ajouterQuiz () {
@@ -250,6 +345,76 @@ class ClientController extends Controller {
     public function updateNotification () {
         NotificationPub::update($_POST["id"]);
         echo "success";
+    }
+
+    public function afficherEvaluation () {
+        $param = $this->request->getParam();
+        $data["evaluation"] = Evaluation::find($param);
+        $this->view->load('evaluation/index',$data,$param);
+    }
+
+    public function afficherMessage () {
+        $param = $this->request->getParam();
+        $data["message"] = Message::find($param);
+        $this->view->load('message/index',$data,$param);
+    }
+
+    public function afficherPartage () {
+        $param = $this->request->getParam();
+        $data["partage"] = Partage::find($param);
+        $this->view->load('partage/index',$data,$param);
+    }
+
+    public function afficherPubliDetail () {
+        $param = $this->request->getParam();
+        $data["publiDetail"] = PubliDetail::find($param);
+        $this->view->load('publiDetail/index',$data,$param);
+    }
+
+    public function testAllMessages () {
+        $message = Message::all();
+        print_r($message);
+    }
+
+    public function testFindMessage () {
+        $param = $this->request->getParam();
+        $message = Message::find($param);
+        print_r($message);
+    }
+
+    public function ajouterMessage () {
+        $param = $this->request->getParam();
+        Message::enregistrer($_POST["sujet"],$_POST["messages"],$_POST["url"],$param,$_POST["courrielAmi"]);
+        header("Location:../afficherMessage/".$param);
+    }
+
+    public function testAllPartages () {
+        $partage = Partage::all();
+        print_r($partage);
+    }
+
+    public function testFindPartage () {
+        $param = $this->request->getParam();
+        $partage = Partage::find($param);
+        print_r($partage);
+    }
+
+    public function ajouterPartage () {
+        $param = $this->request->getParam();
+        Partage::enregistrer($_POST["destinataire"],$_POST["idPublication"],$param,$_POST["courrielAmi"]);
+        header("Location:../afficherPartage/".$param);
+    }
+
+    public function testFindPubliDetail () {
+        $param = $this->request->getParam();
+        $publiDetail = PubliDetail::find($param);
+        print_r($publiDetail);
+    }
+
+    public function ajouterEvaluation () {
+        $param = $this->request->getParam();
+        Evaluation::enregistrer($_POST["evaluations"],$_POST["note"],$param,$_SESSION["courriel"]);
+        header("Location:../afficherEvaluation/".$param);
     }
 
 

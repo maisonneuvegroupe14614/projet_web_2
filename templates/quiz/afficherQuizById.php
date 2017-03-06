@@ -1,6 +1,26 @@
+<section>
+<p id="util"><?php
+
+    echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
+
+
+    ?></p>
+<nav id="menu-gauche"><br><br><br>
+
+    <ul>
+        <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
+        <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz">Quiz</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
+    </ul>
+
+
+</nav>
+<section>
 <?php
 
-echo "<pre>".print_r($data,true)."</pre>";
+//echo "<pre>".print_r($data,true)."</pre>";
 
 
   foreach ($data["quiz"] as $quiz) {
@@ -8,7 +28,7 @@ echo "<pre>".print_r($data,true)."</pre>";
   }
 
   foreach ($data["question"] as $question) {
-      echo "Question ".$question->noQuestion." ".$question->question."<br>";
+      echo "Question <div class=questions>".$question->noQuestion." ".$question->question."</div><br>";
       foreach ($data["choix"] as $choix) {
           if($choix->idQuestion==$question->id) {
               echo "<div class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
@@ -17,7 +37,10 @@ echo "<pre>".print_r($data,true)."</pre>";
       }
   }
   ?>
-<input id="submit" type="submit">
+    <input id="submit" type="submit">
+
+</section>
+</section>
 <script>
     $("#submit"). click ( function () {
         bonneReponses=0;
@@ -29,9 +52,9 @@ echo "<pre>".print_r($data,true)."</pre>";
                 console.log("bonne reponse");
                 console.log(index);
             }
-            i=index;
         });
-        var score = bonneReponses/i;
+
+        var score = (bonneReponses/$(".questions").length)*100;
         console.log(score);
     });
 

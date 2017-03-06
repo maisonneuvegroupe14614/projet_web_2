@@ -49,4 +49,49 @@ class Publication {
         self::$database->query("SELECT id,titre from Publication WHERE idCategorie=3 AND id='$id'");
         return self::$database->liste("Publication");
     }
+
+    public static function find_all_publication_amis ($courriel) {
+        self::initialiserDB();
+        /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
+        self::$database->query("SELECT distinct * from publication 
+                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel 
+                JOIN ami ON publication.courrielUtil = ami.courrielUtil 
+                WHERE (ami.courrielAmi='$courriel' 
+                and publication.destinataire='amis') or
+                ( publication.destinataire='public') 
+                group by publication.id" );
+        return self::$database->liste("Publication");
+    }
+
+
+
+    public static function find_etudiant_tutorats ($courriel) {
+        self::initialiserDB();
+        /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
+        self::$database->query("SELECT * from publication  
+                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
+                JOIN ami ON publication.courrielUtil = ami.courrielUtil
+                WHERE ami.courrielAmi='$courriel' 
+                AND publication.idCategorie = 1 or 
+                ( publication.destinataire='public' AND publication.idCategorie = 1)group by publication.id "
+        );
+        return self::$database->liste("Publication");
+    }
+
+    public static function find_etudiant_astuces ($courriel) {
+        self::initialiserDB();
+        /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
+        self::$database->query("SELECT * from publication  
+                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
+                JOIN ami ON publication.courrielUtil = ami.courrielUtil
+                WHERE (ami.courrielAmi='$courriel' AND publication.idCategorie = 2) or 
+                ( publication.destinataire='public' AND publication.idCategorie = 2) group by publication.id");
+        return self::$database->liste("Publication");
+    }
+
+    public static function list_tutorat () {
+        self::initialiserDB();
+        self::$database->query('SELECT * from Publication where idCategorie = 1');
+        return self::$database->liste("Publication");
+    }
 }

@@ -1,4 +1,41 @@
 <section>
+    <p id="util"><?php
+
+        echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
+
+
+        ?></p>
+<nav id="menu-gauche"><br><br><br>
+
+    <ul>
+        <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
+        <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz">Quiz</a></li>
+        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
+    </ul>
+
+    <div id="notificationResult"></div>
+
+    <div>
+        <h4> demandes reçus  </h4>
+
+        <?php
+        foreach ($data['demandes_recu'] as $demande) {
+            echo '<form action="'.path.'client/accepte_ami" method="post">'.$demande->courrielUtil.'
+                        <button name="accepte_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Accepté</button>
+                        <button name="refuse_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Refusé</button>
+                        </form>';
+        }
+        ?>
+
+
+
+
+    </div>
+
+</nav>
+<section>
 <div id="success"></div>
 <div class="row">
     <form id="form1">
@@ -16,7 +53,8 @@
     </form>
 </div>
 </section>
-<script>
+</section>
+    <script>
     var count=0;
     var htmlString;
     $('#ajouter_quiz').click(function(e){

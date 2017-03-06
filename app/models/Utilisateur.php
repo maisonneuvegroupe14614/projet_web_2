@@ -55,5 +55,62 @@ class Utilisateur {
         self::$database->execute();
     }
 
+    public static function find_user_status ($courriel) {
+        self::initialiserDB();
+        self::$database->query("SELECT * from Utilisateur JOIN statut ON Utilisateur.idStatut = statut.id WHERE courriel='$courriel'");
+        return self::$database->rangee("Utilisateur");
+    }
+
+    public static function demande_ami ($user_mail,$user_ami) {
+        self::initialiserDB();
+        self::$database->query("INSERT INTO demandeami (courrielUtil, courrielAmi, statut, dateCreation)
+                                VALUES 
+                                ( :user_mail, :user_ami, 'a', CURRENT_TIMESTAMP);");
+        self::$database->bind(':user_mail', $user_mail);
+        self::$database->bind(':user_ami', $user_ami);
+        self::$database->execute();
+    }
+
+    public static function all_demande () {
+        self::initialiserDB();
+        self::$database->query("SELECT courrielUtil, courrielAmi from demandeami WHERE statut = 'a'");
+        return self::$database->liste("Utilisateur");
+    }
+
+    public static function demande_recu ($user_ami) {
+        self::initialiserDB();
+        self::$database->query("SELECT courrielUtil, courrielAmi from demandeami WHERE statut = 'a' AND courrielAmi = '$user_ami'");
+        return self::$database->liste("Utilisateur");
+    }
+
+    public static function accepte_demande ($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("UPDATE demandeami
+                                SET statut = 'c'
+                                WHERE (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1)");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        self::$database->execute();
+    }
+
+    public static function ajouter_ami ($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("INSERT INTO ami (courrielUtil, courrielAmi)                               
+                                VALUES  (:user1 , :user2),
+                                        (:user2 ,:user1)");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        self::$database->execute();
+    }
+
+    public static function refuse_demande ($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("DELETE FROM demandeami                                
+                                WHERE (statut = 'a' AND (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1))");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        self::$database->execute();
+    }
+
 
 }

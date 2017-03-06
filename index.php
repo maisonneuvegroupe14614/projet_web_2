@@ -11,6 +11,9 @@ require_once 'app/models/Utilisateur.php';
 require_once 'app/models/Publication.php';
 require_once 'app/models/Question.php';
 require_once 'app/models/NotificationPub.php';
+require_once 'app/models/PubliDetail.php';
+require_once 'app/models/Message.php';
+require_once 'app/models/Partage.php';
 require_once 'app/models/Evaluation.php';
 require_once 'app/validation/Validation.php';
 
