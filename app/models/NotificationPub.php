@@ -9,7 +9,7 @@ class NotificationPub {
 
     public static function all ($courriel,$type) {
         self::initialiserDB();
-        self::$database->query("SELECT NotificationPub.id,Publication.courrielUtil,Publication.texte,Publication.titre,NotificationPub.notificationVue from NotificationPub JOIN Publication on NotificationPub.idPublication=Publication.id WHERE idUtilisateur='$courriel' AND type='$type' 
+        self::$database->query("SELECT NotificationPub.id,Publication.courrielUtil,Publication.texte,Publication.titre,NotificationPub.notificationVue,NotificationPub.idPublication from NotificationPub JOIN Publication on NotificationPub.idPublication=Publication.id WHERE idUtilisateur='$courriel' AND type='$type' 
             ORDER BY NotificationPub.id DESC LIMIT 10");
         return self::$database->liste("NotificationPub");
     }
@@ -24,7 +24,7 @@ class NotificationPub {
     public static function allNotSeen ($courriel,$type) {
         self::initialiserDB();
         self::$database->query("SELECT * from NotificationPub WHERE idUtilisateur='$courriel' AND type='$type' AND 
-            notificationVue IS NULL ORDER BY id DESC");
+            notificationVue IS NULL ORDER BY id DESC LIMIT 10");
         return self::$database->liste("NotificationPub");
     }
 

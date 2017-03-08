@@ -23,8 +23,8 @@
 
         <div id="notificationResult"></div>
 
-        <div>
-            <h4> demandes reçus  </h4>
+        <div id="demandes_recu">
+            <p> demandes reçus  </p>
 
             <?php
             foreach ($data['demandes_recu'] as $demande) {
@@ -41,12 +41,78 @@
         </div>
 
     </nav>
-    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+
+
+<article class="center">
+ <!--   <form action="../ajouterPublication/<?php /*echo $data2; */?>" method="post">
+        <input type="text" id="titrePub"><br>
 <textarea name="publications">
-</textarea>
+</textarea><br>
         <input type="text" name="url">
         <input type="submit">
-    </form>
+    </form>-->
+    <button class="btn btn-primary creer_pub" id="opener">Nouvelle Publication</button>
+
+    <div id="dialog" title="Nouvelle Publication">
+
+
+        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Message</a></li>
+                <li><a data-toggle="tab" href="#menu1">Tutorat</a></li>
+                <li><a data-toggle="tab" href="#menu2">Astuce</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                        <br><br>
+                        <div class="form-group">
+                            <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+<!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                        </div>
+                        <div class="form-group">
+                            <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" name="typePub" value="4">
+                        <input type="submit" class="btn btn-primary"></input>
+                    </form>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                        <br><br>
+                        <div class="form-group">
+                            <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                            <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                        </div>
+                        <div class="form-group">
+                            <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" name="typePub" value="1">
+                        <input type="submit" class="btn btn-primary"></input>
+                    </form>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                        <br><br>
+                        <div class="form-group">
+                            <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                            <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                        </div>
+                        <div class="form-group">
+                            <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                        </div>
+                        <input type="hidden" name="typePub" value="2">
+                        <input type="submit" class="btn btn-primary"></input>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
 
 
     <?php
@@ -65,7 +131,7 @@
         <?php }
     }
 
-
+echo "</article>";
 
     if(isset($data["utilisateur"])){
         echo '<h1>espace mes amis</h1>';
@@ -81,11 +147,12 @@
     }
  ?>
 
-
-
 </section>
 
+
 <script>
+    var countMess=0;
+    var on;
     function timedRefresh(timeoutPeriod) {
         setTimeout(update,timeoutPeriod);
     }
@@ -96,7 +163,8 @@
      * Mis a jour des donnees dynamique avec ajax avec interval
      */
     function update() {
-        $.get("../getNotificationPub", function (data) {
+            $.get("../getNotificationPub", function (data) {
+                countMess++;
             var btnMessage;
             var btnTutorat;
             var btnAstuce;
@@ -107,6 +175,12 @@
             console.log(data.length);
             var tutoratNb = data.tutorat.length;
             var messageNb = data.message.length;
+            var countNotification = 0;
+            for(var j=0;j<messageNb;j++) {
+                if(data.message[j].notificationVue==null) {
+                    countNotification++;
+                }
+            }
             var astuceNb = data.astuce.length;
             var quizNb = data.quiz.length;
             var messageAll = data.messageAll.length;
@@ -115,28 +189,58 @@
             var str="";
             for(var i=0;i<data.messageAll.length;i++) {
                 if(data.messageAll[i].notificationVue==null) {
-                    str += '<mark><a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="#">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a></mark><br><br>';
+                    str += '<mark><a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="../afficherPubliDetail/'+data.messageAll[i].idPublication+'">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a></mark><br><br>';
 
                 } else {
                     console.log("hello");
                     console.log(data.messageAll[i]);
-                    str += '<a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="#">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a><br><br>';
+                    str += '<a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="../afficherPubliDetail/'+data.messageAll[i].idPublication+'">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a><br><br>';
                 }
             }
+console.log(data.message);
+
+    btnMessage = '<div id="dropdownMessage" class="btn-group"><button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Messages <span class="badge">'+countNotification+'</span></button><div id="myDropDown" class="dropdown-menu">'+str+'</div></div><br>';
+                console.log(messageNb+" messages");
+    //Bouton bootstrap nombre de notifications
+
+    btnTutorat = '<button class="btn btn-primary" type="button"> Tutorats <span class="badge">'+tutoratNb+'' +
+        '</span></button><br>';
+    btnAstuce = '<button class="btn btn-primary" type="button"> Astuces <span class="badge">'+astuceNb+'' +
+        '</span></button><br>';
+    btnQuiz = '<button class="btn btn-primary" type="button"> Quiz <span class="badge">'+quizNb+'' +
+        '</span></button><br>';
+    console.log(countMess);
 
 
-            btnMessage = '<div class="btn-group"><button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Messages <span class="badge">'+messageNb+'</span></button><div class="dropdown-menu">'+str+'</div></div><br>';
+    if(countMess==1) {
+        $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+    }
 
-            //Bouton bootstrap nombre de notifications
+                if(on==false) {
+                    console.log("last");
+                    console.log(btnMessage);
+                    $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+                }
 
-            btnTutorat = '<button class="btn btn-primary" type="button"> Tutorats <span class="badge">'+tutoratNb+'' +
-                '</span></button><br>';
-            btnAstuce = '<button class="btn btn-primary" type="button"> Astuces <span class="badge">'+astuceNb+'' +
-                '</span></button><br>';
-            btnQuiz = '<button class="btn btn-primary" type="button"> Quiz <span class="badge">'+quizNb+'' +
-                '</span></button><br>';
+                $('#dropdownMessage').on('show.bs.dropdown', function () {
+                    console.log("true");
+                    if(countMess>1) {
+                        on=true;
+                    }
 
-            $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+
+                });
+
+                $('#dropdownMessage').on('hide.bs.dropdown', function () {
+                    console.log("hidden");
+                    if(countMess>1) {
+                        on=false;
+                    }
+
+
+
+                });
+                console.log(on);
 
 
             $(".messageAll").on("click" , function () {
@@ -163,6 +267,8 @@
     update();
 
 
+
+
     x = document.querySelectorAll(".retirer_ami");
     for(i=0;i<x.length;i++){
         x[i].addEventListener("click", function(){
@@ -170,7 +276,26 @@
 
             document.getElementById("demo").innerHTML = "tu es sur de supprimer cette relation "+event.target.value;
         });
-    };
+    }
+    $( function() {
+        $( "#dialog" ).dialog({
+            width: 500,
+            autoOpen: false,
+            position: { my: "center", at: "top" },
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "drop",
+                duration: 1000
+            }
+        });
+
+        $( "#opener" ).on( "click", function() {
+            $( "#dialog" ).dialog( "open" );
+        });
+    } );
 </script>
 <div id="demo"></div>
 

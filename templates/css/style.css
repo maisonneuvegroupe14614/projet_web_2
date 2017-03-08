@@ -6,6 +6,24 @@
 	margin: 0 0 0 0;
 }
 
+#notificationResult {
+	margin-left:20px;
+	padding:20px;
+}
+
+#notificationResult .btn {
+	margin:5px;
+}
+
+#demandes_recu {
+	margin-left:30px;
+}
+
+.creer_pub {
+margin-left:150px;
+}
+
+
 @font-face
 {
 	font-family: menu_titres_articles_1;
@@ -247,8 +265,8 @@ section #hamburger
 	position: relative;
 	z-index: 0;
 	margin: auto auto;
+	overflow: auto;
 	width: 94%;
-	height: 850px;
 	background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
 	background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
 	background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */

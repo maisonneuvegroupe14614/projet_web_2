@@ -17,6 +17,7 @@
 
 
     </nav>
+    <article class="center">
 <?php
 /*espace d un utilisateur*/
 
@@ -78,13 +79,76 @@ $ajouter = '<h2 style="color:blue;">demande deja enjoyé';
     echo '<h1>espace  '.$data["courriel_xx"].'</h1>';
     echo $ajouter;
     if(isset($data["publication_ami"])){
-    echo "<h1>Publications</h1>";
-        echo '<form action="'.path.'client/ajouterPublicationAmi/'.$data2.'" method="post">
-                    <textarea name="publications">
-                    </textarea>
-    <input type="text" name="url">
-    <input type="submit">
-</form>';
+
+        ?>
+
+        <!--   <form action="../ajouterPublication/<?php /*echo $data2; */?>" method="post">
+        <input type="text" id="titrePub"><br>
+<textarea name="publications">
+</textarea><br>
+        <input type="text" name="url">
+        <input type="submit">
+    </form>-->
+        <button class="btn btn-primary creer_pub" id="opener">Nouvelle Publication</button>
+
+        <div id="dialog" title="Nouvelle Publication">
+
+
+            <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Message</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Tutorat</a></li>
+                    <li><a data-toggle="tab" href="#menu2">Astuce</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                            <br><br>
+                            <div class="form-group">
+                                <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                                <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                            </div>
+                            <div class="form-group">
+                                <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                            </div>
+                            <input type="hidden" name="typePub" value="4">
+                            <input type="submit" class="btn btn-primary"></input>
+                        </form>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                            <br><br>
+                            <div class="form-group">
+                                <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                                <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                            </div>
+                            <div class="form-group">
+                                <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                            </div>
+                            <input type="hidden" name="typePub" value="1">
+                            <input type="submit" class="btn btn-primary"></input>
+                        </form>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                            <br><br>
+                            <div class="form-group">
+                                <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                                <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                            </div>
+                            <div class="form-group">
+                                <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
+                            </div>
+                            <input type="hidden" name="typePub" value="2">
+                            <input type="submit" class="btn btn-primary"></input>
+                        </form>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <?php
     foreach($data["publication_ami"] as $publication) {
     ?>
         <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
@@ -97,7 +161,7 @@ $ajouter = '<h2 style="color:blue;">demande deja enjoyé';
             <img src="<?php echo path?>templates/images/partager.png" width="20" height="20">&nbsp;</img><a class="droite" href="#">Partager</a>
             <img src="<?php echo path?>templates/images/evaluer.png"  width="20" height="20">&nbsp;</img><a href="../afficherEvaluation/<?php  echo $publication->id; ?>">Évaluer</a>
         </div>
-
+    </article></section>
     <?php
     }
     }
@@ -120,4 +184,24 @@ $ajouter = '<h2 style="color:blue;">demande deja enjoyé';
 
 
     ?>
-</section>
+<script>
+    $( function() {
+        $( "#dialog" ).dialog({
+            width: 500,
+            autoOpen: false,
+            position: { my: "center", at: "top" },
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "drop",
+                duration: 1000
+            }
+        });
+
+        $( "#opener" ).on( "click", function() {
+            $( "#dialog" ).dialog( "open" );
+        });
+    } );
+</script>
