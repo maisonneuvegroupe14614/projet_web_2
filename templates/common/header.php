@@ -9,7 +9,7 @@
             src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css">
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -39,7 +39,7 @@
                     <li>
                         <a href="#"><img id="hamburger" src="<?php echo path; ?>templates/images/hamburger.png" width="54" height="57"></img></a>
                         <ul>
-                            <li><a href="#">Boite de réception</a></li>
+                            <li><a href="../afficherMessage/<?php echo $data2 ?>">Boite de réception</a></li>
                             <li><a href="#">Trouver des amis</a></li>
                             <li><a href="<?php echo path.'client/logout'?>">Se déconnecter</a></li>
                             <li><a href="<?php echo path.'client/desinscription'?>">Désinscrire</a></li>

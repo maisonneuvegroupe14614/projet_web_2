@@ -14,30 +14,33 @@
     <nav id="menu-gauche"><br><br><br>
 
         <ul>
-            <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
-            <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz">Quiz</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
+            <li><span class="glyphicon glyphicon-home"       aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil        </a></li>
+            <li><span class="glyphicon glyphicon-user"       aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/mes_amis"                                 >Mes amis       </a></li>
+            <li><span class="glyphicon glyphicon-envelope"   aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="#"                                                                >Messages espace</a></li>
+            <li><span class="glyphicon glyphicon-blackboard" aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/tutorats"                                 >Tutorats       </a></li>
+            <li><span class="glyphicon glyphicon-thumbs-up"  aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/astuces"                                  >Astuces        </a></li>
+            <li><span class="glyphicon glyphicon-pencil"     aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/afficherAjouterQuiz"                      >Quiz           </a></li>
         </ul>
 
         <div id="notificationResult"></div>
 
         <div id="demandes_recu">
-            <p> demandes reçus  </p>
-
+            <div id="dropdownAmis" class="btn-group"><button class="btn btn-danger dropdown-toggle btn-block" type="button"
+                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Demandes <span class="badge">1</span>
+                </button><div class="dropdown-menu">
             <?php
-            foreach ($data['demandes_recu'] as $demande) {
-                echo '<form action="'.path.'client/accepte_ami" method="post">'.$demande->courrielUtil.'
-                        <button name="accepte_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Accepté</button>
-                        <button name="refuse_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Refusé</button>
-                        </form>';
-            }
-            ?>
+            foreach ($data['demandes_recu'] as $demande) { ?>
 
 
+                    <form action="<?php echo path.'client/accepte_ami'; ?>" method="post"><p><?php echo $demande->courrielUtil ?>
+                        <button name="accepte_ami" type="submit" value="<?php echo $demande->courrielUtil ?>" >Accepté</button>
+                        <button name="refuse_ami"  type="submit" value="<?php echo $demande->courrielUtil ?> " >Refusé</button>
+                        </p>
+                    </form>
 
 
+            <?php } ?>
+        </div></div>
         </div>
 
     </nav>
@@ -117,19 +120,37 @@
 
     <?php
 
-    if(isset($data["publication"])){
+    if(isset($data["publication"])) {
         /*mon mur*/
-        foreach($data["publication"] as $publication) {?>
-            <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
-                <p><?php echo $publication->texte?></p>
-                <p> <?php //echo $publication->url ?> </p>
+        ?>
+        <div id="publications">
+            <?php
+            foreach($data["publication"] as $publication) { ?>
+                <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                    <p><?php echo $publication->auteur.", ".$publication->dateCreation." - ".$publication->titre ?></p>
+                    <!--<p><?php echo $publication->texte ?></p>
+                <p><?php echo $publication->url ?></p>-->
 
-                <img src="<?php echo path?>templates/images/suivre.png"   width="20" height="20">&nbsp;</img><a class="droite" href="../afficherPubliDetail/<?php echo $publication->id ?>">Suivre</a>
-                <img src="<?php echo path?>templates/images/partager.png" width="20" height="20">&nbsp;</img><a class="droite" href="#">Partager</a>
-                <img src="<?php echo path?>templates/images/evaluer.png"  width="20" height="20">&nbsp;</img><a href="../afficherEvaluation/<?php  echo $publication->id; ?>">Évaluer</a>
-            </div>
-        <?php }
-    }
+                    <img src="<?php echo path; ?>templates/images/lire.png"     width="20" height="20">&nbsp;</img><a    class="droite" href ="../afficherPubliDetail/<?php echo $publication->idPublication ?>">Lire    </a>
+                    <img src="<?php echo path; ?>templates/images/partager.png" width="20" height="20">&nbsp;</img><span class="droite partager" style="font-size:9pt; color:#7C3840;"                                   >Partager</span>
+                    <img src="<?php echo path; ?>templates/images/evaluer.png"  width="20" height="20">&nbsp;</img><a                   href ="../afficherEvaluation/<?php  echo $publication->idPublication ?>">Évaluer </a>
+
+                    <div class="destinataire hidden">
+                        <select name="destinataire">
+                            <option value="1">Amis  </option>
+                            <option value="2">Public</option>
+                            <?php
+                            foreach ($data["amis"] as $ami) {
+                                echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                </div>
+            <?php } ?>
+        </div>
+    <?php }
 
 echo "</article>";
 
@@ -298,6 +319,4 @@ console.log(data.message);
     } );
 </script>
 <div id="demo"></div>
-
-
 

@@ -20,9 +20,13 @@
 }
 
 .creer_pub {
-margin-left:150px;
+	margin-left:150px;
 }
 
+.center {
+	float:left;
+	height:auto;
+}
 
 @font-face
 {
@@ -85,6 +89,11 @@ section #hamburger
 	margin: 0;
 	padding: 0;
 	border: none;
+}
+
+#menu
+{
+	margin-left: 18px; 								/* + D�place tout le menu vers la droite */
 }
 
 #menu li 
@@ -161,7 +170,7 @@ section #hamburger
 #menu li:hover > a
 {
 	 color: #91C4DC;
-	 height: 40px;
+	 height: 51px;
 	 background:    -moz-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
 	 background:      -o-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);
 	 background:     -ms-linear-gradient(top, #91C4DC 0%, #1A3A49 100%);  
@@ -265,8 +274,8 @@ section #hamburger
 	position: relative;
 	z-index: 0;
 	margin: auto auto;
-	overflow: auto;
 	width: 94%;
+	height: 1100px;
 	background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
 	background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
 	background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
@@ -306,7 +315,7 @@ section #hamburger
 	position: absolute;
 	z-index: 1;
 	width: 35%;
-	height: 600px;
+	height: 800px;
 	left: 32%;
 	overflow: scroll;
 }
@@ -449,6 +458,11 @@ footer p
 /*************************************
  * Style de la page d'inscription    *
  *************************************/
+#section_inscription
+{
+	padding-top: 170px;
+}
+ 
 section>div:first-child
 {
 	padding-top: 170px;
@@ -494,7 +508,7 @@ select
 	font-size: 16pt;
 }
 
-button:nth-child(29)
+button:nth-child(37)
 {
 	float: right;
 	width: 300px;
@@ -597,13 +611,18 @@ section h1
 		width: 38.4px;
 		height: 40.5px;
 		margin-top: -37px;
-		margin-right: 10px;
-		margin-left:145px;
+		margin-right: -10px;
+		margin-left: 151px;
 	}
 	
 	
 	
 	/* Menu principal*/
+	#menu
+	{
+		margin-left: 14px; 								/* + D�place tout le menu vers la droite */
+	}
+
 	#menu li 
 	{
 		position: relative;
@@ -626,7 +645,7 @@ section h1
 	#menu-principal>ul >li:last-child a[class="actif"],
 	#menu li:hover > a
 	{
-		height:28.4px;
+		height: 37px;
 	}
 	
 	/* Sous Menu */
@@ -746,7 +765,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(29)
+	button:nth-child(10), button:nth-child(37)
 	{
 		width: 213.4px;
 		height: 32px;
@@ -793,11 +812,6 @@ section h1
 	{
 		margin-top: -20px;
 	}
-	
-	#conteneur
-	{
-		background: white;
-	}
 }
 
 /* Tablettes orientation portrait*/
@@ -829,7 +843,7 @@ section h1
 	header
 	{
 		width: 750px;
-		height: 85px;
+		height: 104px;
 	}
 	
 	header section
@@ -845,8 +859,8 @@ section h1
 		width: 38.4px;
 		height: 40.5px;
 		margin-top: -37px;
-		margin-right: 11px;
-		margin-left: 90px;
+		margin-right: -11.5px;
+		margin-left: 103px;
 	}
 	
 	
@@ -854,7 +868,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: 4px;
+		margin-left: 14px;
 	}
 	
 	#menu li 
@@ -879,7 +893,7 @@ section h1
 	#menu-principal>ul >li:last-child a[class="actif"],
 	#menu li:hover > a
 	{
-		height:24.3px;
+		height: 31px;
 	}
 	
 	/* Sous Menu */
@@ -927,6 +941,8 @@ section h1
 	
 	#menu-gauche
 	{
+		position: relative;
+		z-index: 3;
 		margin-left: -27px;
 		width: 37%;
 		/*border: solid 1px black;*/
@@ -944,17 +960,17 @@ section h1
 	
 	#publications
 	{
-		width: 42%;
+		width: 55%;
 		height: 66.5%;
-		left: 34%;
+		left: 26%;
 		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
 	.publication
 	{
-		width: 220px;
-		height: 47.1px;
+		width: 320px;
+		height: 100px;
 		padding: 1em 1.27em;
 		line-height: 0.8;
 	}
@@ -998,7 +1014,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(29)
+	button:nth-child(10), button:nth-child(37)
 	{
 		width: 160px;
 		height: 27px;
@@ -1009,7 +1025,7 @@ section h1
 	footer
 	{
 		width: 750px;
-		height: 88px;
+		height: 107px;
 		margin-top: -3px;
 	}
 	
@@ -1043,12 +1059,7 @@ section h1
 	
 	footer p
 	{
-		margin-top: -17px;
-	}
-	
-	#conteneur
-	{
-		background: orange;
+		margin-top: -21px;
 	}
 	
 	body
@@ -1069,7 +1080,7 @@ section h1
 	
 	#conteneur>section
 	{
-		height: 567px;
+		height: 800px;
 		
 		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
 		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
@@ -1100,8 +1111,8 @@ section h1
 		width: 38.4px;
 		height: 40.5px;
 		margin-top: -37px;
-		margin-right: 11px; 							/* + Augmente la largeur du sous menu vide */
-		margin-left: 91px; 								/* + D�place le hamburger vers la droite */
+		margin-right: -10px; 							/* + Augmente la largeur du sous menu vide */
+		margin-left: 101px; 								/* + D�place le hamburger vers la droite */
 	}
 	
 	
@@ -1109,7 +1120,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: 37px; 								/* + D�place tout le menu vers la droite */
+		margin-left: 48px; 								/* + D�place tout le menu vers la droite */
 	}
 	
 	#menu li 
@@ -1134,7 +1145,7 @@ section h1
 	#menu-principal>ul >li:last-child a[class="actif"],
 	#menu li:hover > a
 	{
-		height:24.3px;
+		height: 30.5px;
 	}
 	
 	/* Sous Menu */
@@ -1198,29 +1209,29 @@ section h1
 	
 	#publications
 	{
-		width: 40%;
+		width: 55%;
 		height: 66.5%;
-		left: 31%;
+		left: 26%;
 		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
 	.publication
 	{
-		width: 262.6px;
-		height: 56.2px;
+		width: 360px;
+		height: 100px;
 		padding: 1em 1.27em;
 		line-height: 0.8;
 	}
 	
 	.publication p
 	{
-		font-size: 8pt;
+		font-size: 9pt;
 	}
 	
 	.boutons_sur_publication
 	{
-		margin-left: -10px;
+		margin-left: -15px;
 	}
 	
 	section h1
@@ -1252,7 +1263,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(29)
+	button:nth-child(10), button:nth-child(37)
 	{
 		width: 160px;
 		height: 27px;
@@ -1263,7 +1274,7 @@ section h1
 	footer
 	{
 		width: 900px;
-		height: 88px;
+		height: 102.5px;
 		margin-top: -3px;
 	}
 	
@@ -1295,12 +1306,7 @@ section h1
 	
 	footer p
 	{
-		margin-top: -20px;
-	}
-	
-	#conteneur
-	{
-		background: red;
+		margin-top: -23px;
 	}
 	
 	body
@@ -1339,7 +1345,7 @@ section h1
 	header
 	{
 		width: 360px;
-		height: 75px;
+		height: 95px;
 	}
 	
 	header section
@@ -1389,7 +1395,7 @@ section h1
 	#menu-principal>ul >li:last-child a[class="actif"],
 	#menu li:hover > a
 	{
-		height:24.3px;
+		height: 32px;
 	}
 	
 	/* Sous Menu */
@@ -1413,7 +1419,7 @@ section h1
 	/*  Apparence du sous-menu    */
 	#menu ul li a 
 	{
-		width: 125px;							/* + Augmente la largeur du premier lien du sous menu */
+		width: 135px;							/* + Augmente la largeur du premier lien du sous menu */
 		padding: 2.4px 0 2.4px 10.6px;
 		border: 1px solid #51A2C8;
 	}
@@ -1439,7 +1445,7 @@ section h1
 	#menu-gauche
 	{
 		margin-top: -50px;
-		margin-left: 18.5px;
+		margin-left: 50px;
 		width: 90%;
 		height: 60px;
 		/*border: solid 1px black;*/
@@ -1476,24 +1482,30 @@ section h1
 	
 	#publications
 	{
-		width: 90%;
+		width: 98%;
 		height: 66.5%;
-		left: 5.3%;
+		left: 0%;
 		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
 	.publication
 	{
-		width: 220px;
-		height: 56.2px;
+		width: 300px;
+		height: 80px;
 		padding: 1em 1.27em;
 		line-height: 0.8;
+		text-align: center;
 	}
 	
-	.publication p
+	.publication p, .publication a
 	{
 		font-size: 8pt;
+	}
+
+	.publication a
+	{
+		margin-right: 10px;
 	}
 	
 	.centre
@@ -1551,7 +1563,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(29)
+	button:nth-child(10), button:nth-child(37)
 	{
 		width: 160px;
 		height: 27px;
@@ -1562,7 +1574,7 @@ section h1
 	footer
 	{
 		width: 360px;
-		height: 75px;
+		height: 95px;
 		margin-top: -3px;
 	}
 	
@@ -1598,534 +1610,316 @@ section h1
 	
 	footer p
 	{
-		margin-top: -9px;
-	}
-	
-	#conteneur
-	{
-		background: red;
+		margin-top: -13px;
 	}
 	
 	body
 	{
 		/*overflow: hidden;*/
 	}
-	
-	#conteneur
-	{
-		background: lightblue;
-	}
 }
 
 /* Cellulaires orientation paysage*/
 @media screen and (min-width: 320px) and (max-width: 736px) and (max-height: 320px) and (orientation : landscape)
 {
-	
-	
 	#conteneur
 	{
-		background: blue;
+		width: 650px;
+		height: 842px;
+    }
+	
+	#conteneur>section
+	{
+		height: 750px;
+		
+		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
+		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
+		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
+		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+		background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
+	}
+	
+	section>img:first-child
+	{
+		margin-top: 3px;
+		width: 180px;
+		height: 60.56px;
+	}
+	
+	header
+	{
+		width: 645px;
+		height: 95px;
+	}
+	
+	header section
+	{
+		width: 93%;
+		height: 65.1px;
+		margin-top: -5px;
+	}
+	
+	section #hamburger
+	{
+		float: right;
+		width: 38.4px;
+		height: 40.5px;
+		margin-top: -38px;
+		margin-right: 42px; 							/* + Augmente la largeur du sous menu vide */
+		margin-left: 35px; 								/* + D�place le hamburger vers la droite */
+	}
+	
+	
+	
+	/* Menu principal*/
+	#menu
+	{
+		margin-left: 14px; 								/* + D�place tout le menu vers la droite */
+	}
+	
+	#menu li 
+	{
+		position: relative;
+		height: 24.3px;
+	}
+	
+	/* Liens */
+	#menu li a 
+	{
+		padding: 0 9.9px;
+		line-height: 24.9px;
+		border-left: 1px solid #91C4DC; 
+		border-right: 1px solid #91C4DC;
+		font-size: 12px;
+		text-shadow: 0.5px 0.5px 0.5px rgba(0,0,0,.6);
+	}
+	
+	#menu-principal>ul>li a[class="actif"],
+	#menu-principal>ul >li:first-child a[class="actif"],
+	#menu-principal>ul >li:last-child a[class="actif"],
+	#menu li:hover > a
+	{
+		height: 32px;
+	}
+	
+	/* Sous Menu */
+	#menu ul 
+	{
+		position: absolute;
+		top: 23.7px;
+		left: 0;
+		
+		-webkit-border-radius: 2.5px 2.5px 2.5px 2.5px;
+		-moz-border-radius: 2.5px 2.5px 2.5px 2.5px;
+				border-radius: 2.5px 2.5px 2.5px 2.5px;
+	}
+	
+	/* En cas de survol d'un �l�ment du menu */
+	#menu li:hover > ul li 
+	{
+		height: 30.4px;
+	}
+	
+	/*  Apparence du sous-menu    */
+	#menu ul li a 
+	{
+		width: 135px;							/* + Augmente la largeur du premier lien du sous menu */
+		padding: 2.4px 0 2.4px 10.6px;
+		border: 1px solid #51A2C8;
+	}
+	
+	#menu ul li:last-child a:hover
+	{
+		-webkit-border-radius: 0 0 2.5px 2.5px;
+		-moz-border-radius: 0 0 2.5px 2.5px;
+				border-radius: 0 0 2.5px 2.5px;
+	}
+	
+	
+	
+	/* Menu de gauche espace utilisateur */
+	#util
+	{
+		position: relative;
+		top: -50px;
+		margin-left: 17.8px;
+		font-size: 10pt;
+	}
+	
+	#menu-gauche
+	{
+		margin-top: -50px;
+		margin-left: 180px;
+		width: 90%;
+		height: 400px;
+		overflow:scroll;
+		/*border: solid 1px black;*/
+		float: initial;
+	}
+	
+	#menu-gauche li
+	{
+		display: inline;
+	}
+	
+	#menu-gauche img
+	{
+		clear: both;
+		margin-right: 10px;
+		position: relative;
+		bottom: 38px;
+	}
+	
+	.categorie
+	{
+		display: none;
+	}
+	
+	#menu-gauche ul li
+	{
+		font-size: 9pt;
+	}
+	
+	#menu-gauche ul li:hover
+	{
+		font-size: 14.2pt;
+	}
+	
+	#publications
+	{
+		width: 98%;
+		height: 66.5%;
+		left: 0%;
+		overflow: scroll;
+		/*border: solid 1px black;*/
+	}
+	
+	.publication
+	{
+		width: 300px;
+		height: 80px;
+		padding: 1em 1.27em;
+		line-height: 0.8;
+		text-align: center;
+	}
+	
+	.publication p, .publication a
+	{
+		font-size: 8pt;
+	}
+
+	.publication a
+	{
+		margin-right: 10px;
+	}
+	
+	.centre
+	{
+		margin-bottom: 10px;
+		margin-left: 0;
+		-webkit-transform: rotate(-20deg);
+		-moz-transform: rotate(-20deg);
+		-o-transform: rotate(-20deg);
+		-ms-transform: rotate(-20deg);
+		transform: rotate(-20deg);
+	}
+	
+	.boutons_sur_publication
+	{
+		margin-left: -20px;
+	}
+	
+	section h1
+	{
+		margin-top: 0px;
+	}
+	
+	section>div:first-child
+	{
+		padding-top: 115px;
+	}
+	
+	section h1, .bs-callout
+	{
+		font-size: 13pt;
+	}
+	
+	form label
+	{
+		width: 220px;
+		font-size: 13pt;
+		margin-left: 0px;
+	}
+	
+	#conteneur>section:nth-child(2)
+	{
+		text-align: center;
+	}
+	
+	#password
+	{
+		margin-top: 10px;
+	}
+	
+	form input
+	{
+		width: 275px;
+		font-size: 13pt;
+		border: 1px solid #1A3A49;
+	}
+	
+	button:nth-child(10), button:nth-child(37)
+	{
+		width: 160px;
+		height: 27px;
+		font-size: 9pt;
+		border: 1px solid #51A2C8;
+	}
+	
+	footer
+	{
+		width: 645px;
+		height: 95px;
+		margin-top: -3px;
+	}
+	
+	footer section
+	{
+		width: 93%;
+		height: 65.1px;
+		margin-top: -4.5px;
+	}
+	
+	footer a, footer p
+	{
+		position: relative;
+		bottom: 16px;
+		font-size: 7pt;
+	}
+	
+	footer section a
+	{
+		margin-right: 136px;
+	}
+	
+	footer section a:nth-child(2)
+	{
+		margin-left: 27%;
+	}
+	
+	footer section a:nth-child(5)
+	{
+		margin-left: 27%;
+		margin-right: 125px;
+	}
+	
+	footer p
+	{
+		margin-top: -13px;
+	}
+	
+	body
+	{
+		/*overflow: hidden;*/
 	}
 }
-
-
-
-
-
-
-
-
-
-/*
-.Punaise_copie {
-  background-image: url("Punaise copie.png");
-  position: absolute;
-  left: 659px;
-  top: 531px;
-  width: 78px;
-  height: 74px;
-  z-index: 116;
-}
-.Punaise {
-  background-image: url("Punaise.png");
-  position: absolute;
-  left: 659px;
-  top: 255px;
-  width: 78px;
-  height: 74px;
-  z-index: 115;
-}
-.Astuces {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 197.562px;
-  top: 439px;
-  z-index: 114;
-}
-.Tuteur {
-  background-image: url("Tuteur.png");
-  position: absolute;
-  left: 135px;
-  top: 388px;
-  width: 40px;
-  height: 35px;
-  z-index: 113;
-}
-.Calque_80 {
-  background-image: url("Calque 80.png");
-  position: absolute;
-  left: 151px;
-  top: 344px;
-  width: 27px;
-  height: 34px;
-  z-index: 112;
-}
-.Ampoule {
-  background-image: url("Ampoule.png");
-  position: absolute;
-  left: 147px;
-  top: 433px;
-  width: 30px;
-  height: 34px;
-  z-index: 111;
-}
-.Tutorats {
-  font-size: 33.333px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 196.406px;
-  top: 384.5px;
-  z-index: 110;
-}
-.Bob_L�ponge__�tudiant {
-  font-size: 25px;
-  font-family: "Roboto";
-  color: rgb(26, 58, 73);
-  line-height: 1.2;
-  text-align: left;
-  position: absolute;
-  left: 919.922px;
-  top: 156.113px;
-  z-index: 108;
-}
-.Calque_37 {
-  background-image: url("Calque 37.png");
-  position: absolute;
-  left: 144px;
-  top: 299px;
-  width: 37px;
-  height: 28px;
-  z-index: 107;
-}
-.Cr�er_une_publication {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(148, 142, 143);
-  line-height: 1.2;
-  position: absolute;
-  left: 195.797px;
-  top: 350.095px;
-  z-index: 102;
-}
-.Mes_amis {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 196.25px;
-  top: 301.5px;
-  z-index: 101;
-}
-.Forme_2_copie {
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 875px;
-  top: 726px;
-  width: 25px;
-  height: 23px;
-  z-index: 100;
-}
-.Forme_1_copie {
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 667px;
-  top: 724px;
-  width: 25px;
-  height: 22px;
-  z-index: 99;
-}
-.Partager_copie {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 690.25px;
-  top: 729.095px;
-  z-index: 98;
-}
-.Forme_3_copie {
-  border-width: 1px;
-  border-color: rgb(113, 113, 113);
-  border-style: solid;
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 465px;
-  top: 448px;
-  width: 22px;
-  height: 26px;
-  z-index: 97;
-}
-.Forme_3 {
-  border-width: 1px;
-  border-color: rgb(113, 113, 113);
-  border-style: solid;
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 465px;
-  top: 727px;
-  width: 22px;
-  height: 26px;
-  z-index: 96;
-}
-.Suivre_copie {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 496.828px;
-  top: 453.5px;
-  z-index: 95;
-}
-.Suivre {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 496.828px;
-  top: 728.5px;
-  z-index: 94;
-}
-.�valuer_copie {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 905.25px;
-  top: 728.5px;
-  z-index: 93;
-}
-.Forme_2 {
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 874px;
-  top: 450px;
-  width: 25px;
-  height: 23px;
-  z-index: 92;
-}
-.Nouveau_tutorat_CSS3_disponible_d�s_mars_2017_p {
-  font-size: 25px;
-  font-family: "Philosopher";
-  color: rgb(26, 58, 73);
-  line-height: 1.2;
-  text-align: left;
-  position: absolute;
-  left: 540px;
-  top: 331.75px;
-  z-index: 91;
-}
-.Devenez_ami_avec_notre_nouveau_tuteur_M__Tagne_ {
-  font-size: 25px;
-  font-family: "Philosopher";
-  color: rgb(26, 58, 73);
-  line-height: 1.2;
-  text-align: left;
-  position: absolute;
-  left: 549px;
-  top: 615.75px;
-  z-index: 90;
-}
-.Forme_1 {
-  background-color: rgb(124, 56, 64);
-  position: absolute;
-  left: 666px;
-  top: 448px;
-  width: 25px;
-  height: 22px;
-  z-index: 89;
-}
-.Partager {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 689.25px;
-  top: 453.095px;
-  z-index: 88;
-}
-.�valuer {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 904.25px;
-  top: 452.5px;
-  z-index: 87;
-}
-.Shape_6_copy {
-  background-color: rgb(255, 255, 197);
-  position: absolute;
-  left: 430px;
-  top: 557px;
-  width: 568px;
-  height: 211px;
-  z-index: 86;
-}
-.Shape_7_copy_2 {
-  background-image: url("Shape 7 copy 2.png");
-  opacity: 0.988;
-  position: absolute;
-  left: 679px;
-  top: 581px;
-  width: 324px;
-  height: 221px;
-  z-index: 85;
-}
-.Shape_7_copy_2 {
-  background-image: url("Shape 7 copy 2.png");
-  opacity: 0.988;
-  position: absolute;
-  left: 426px;
-  top: 582px;
-  width: 324px;
-  height: 221px;
-  z-index: 84;
-}
-.Shape_6 {
-  background-color: rgb(255, 255, 197);
-  position: absolute;
-  left: 430px;
-  top: 279px;
-  width: 568px;
-  height: 211px;
-  z-index: 83;
-}
-.Shape_7_copy {
-  background-image: url("Shape 7 copy.png");
-  opacity: 0.988;
-  position: absolute;
-  left: 679px;
-  top: 303px;
-  width: 325px;
-  height: 221px;
-  z-index: 82;
-}
-.Shape_7 {
-  background-image: url("Shape 7.png");
-  opacity: 0.988;
-  position: absolute;
-  left: 425px;
-  top: 304px;
-  width: 325px;
-  height: 221px;
-  z-index: 81;
-}
-.Copyright_�_2017__Groupe_14614_ {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  text-align: left;
-  position: absolute;
-  left: 561.797px;
-  top: 1021.095px;
-  z-index: 80;
-}
-.Bo�te_de_r�ception {
-  font-size: 33.333px;
-  font-family: "Roboto";
-  color: rgb(145, 196, 220);
-  line-height: 1.2;
-  text-align: left;
-  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  position: absolute;
-  left: 1017.715px;
-  top: 258.151px;
-  z-index: 78;
-}
-.Trouver_des_amis {
-  font-size: 33.333px;
-  font-family: "Roboto";
-  color: rgb(145, 196, 220);
-  line-height: 1.2;
-  text-align: left;
-  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  position: absolute;
-  left: 1024.96px;
-  top: 297px;
-  z-index: 77;
-}
-.Se_d�connecter {
-  font-size: 33.333px;
-  font-family: "Roboto";
-  color: rgb(145, 196, 220);
-  line-height: 1.2;
-  text-align: left;
-  -moz-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -webkit-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  -ms-transform: matrix( 0.6954499523432,0,0,1.09191171213524,0,0);
-  position: absolute;
-  left: 1038.405px;
-  top: 338px;
-  z-index: 76;
-}
-.Shape_3 {
-  background-image: url("Shape 3.png");
-  position: absolute;
-  left: 1015px;
-  top: 336px;
-  width: 276px;
-  height: 76px;
-  z-index: 75;
-}
-.Shape_4 {
-  background-image: url("Shape 4.png");
-  position: absolute;
-  left: 1015px;
-  top: 295px;
-  width: 276px;
-  height: 76px;
-  z-index: 74;
-}
-.Shape_5 {
-  background-image: url("Shape 5.png");
-  position: absolute;
-  left: 1014px;
-  top: 254px;
-  width: 276px;
-  height: 76px;
-  z-index: 73;
-}
-.Politique_de_confidentialit� {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 723.25px;
-  top: 957.095px;
-  z-index: 72;
-}
-.Conditions_d_utilisation {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 721.797px;
-  top: 930.5px;
-  z-index: 71;
-}
-.Plan_du_site {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 506.25px;
-  top: 954.5px;
-  z-index: 70;
-}
-.�_propos {
-  font-size: 21px;
-  font-family: "Roboto";
-  color: rgb(124, 56, 64);
-  line-height: 1.2;
-  position: absolute;
-  left: 506.562px;
-  top: 930.933px;
-  z-index: 69;
-}
-.hamberger {
-  background-image: url("hamberger.png");
-  position: absolute;
-  left: 1244px;
-  top: 157px;
-  width: 24px;
-  height: 24px;
-  z-index: 68;
-}
-.scholarnet {
-  font-size: 100px;
-  font-family: "Pricedown";
-  color: rgb(26, 58, 73);
-  line-height: 1.2;
-  text-align: left;
-  text-shadow: 0px 13px 18px rgba(0, 0, 0, 0.75);
-  position: absolute;
-  left: 124.594px;
-  top: 60.5px;
-  z-index: 67;
-}
-.Terre {
-  background-image: url("Terre.png");
-  position: absolute;
-  left: 281px;
-  top: 26px;
-  width: 184px;
-  height: 184px;
-  z-index: 66;
-}
-.Header {
-  background-image: url("Header.png");
-  position: absolute;
-  left: 64px;
-  top: 0px;
-  width: 1263px;
-  height: 229px;
-  z-index: 65;
-}
-.Shape_1 {
-  background-image: url("Shape 1.png");
-  position: absolute;
-  left: 1015px;
-  top: 181px;
-  width: 276px;
-  height: 110px;
-  z-index: 64;
-}
-.Footer {
-  background-image: url("Footer.png");
-  position: absolute;
-  left: 71px;
-  top: 857px;
-  width: 1263px;
-  height: 235px;
-  z-index: 63;
-}
-.fond_d�grad� {
-  background-image: url("fond d�grad�.png");
-  position: absolute;
-  left: 128px;
-  top: 161px;
-  width: 1152px;
-  height: 825px;
-  z-index: 62;
-}
-*/
