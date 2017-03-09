@@ -14,67 +14,14 @@
             <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz>">Quiz</a></li>
             <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
         </ul>
-
+        <div id="demandes_recu">
 
     </nav>
     <article class="center">
 <?php
 /*espace d un utilisateur*/
 
-if(isset($data["liste_mes_amis"])){
 
-/*if($data["btn_ajouter"]==true){
-echo 'tu peut ajouter';
-$disabled = '';
-}else{
-echo 'NON NON pas ajouter';
-$disabled = 'disabled';
-}*/
-$array=[];
-foreach ($data["liste_mes_amis"] as $utilisateur) {
-$array[]=$utilisateur->courriel;
-}
-$key = in_array($data["courriel_xx"], $array); // $key = 2;
-//echo $data["courriel_xx"].'<br>';
-//print_r($array);
-if($key){
-$ajouter = '';
-
-}else{
-switch ($data["btn_ajouter"]) {
-case 1:
-$ajouter = '<form action="'.path.'client/demande_ami" method="post">
-    <button name="demande_ami" type="submit"  value="'.$data["courriel_xx"].' "  >ajouter comme ami</button>
-</form>';
-break;
-case 2:
-$ajouter = '<h2 style="color:blue;">demande deja enjoyé</h2>';
-break;
-case 3:
-$ajouter = '<form action="'.path.'client/accepte_ami" method="post">
-    <button name="accepte_ami" type="submit"  value="'.$data["courriel_xx"].' "  >accepte comme ami</button>
-    <button name="refuse_ami" type="submit"  value="'.$data["courriel_xx"].' "  >refusé la demande </button>
-</form>';
-break;
-}
-
-
-
-
-/*if($data["btn_ajouter"]){
-$ajouter = '<form action="'.path.'client/demande_ami" method="post">
-    <button name="demande_ami" type="submit"  value="'.$data["courriel_xx"].' "  >ajouter comme ami</button>
-</form>';
-
-}else{
-$ajouter = '<h2 style="color:blue;">demande deja enjoyé';
-    }*/
-
-
-
-    }
-
-    }
     if(isset($data["publication_ami"])||isset($data["utilisateur_ami"])){
     echo '<h1>espace  '.$data["courriel_xx"].'</h1>';
     echo $ajouter;
@@ -124,6 +71,10 @@ $ajouter = '<h2 style="color:blue;">demande deja enjoyé';
                                 <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                             </div>
                             <div class="form-group">
+                                <input name="url" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="URL optionnel">
+                                <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                            </div>
+                            <div class="form-group">
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="1">
@@ -135,6 +86,10 @@ $ajouter = '<h2 style="color:blue;">demande deja enjoyé';
                             <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                                <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                            </div>
+                            <div class="form-group">
+                                <input name="url" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="URL optionnel">
                                 <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                             </div>
                             <div class="form-group">

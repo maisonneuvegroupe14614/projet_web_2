@@ -22,11 +22,11 @@
             <li><span class="glyphicon glyphicon-pencil"     aria-hidden="true" style="color:#7C3840;">&nbsp</span><a href="<?php echo path?>client/afficherAjouterQuiz"                      >Quiz           </a></li>
         </ul>
 
-        <div id="notificationResult"></div>
+        <div id="notificationResult"><div id="notificationMessage"></div><div id="notificationTutorat"></div><div id="notificationAstuce"></div><div id="notificationQuiz"></div></div>
 
         <div id="demandes_recu">
             <div id="dropdownAmis" class="btn-group"><button class="btn btn-danger dropdown-toggle btn-block" type="button"
-                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Demandes <span class="badge">1</span>
+                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Demandes <span class="badge"><?php echo sizeof($data["demandes_recu"]) ?></span>
                 </button><div class="dropdown-menu">
             <?php
             foreach ($data['demandes_recu'] as $demande) { ?>
@@ -89,10 +89,14 @@
                             <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                         </div>
                         <div class="form-group">
+                            <input name="url" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="URL optionnel">
+                            <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                        </div>
+                        <div class="form-group">
                             <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                         </div>
                         <input type="hidden" name="typePub" value="1">
-                        <input type="submit" class="btn btn-primary"></input>
+                        <input type="submit" class="btn btn-primary">
                     </form>
                 </div>
                 <div id="menu2" class="tab-pane fade">
@@ -100,6 +104,10 @@
                         <br><br>
                         <div class="form-group">
                             <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
+                            <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                        </div>
+                        <div class="form-group">
+                            <input name="url" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="URL optionnel">
                             <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
                         </div>
                         <div class="form-group">
@@ -172,8 +180,14 @@ echo "</article>";
 
 
 <script>
-    var countMess=0;
+    var countMess = 0;
+    var countTuto = 0;
+    var countAstuce = 0;
+    var countQuiz = 0;
     var on;
+    var onTutorat;
+    var onAstuce;
+
     function timedRefresh(timeoutPeriod) {
         setTimeout(update,timeoutPeriod);
     }
@@ -185,62 +199,112 @@ echo "</article>";
      */
     function update() {
             $.get("../getNotificationPub", function (data) {
-                countMess++;
+            countMess++;
+            countTuto++;
+            countAstuce++;
+            countQuiz++;
+
             var btnMessage;
             var btnTutorat;
             var btnAstuce;
             var btnQuiz;
+
             console.log(data);
             data = JSON.parse(data);
             console.log(data);
             console.log(data.length);
+
             var tutoratNb = data.tutorat.length;
             var messageNb = data.message.length;
-            var countNotification = 0;
-            for(var j=0;j<messageNb;j++) {
-                if(data.message[j].notificationVue==null) {
-                    countNotification++;
-                }
-            }
             var astuceNb = data.astuce.length;
             var quizNb = data.quiz.length;
-            var messageAll = data.messageAll.length;
+            var countNotificationMessage = 0;
+            var countNotificationTutorat = 0;
+            var countNotificationAstuce = 0;
+            var countNotificationQuiz = 0;
 
 
-            var str="";
-            for(var i=0;i<data.messageAll.length;i++) {
-                if(data.messageAll[i].notificationVue==null) {
-                    str += '<mark><a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="../afficherPubliDetail/'+data.messageAll[i].idPublication+'">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a></mark><br><br>';
+            for(var j=0;j<messageNb;j++) {
+                if(data.message[j].notificationVue==null) {
+                    countNotificationMessage++;
+                    console.log(countNotificationMessage);
+                }
+            }
+
+            for(var k=0;k<tutoratNb;k++) {
+                if(data.tutorat[k].notificationVue==null) {
+                    countNotificationTutorat++;
+                }
+            }
+
+                for(var l=0;l<astuceNb;l++) {
+                    if(data.astuce[l].notificationVue==null) {
+                        countNotificationAstuce++;
+                    }
+                }
+
+
+            var strMessage="";
+            var strTutorat="";
+            var strAstuce="";
+            var strQuiz="";
+
+            for(var i=0;i<data.message.length;i++) {
+                if(data.message[i].notificationVue==null) {
+                    strMessage += '<mark><a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="../afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte+" par : "+data.message[i].courrielUtil+'</a></mark><br><br>';
 
                 } else {
                     console.log("hello");
-                    console.log(data.messageAll[i]);
-                    str += '<a class="dropdown-item messageAll" data-notification="'+data.messageAll[i].id+'" href="../afficherPubliDetail/'+data.messageAll[i].idPublication+'">'+data.messageAll[i].texte+" par : "+data.messageAll[i].courrielUtil+'</a><br><br>';
+                    console.log(data.message[i]);
+                    strMessage += '<a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="../afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte+" par : "+data.message[i].courrielUtil+'</a><br><br>';
                 }
             }
+
+                for(var i=0;i<data.tutorat.length;i++) {
+                    if(data.tutorat[i].notificationVue==null) {
+                        strTutorat += '<mark><a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="../afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte+" par : "+data.tutorat[i].courrielUtil+'</a></mark><br><br>';
+
+                    } else {
+                        console.log("hello");
+                        console.log(data.message[i]);
+                        strTutorat += '<a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="../afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte+" par : "+data.tutorat[i].courrielUtil+'</a><br><br>';
+                    }
+                }
+
+                for(var i=0;i<data.astuce.length;i++) {
+                    if(data.astuce[i].notificationVue==null) {
+                        strAstuce += '<mark><a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="../afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte+" par : "+data.astuce[i].courrielUtil+'</a></mark><br><br>';
+
+                    } else {
+                        console.log("hello");
+                        console.log(data.astuce[i]);
+                        strTutorat += '<a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="../afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte+" par : "+data.astuce[i].courrielUtil+'</a><br><br>';
+                    }
+                }
 console.log(data.message);
 
-    btnMessage = '<div id="dropdownMessage" class="btn-group"><button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Messages <span class="badge">'+countNotification+'</span></button><div id="myDropDown" class="dropdown-menu">'+str+'</div></div><br>';
+    btnMessage = '<div id="dropdownMessage" class="btn-group"><button class="btn btn-danger dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Messages <span class="badge">'+countNotificationMessage+'</span></button><div id="myDropDown" class="dropdown-menu">'+strMessage+'</div></div><br>';
                 console.log(messageNb+" messages");
-    //Bouton bootstrap nombre de notifications
 
-    btnTutorat = '<button class="btn btn-primary" type="button"> Tutorats <span class="badge">'+tutoratNb+'' +
-        '</span></button><br>';
-    btnAstuce = '<button class="btn btn-primary" type="button"> Astuces <span class="badge">'+astuceNb+'' +
-        '</span></button><br>';
+    btnTutorat = '<div id="dropdownTutorat" class="btn-group"><button class="btn btn-danger dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Tutorats <span class="badge">'+countNotificationTutorat+'</span></button><div id="myDropDown" class="dropdown-menu">'+strTutorat+'</div></div><br>';
+                console.log(messageNb+" messages");
+
+    btnAstuce = '<div id="dropdownAstuce" class="btn-group"><button class="btn btn-danger dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Astuces <span class="badge">'+countNotificationAstuce+'</span></button><div id="myDropDown" class="dropdown-menu">'+strAstuce+'</div></div><br>';
+                console.log(messageNb+" messages");
+
     btnQuiz = '<button class="btn btn-primary" type="button"> Quiz <span class="badge">'+quizNb+'' +
         '</span></button><br>';
     console.log(countMess);
 
 
     if(countMess==1) {
-        $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+        $("#notificationMessage").html(btnMessage);
     }
 
                 if(on==false) {
                     console.log("last");
                     console.log(btnMessage);
-                    $("#notificationResult").html(btnMessage+btnTutorat+btnAstuce+btnQuiz);
+                    $("#notificationMessage").html(btnMessage);
                 }
 
                 $('#dropdownMessage').on('show.bs.dropdown', function () {
@@ -250,9 +314,7 @@ console.log(data.message);
                     }
 
 
-                });
-
-                $('#dropdownMessage').on('hide.bs.dropdown', function () {
+                }).on('hide.bs.dropdown', function () {
                     console.log("hidden");
                     if(countMess>1) {
                         on=false;
@@ -261,7 +323,68 @@ console.log(data.message);
 
 
                 });
+
+                if(countTuto==1) {
+                    $("#notificationTutorat").html(btnTutorat);
+                }
+
+                if(onTutorat==false) {
+                    console.log("last");
+                    console.log(btnTutorat);
+                    $("#notificationTutorat").html(btnTutorat);
+                }
+
+                $('#dropdownTutorat').on('show.bs.dropdown', function () {
+                    console.log("true");
+                    if(countTuto>1) {
+                        onTutorat=true;
+                    }
+
+
+                }).on('hide.bs.dropdown', function () {
+                    console.log("hidden");
+                    if(countTuto>1) {
+                        onTutorat=false;
+                    }
+
+
+
+                });
+
+
+
+
+
+                if(countAstuce==1) {
+                    $("#notificationAstuce").html(btnAstuce);
+                }
+
+                if(onAstuce==false) {
+                    console.log("last");
+                    console.log(btnAstuce);
+                    $("#notificationAstuce").html(btnAstuce);
+                }
+
+                $('#dropdownAstuce').on('show.bs.dropdown', function () {
+                    console.log("true");
+                    if(countAstuce>1) {
+                        onAstuce=true;
+                    }
+
+
+                }).on('hide.bs.dropdown', function () {
+                    console.log("hidden");
+                    if(countAstuce>1) {
+                        onAstuce=false;
+                    }
+
+
+
+                });
+
+
                 console.log(on);
+                console.log(onTutorat);
 
 
             $(".messageAll").on("click" , function () {
@@ -278,6 +401,36 @@ console.log(data.message);
                     }
                 });
             });
+
+                $(".tutoratAll").on("click" , function () {
+                    var clicked = $(this).data("notification");
+                    $.ajax({
+                        url : '../updateNotification',
+                        type : 'POST',
+                        data: { id: clicked },
+                        success : function(resultat, statut){
+                            console.log(resultat+statut);
+                        },
+                        error : function(resultat, statut, erreur){
+                            console.log(resultat+statut+erreur);
+                        }
+                    });
+                });
+
+                $(".astuceAll").on("click" , function () {
+                    var clicked = $(this).data("notification");
+                    $.ajax({
+                        url : '../updateNotification',
+                        type : 'POST',
+                        data: { id: clicked },
+                        success : function(resultat, statut){
+                            console.log(resultat+statut);
+                        },
+                        error : function(resultat, statut, erreur){
+                            console.log(resultat+statut+erreur);
+                        }
+                    });
+                });
 
 
             //Mis a jour des donnees a 5 secondes

@@ -161,11 +161,10 @@ class ClientController extends Controller {
     }
 
     public function getNotificationPub () {
-        $notification["messageAll"] = NotificationPub::all($_SESSION["courriel"],"message");
-        $notification["message"] = NotificationPub::all($_SESSION["courriel"],"message");
-        $notification["tutorat"] = NotificationPub::allNotSeen($_SESSION["courriel"],"tutorat");
-        $notification["astuce"] = NotificationPub::allNotSeen($_SESSION["courriel"],"astuce");
-        $notification["quiz"] = NotificationPub::allNotSeen($_SESSION["courriel"],"quiz");
+        $notification["message"] = NotificationPub::all($_SESSION["courriel"],4);
+        $notification["tutorat"] = NotificationPub::all($_SESSION["courriel"],1);
+        $notification["astuce"] = NotificationPub::all($_SESSION["courriel"],2);
+        $notification["quiz"] = NotificationPub::allNotSeen($_SESSION["courriel"],3);
         echo json_encode($notification);
 
     }
@@ -294,12 +293,12 @@ class ClientController extends Controller {
     }
 
     public function ajouterPublication () {
-        Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],"",$this->request->getParam());
+        Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],$_POST["url"],$_SESSION["courriel"],$_SESSION["courriel"]);
         header("Location:../espace/".$this->request->getParam());
     }
 
     public function ajouterPublicationAmi () {
-        Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],"",$this->request->getParam());
+        Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],$_POST["url"],$_SESSION["courriel"],$this->request->getParam());
         NotificationPub::enregistrer("message",$this->request->getParam(),NotificationPub::last());
         header("Location:../ami/".$this->request->getParam());
     }

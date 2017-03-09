@@ -15,21 +15,20 @@ class Publication {
 
     public static function find ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT * from Publication WHERE courrielUtil='$courriel' ORDER BY id DESC");
+        self::$database->query("SELECT * from Publication WHERE courrielAmi='$courriel' ORDER BY id DESC");
         return self::$database->liste("Publication");
     }
 
-    public static function enregistrer ($idCategorie,$titre,$texte,$url,$courrielUtil) {
+    public static function enregistrer ($idCategorie,$titre,$texte,$url=null,$courrielUtil, $courrielAmi=null) {
         self::initialiserDB();
-        $destinataire="amis";
-        self::$database->query(" INSERT INTO Publication (idCategorie, titre, texte, url, destinataire, courrielUtil)
-          values (:idCategorie, :titre, :texte, :url, :destinataire, :courrielUtil)");
+        self::$database->query(" INSERT INTO Publication (idCategorie, titre, texte, url, courrielUtil, courrielAmi)
+          values (:idCategorie, :titre, :texte, :url, :courrielUtil, :courrielAmi)");
         self::$database->bind(':idCategorie', $idCategorie);
         self::$database->bind(':titre', $titre);
         self::$database->bind(':texte', $texte);
         self::$database->bind(':url', $url);
-        self::$database->bind(':destinataire', $destinataire);
         self::$database->bind(':courrielUtil', $courrielUtil);
+        self::$database->bind(':courrielAmi', $courrielAmi);
         self::$database->execute();
     }
 
@@ -73,7 +72,7 @@ class Publication {
                 JOIN ami ON publication.courrielUtil = ami.courrielUtil
                 WHERE ami.courrielAmi='$courriel' 
                 AND publication.idCategorie = 1 or 
-                ( publication.destinataire='public' AND publication.idCategorie = 1)group by publication.id "
+                ( publication.idCategorie = 1)group by publication.id DESC "
         );
         return self::$database->liste("Publication");
     }
@@ -84,8 +83,10 @@ class Publication {
         self::$database->query("SELECT * from publication  
                 JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
                 JOIN ami ON publication.courrielUtil = ami.courrielUtil
-                WHERE (ami.courrielAmi='$courriel' AND publication.idCategorie = 2) or 
-                ( publication.destinataire='public' AND publication.idCategorie = 2) group by publication.id");
+                WHERE ami.courrielAmi='$courriel' 
+                AND publication.idCategorie = 2 or 
+                ( publication.idCategorie = 2)group by publication.id DESC "
+        );
         return self::$database->liste("Publication");
     }
 

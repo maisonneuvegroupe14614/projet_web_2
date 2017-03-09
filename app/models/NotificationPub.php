@@ -9,7 +9,7 @@ class NotificationPub {
 
     public static function all ($courriel,$type) {
         self::initialiserDB();
-        self::$database->query("SELECT NotificationPub.id,Publication.courrielUtil,Publication.texte,Publication.titre,NotificationPub.notificationVue,NotificationPub.idPublication from NotificationPub JOIN Publication on NotificationPub.idPublication=Publication.id WHERE idUtilisateur='$courriel' AND type='$type' 
+        self::$database->query("SELECT NotificationPub.id,Publication.courrielUtil,Publication.texte,Publication.titre,NotificationPub.notificationVue,NotificationPub.idPublication,Publication.id as idPub from NotificationPub JOIN Publication ON NotificationPub.idPublication=Publication.id JOIN Categorie ON Publication.idCategorie=Categorie.id WHERE idUtilisateur='$courriel' AND Publication.idCategorie='$type' 
             ORDER BY NotificationPub.id DESC LIMIT 10");
         return self::$database->liste("NotificationPub");
     }
