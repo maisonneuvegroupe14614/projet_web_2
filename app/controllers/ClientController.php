@@ -125,7 +125,8 @@ class ClientController extends Controller {
      * Sert a afficher la page de desinscription aux utilisateurs si aucune session n'est presente
      */
     public function desinscription () {
-        $this->view->load('desinscription/index',$_SESSION["courriel"]);
+        Utilisateur::desinscription($_SESSION["courriel"]);
+        $this->logout();
     }
 
     /**
@@ -259,7 +260,8 @@ class ClientController extends Controller {
         }
     }
     public function retirer_ami() {
-        echo '<h1>je veut retirer un amis  </h1>'.$_POST['retirer_ami'];
+        Utilisateur::retire_ami ($_SESSION['courriel'],$_POST['retire_ami_conf']);
+        header("Location:".path."client/mes_amis");
     }
 
     public function testAllUsers () {

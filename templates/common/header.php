@@ -42,12 +42,46 @@
                             <li><a href="../afficherMessage/<?php echo $data2 ?>">Boite de réception</a></li>
                             <li><a href="#">Trouver des amis</a></li>
                             <li><a href="<?php echo path.'client/logout'?>">Se déconnecter</a></li>
-                            <li><a href="<?php echo path.'client/desinscription'?>">Désinscrire</a></li>
+                            <li><a id="openerDesinscription" href="#">Désinscrire</a></li>
 
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <div id="dialogDesinscription" title="Confirmation">
+                <p>voulez vous vraiment desinscrire <?php echo $_SESSION['courriel']?></p>
+                <form>
+                    <button value="desinscription" name='desinscription'  formmethod='post' formaction='<?php echo path."client/desinscription"?>' type="submit" id="desinscription" class="btn btn-danger">Oui</button>
+                    <button formmethod='post' formaction='' type="submit"  class="btn btn-success">Cancel</button>
+                </form>
+            </div>
             <?php } ?>
         </section>
     </header>
+    <script>
+        $( function() {
+            $( "#dialogDesinscription" ).dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+
+            $( "#openerDesinscription" ).on( "click", function() {
+                $( "#dialogDesinscription" ).dialog( "open" );
+                x = document.getElementById("confirmation_supression").style.visibility ;
+                //console.log(x);
+                if(x=='visible'){
+                    document.getElementById("confirmation_supression").style.visibility = 'hidden';
+                }
+            });
+            $( "#desinscription" ).on( "click", function() {
+                console.log("desinscription");
+            });
+        } );
+    </script>

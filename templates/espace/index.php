@@ -135,7 +135,7 @@
             <?php
             foreach($data["publication"] as $publication) { ?>
                 <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
-                    <p><?php echo $publication->auteur.", ".$publication->dateCreation." - ".$publication->titre ?></p>
+                    <p><?php echo $publication->courrielAmi.", ".$publication->dateCreation." - ".$publication->titre ?></p>
                     <!--<p><?php echo $publication->texte ?></p>
                 <p><?php echo $publication->url ?></p>-->
 
@@ -471,5 +471,33 @@ console.log(data.message);
         });
     } );
 </script>
-<div id="demo"></div>
+<script>
+    x = document.querySelectorAll(".retirer_ami");
+    for(i=0;i<x.length;i++){
+        x[i].addEventListener("click", function(){
+            //console.log(event.target.value);
+
+            var text = "tu es sûre de supprimer ta relation avec "+event.target.value;
+            text +="<form><button class='btn btn-danger' value='"+event.target.value+"' name='retire_ami_conf' formmethod='post' formaction='retirer_ami'   >oui</button><button class='btn btn-success' formmethod='post' onclick=cacher()>non</button></form>";
+            document.getElementById("confirmation_supression").innerHTML = text;
+            document.getElementById("confirmation_supression").style.visibility = 'visible';
+            var isOpen = $( ".selector" ).dialog( "isOpen" );
+            if(isOpen){
+                $( "#dialog" ).dialog( "close" );
+            }
+
+        });
+    };
+    function cacher(){
+        console.log("hidden");
+        document.getElementById("confirmation_supression").style.visibility = 'hidden';
+
+    }
+</script>
+
+<div id="confirmation_supression"  style="visibility: hidden;position: absolute;
+    left: 50%;
+    top: 50%;z-index: 9999;width: auto;height: auto;background-color: yellowgreen;padding: 10px 10px 10px 10px;">
+
+</div>
 

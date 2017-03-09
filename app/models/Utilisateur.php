@@ -50,8 +50,7 @@ class Utilisateur {
 
     public static function desinscription ($user_mail) {
         self::initialiserDB();
-        self::$database->query("DELETE FROM message WHERE message.courrielUtil = '$user_mail' OR message.courrielAmi =
-          '$user_mail'; DELETE FROM Utilisateur WHERE Utilisateur.courriel = '$user_mail'");
+        self::$database->query("DELETE FROM Utilisateur WHERE Utilisateur.courriel = '$user_mail'");
         self::$database->execute();
     }
 
@@ -68,6 +67,15 @@ class Utilisateur {
                                 ( :user_mail, :user_ami, 'a', CURRENT_TIMESTAMP);");
         self::$database->bind(':user_mail', $user_mail);
         self::$database->bind(':user_ami', $user_ami);
+        self::$database->execute();
+    }
+
+    public static function retire_ami ($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("DELETE FROM ami                                
+                                WHERE  (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1)");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
         self::$database->execute();
     }
 
