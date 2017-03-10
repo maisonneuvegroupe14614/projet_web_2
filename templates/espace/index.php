@@ -54,7 +54,7 @@
         <input type="text" name="url">
         <input type="submit">
     </form>-->
-    <button class="btn btn-primary creer_pub" id="opener">Nouvelle Publication</button>
+    <button class="btn btn-primary creer_pub" id="openerPublication">Nouvelle Publication</button>
 
     <div id="dialog" title="Nouvelle Publication">
 
@@ -78,7 +78,7 @@
                             <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                         </div>
                         <input type="hidden" name="typePub" value="4">
-                        <input type="submit" class="btn btn-primary"></input>
+                        <input type="submit" class="btn btn-primary" value="Envoyer"></input>
                     </form>
                 </div>
                 <div id="menu1" class="tab-pane fade">
@@ -96,7 +96,7 @@
                             <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                         </div>
                         <input type="hidden" name="typePub" value="1">
-                        <input type="submit" class="btn btn-primary">
+                        <input type="submit" class="btn btn-primary" value="Envoyer">
                     </form>
                 </div>
                 <div id="menu2" class="tab-pane fade">
@@ -114,7 +114,7 @@
                             <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                         </div>
                         <input type="hidden" name="typePub" value="2">
-                        <input type="submit" class="btn btn-primary"></input>
+                        <input type="submit" class="btn btn-primary" value="Envoyer"></input>
                     </form>
                 </div>
             </div>
@@ -135,24 +135,48 @@
             <?php
             foreach($data["publication"] as $publication) { ?>
                 <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
-                    <p><?php echo $publication->courrielAmi.", ".$publication->dateCreation." - ".$publication->titre ?></p>
-                    <!--<p><?php echo $publication->texte ?></p>
-                <p><?php echo $publication->url ?></p>-->
+                    <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
 
-                    <img src="<?php echo path; ?>templates/images/lire.png"     width="20" height="20">&nbsp;</img><a    class="droite" href ="../afficherPubliDetail/<?php echo $publication->idPublication ?>">Lire    </a>
-                    <img src="<?php echo path; ?>templates/images/partager.png" width="20" height="20">&nbsp;</img><span class="droite partager" style="font-size:9pt; color:#7C3840;"                                   >Partager</span>
-                    <img src="<?php echo path; ?>templates/images/evaluer.png"  width="20" height="20">&nbsp;</img><a                   href ="../afficherEvaluation/<?php  echo $publication->idPublication ?>">Évaluer </a>
+                    <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+                    <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
 
-                    <div class="destinataire hidden">
-                        <select name="destinataire">
-                            <option value="1">Amis  </option>
-                            <option value="2">Public</option>
-                            <?php
-                            foreach ($data["amis"] as $ami) {
-                                echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
-                            }
-                            ?>
-                        </select>
+                    <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                        <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active"><br>
+                                    <div class="form-group">
+                                        <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                        <p><?php echo $publication->texte ?></p>
+                                        <p><?php echo $publication->url   ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                        <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                            <div class="tab-content">
+                                <div id="home" class="tab-pane fade in active"><br>
+                                    <div class="form-group">
+                                        <textarea name="evaluations"></textarea>
+                                        <input type="number" name="note" id="note" min="0" max="5" value="0">
+                                    </div>
+                                    <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                                    foreach ($data["amis"] as $ami) {
+                                        echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                                    }
+                                    ?>
+										</select>-->
+                                    <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                                    <input type="submit" class="btn btn-primary"></input>
+                                </div>
+                            </div>
+                            <div class="notes"></div>
+                        </form>
                     </div>
 
                 </div>
@@ -166,7 +190,7 @@ echo "</article>";
         echo '<h1>espace mes amis</h1>';
         foreach ($data["utilisateur"] as $utilisateur) {
 
-            echo "<a href=".path."client/ami/$utilisateur->courriel>".$utilisateur->nom."  ".$utilisateur->prenom."</a>".'<button class="retirer_ami" value="'.$utilisateur->courriel.'">retirer de la list</button> '."<br>";
+            echo "<div><a href=".path."client/ami/$utilisateur->courriel>".$utilisateur->nom."  ".$utilisateur->prenom."</a>".'<button class="retirer_ami" value="'.$utilisateur->courriel.'">retirer de la list</button></div>'."<br>";
         }
 
 
@@ -443,18 +467,23 @@ console.log(data.message);
 
 
 
-    x = document.querySelectorAll(".retirer_ami");
+    /*x = document.querySelectorAll(".retirer_ami");
     for(i=0;i<x.length;i++){
         x[i].addEventListener("click", function(){
             //console.log(event.target.value);
+            $("#dialog-confirm").dialog.open({
 
-            document.getElementById("demo").innerHTML = "tu es sur de supprimer cette relation "+event.target.value;
+            });
+
         });
-    }
+    }*/
     $( function() {
+        var target;
         $( "#dialog" ).dialog({
             width: 500,
+            modal: true,
             autoOpen: false,
+            classes: { "ui-dialog": "highlight","ui-dialog-titlebar" : "highlight2" },
             position: { my: "center", at: "top" },
             show: {
                 effect: "clip",
@@ -466,38 +495,133 @@ console.log(data.message);
             }
         });
 
-        $( "#opener" ).on( "click", function() {
+        $( "#openerPublication" ).on( "click", function() {
             $( "#dialog" ).dialog( "open" );
         });
-    } );
-</script>
-<script>
-    x = document.querySelectorAll(".retirer_ami");
-    for(i=0;i<x.length;i++){
-        x[i].addEventListener("click", function(){
-            //console.log(event.target.value);
+        $( "#dialog-confirm" ).dialog({
+            resizable: false,
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "Oui": function() {
+                    $.ajax({
+                        url : 'retirer_ami',
+                        type : 'POST',
+                        data: { target:target.value },
+                        success : function(resultat, statut){
+                            target.parentNode.remove();
+                            $("#dialog-confirm").dialog("close");
+                        },
+                        error : function(resultat, statut, erreur){
+                            console.log(resultat+statut+erreur);
+                        }
+                    });
 
-            var text = "tu es sûre de supprimer ta relation avec "+event.target.value;
-            text +="<form><button class='btn btn-danger' value='"+event.target.value+"' name='retire_ami_conf' formmethod='post' formaction='retirer_ami'   >oui</button><button class='btn btn-success' formmethod='post' onclick=cacher()>non</button></form>";
-            document.getElementById("confirmation_supression").innerHTML = text;
-            document.getElementById("confirmation_supression").style.visibility = 'visible';
-            var isOpen = $( ".selector" ).dialog( "isOpen" );
-            if(isOpen){
-                $( "#dialog" ).dialog( "close" );
+                },
+                "Non": function() {
+                    $( this ).dialog( "close" );
+                }
             }
+        });
+
+        $( ".evaluation" ).dialog( {
+            width: 500,
+            autoOpen: false,
+            modal: true,
+            position: { my: "center", at: "center" },
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "drop",
+                duration: 1000
+            }
+        } );
+
+        $( ".evaluer" ).each(function() {
+            $(this).on("click", function() {
+                var id = $(this).data('id');
+                $.post({
+                    url : '../findEvaluation',
+                    data: { id:id },
+                    success : function(resultat, statut) {
+                        console.log(resultat);
+                        var res=JSON.parse(resultat);
+                        var str="<br>";
+                        for (var i=0; i<res.evaluation.length; i++) {
+                            str += "<p>" + res.evaluation[i].courrielUtil + ", " + res.evaluation[i].dateCreation + "<br>" +
+                                res.evaluation[i].texte        + " "  + res.evaluation[i].note         + "<br></p>";
+                        }
+                        $( ".notes" ).html(str);
+                        $( ".evaluation[data-id = '" + id + "']").dialog( "open" );
+                        console.log(resultat+statut);
+                    },
+                    error : function(resultat, statut, erreur) {
+                        console.log(resultat+statut+erreur);
+                    }
+                });
+            });
+        });
+
+        $( ".affichage" ).dialog( {
+            width: 500,
+            autoOpen: false,
+            modal: true,
+            position: { my: "center", at: "center" },
+            show: {
+                effect: "clip",
+                duration: 1000
+            },
+            hide: {
+                effect: "drop",
+                duration: 1000
+            }
+        } );
+
+        $( ".afficher" ).each(function() {
+            $(this).on("click", function() {
+                $( ".affichage[data-id=" + $(this).data('id') + "]").dialog( "open" );
+            } );
+        } );
+
+
 
         });
-    };
-    function cacher(){
-        console.log("hidden");
-        document.getElementById("confirmation_supression").style.visibility = 'hidden';
 
-    }
+
+        var x = document.querySelectorAll(".retirer_ami");
+        for(var i=0;i<x.length;i++){
+            x[i].addEventListener("click", function(e){
+                //console.log(event.target.value);
+                target = e.target;
+                /*var text = "tu es sûre de supprimer ta relation avec "+event.target.value;
+                 text +="<form><button class='btn btn-danger' value='"+event.target.value+"' name='retire_ami_conf' formmethod='post' formaction='retirer_ami'   >oui</button><button class='btn btn-success' formmethod='post' onclick=cacher()>non</button></form>";
+                 document.getElementById("confirmation_supression").innerHTML = text;
+                 document.getElementById("confirmation_supression").style.visibility = 'visible';*/
+                $("#dialog-confirm").dialog("open");
+
+            });
+        }
+
+
+
+
+
+
+
 </script>
+
+
+
 
 <div id="confirmation_supression"  style="visibility: hidden;position: absolute;
     left: 50%;
     top: 50%;z-index: 9999;width: auto;height: auto;background-color: yellowgreen;padding: 10px 10px 10px 10px;">
-
+    <div id="dialog-confirm" title="Effacer un ami">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Etes-vous sur de vouloir supprimer cet amis?</p>
+    </div>
 </div>
 

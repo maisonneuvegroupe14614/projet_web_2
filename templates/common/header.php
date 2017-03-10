@@ -9,7 +9,7 @@
             src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css">
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -48,19 +48,14 @@
                     </li>
                 </ul>
             </nav>
-            <div id="dialogDesinscription" title="Confirmation">
-                <p>voulez vous vraiment desinscrire <?php echo $_SESSION['courriel']?></p>
-                <form>
-                    <button value="desinscription" name='desinscription'  formmethod='post' formaction='<?php echo path."client/desinscription"?>' type="submit" id="desinscription" class="btn btn-danger">Oui</button>
-                    <button formmethod='post' formaction='' type="submit"  class="btn btn-success">Cancel</button>
-                </form>
-            </div>
+
             <?php } ?>
         </section>
     </header>
     <script>
         $( function() {
             $( "#dialogDesinscription" ).dialog({
+                modal: true,
                 autoOpen: false,
                 show: {
                     effect: "blind",

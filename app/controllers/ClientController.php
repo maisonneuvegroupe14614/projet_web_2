@@ -260,8 +260,7 @@ class ClientController extends Controller {
         }
     }
     public function retirer_ami() {
-        Utilisateur::retire_ami ($_SESSION['courriel'],$_POST['retire_ami_conf']);
-        header("Location:".path."client/mes_amis");
+        Utilisateur::retire_ami ($_SESSION['courriel'],$_REQUEST['target']);
     }
 
     public function testAllUsers () {
@@ -414,8 +413,13 @@ class ClientController extends Controller {
 
     public function ajouterEvaluation () {
         $param = $this->request->getParam();
-        Evaluation::enregistrer($_POST["evaluations"],$_POST["note"],$param,$_SESSION["courriel"]);
-        header("Location:../afficherEvaluation/".$param);
+        Evaluation::enregistrer($_POST["evaluations"],$_POST["note"],$_POST["idPublication"],$_SESSION["courriel"]);
+        header("Location:../espace/".$param);
+    }
+
+    public function findEvaluation () {
+        $data["evaluation"] = Evaluation::find($_POST["id"]);
+        echo json_encode($data);
     }
 
 

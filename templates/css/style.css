@@ -29,6 +29,21 @@
 	height:auto;
 }
 
+.highlight {
+	position:absolute;
+	top:10px;
+}
+
+.highlight2{
+	background-color: #5cb85c;
+	color:black;
+}
+
+
+.ui-icon { display: none; }
+
+
+
 @font-face
 {
 	font-family: menu_titres_articles_1;

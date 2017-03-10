@@ -21,6 +21,43 @@
 <?php
 /*espace d un utilisateur*/
 
+//Ajout d'un ami
+if(isset($data["liste_mes_amis"])){
+/*if($data["btn_ajouter"]==true){
+echo 'tu peut ajouter';
+$disabled = '';
+}else{
+echo 'NON NON pas ajouter';
+$disabled = 'disabled';
+}*/
+$array=[];
+foreach ($data["liste_mes_amis"] as $utilisateur) {
+    $array[]=$utilisateur->courriel;
+}
+$key = in_array($data["courriel_xx"], $array); // $key = 2;
+//echo $data["courriel_xx"].'<br>';
+//print_r($array);
+if($key){
+    $ajouter = '';
+}else {
+    switch ($data["btn_ajouter"]) {
+        case 1:
+            $ajouter = '<form action="' . path . 'client/demande_ami" method="post">
+    <button name="demande_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >ajouter comme ami</button>
+</form>';
+            break;
+        case 2:
+            $ajouter = '<h2 style="color:blue;">demande deja enjoyé</h2>';
+            break;
+        case 3:
+            $ajouter = '<form action="' . path . 'client/accepte_ami" method="post">
+    <button name="accepte_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >accepte comme ami</button>
+    <button name="refuse_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >refusé la demande </button>
+</form>';
+            break;
+    }
+}
+}
 
     if(isset($data["publication_ami"])||isset($data["utilisateur_ami"])){
     echo '<h1>espace  '.$data["courriel_xx"].'</h1>';
@@ -60,7 +97,7 @@
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="4">
-                            <input type="submit" class="btn btn-primary"></input>
+                            <input type="submit" class="btn btn-primary" value="Enovyer"></input>
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
@@ -78,7 +115,7 @@
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="1">
-                            <input type="submit" class="btn btn-primary"></input>
+                            <input type="submit" class="btn btn-primary" value="Envoyer"></input>
                         </form>
                     </div>
                     <div id="menu2" class="tab-pane fade">
@@ -96,7 +133,7 @@
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="2">
-                            <input type="submit" class="btn btn-primary"></input>
+                            <input type="submit" class="btn btn-primary" value="Envoyer"></input>
                         </form>
                     </div>
                 </div>
