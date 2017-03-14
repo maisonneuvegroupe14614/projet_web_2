@@ -12,7 +12,7 @@
     <div id="dialog" title="Nouvelle Publication">
 
 
-        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+        <form action="<?php echo path; ?>client/ajouterPublication/<?php echo $data2; ?>" method="post">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Message</a></li>
                 <li><a data-toggle="tab" href="#menu1">Tutorat</a></li>
@@ -21,7 +21,7 @@
 
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                    <form action="<?php echo path; ?>client/ajouterPublication/<?php echo $data2; ?>" method="post">
                         <br><br>
                         <div class="form-group">
                             <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
@@ -35,7 +35,7 @@
                     </form>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                    <form action="<?php echo path; ?>client/ajouterPublication/<?php echo $data2; ?>" method="post">
                         <br><br>
                         <div class="form-group">
                             <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
@@ -53,7 +53,7 @@
                     </form>
                 </div>
                 <div id="menu2" class="tab-pane fade">
-                    <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+                    <form action="<?php echo path; ?>client/ajouterPublication/<?php echo $data2; ?>" method="post">
                         <br><br>
                         <div class="form-group">
                             <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">

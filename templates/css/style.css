@@ -27,13 +27,11 @@
 #notificationTutorat {
 	width:140px;
 }
-
-.nav-tabs {
+.tabs_amis {
 	position: absolute;
-	z-index: 1;
 	width: 38%;
-	height: 66.5%;
 	left: 35%;
+	margin-bottom: 20px;
 }
 
 .titre {

@@ -2,7 +2,6 @@
 
 require_once 'app/request/Request.php';
 require_once 'app/controllers/Controller.php';
-require_once 'app/controllers/AdminController.php';
 require_once 'app/controllers/ClientController.php';
 require_once 'app/view/View.php';
 require_once 'app/config/config.php';

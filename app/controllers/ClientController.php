@@ -45,7 +45,7 @@ class ClientController extends Controller {
         $user = Utilisateur::find($_POST["user"]);
         if(!empty($user) && password_verify($password,$user->motPasse)) {
             $_SESSION["courriel"]=$user->courriel;
-            header("Location:espace/".$_SESSION['courriel']);
+            header("Location:".path."client/espace/".$_SESSION['courriel']);
         } else {
             echo "Vous n'etes pas identifier correctement!";
         }
@@ -58,7 +58,7 @@ class ClientController extends Controller {
      */
     public function inscription () {
         if(isset($_SESSION["courriel"])) {
-            header("Location:espace/".$_SESSION['courriel']);
+            header("Location:".path."client/espace/".$_SESSION['courriel']);
         } else {
             $this->view->load('inscription/index');
         }
@@ -104,9 +104,9 @@ class ClientController extends Controller {
             if($enregistrer) {
                 $_SESSION["courriel"]=$_POST['courriel'];
 
-                header("Location:espace/".$_SESSION['courriel']);
+                header("Location:".path."client/espace/".$_SESSION['courriel']);
             } else {
-                header("Location:inscription");
+                header("Location:".path."client/inscription");
             }
 
 
@@ -138,7 +138,7 @@ class ClientController extends Controller {
         echo '<h1>'.$_SESSION["courriel"].'</h1>';
         Utilisateur::desinscription($_SESSION["courriel"]);
         session_destroy();
-        header("Location:identification");
+        header("Location:".path."client/identification");
     }
 
     /**
@@ -157,7 +157,7 @@ class ClientController extends Controller {
             $data2=$param = $this->request->getParam();
             return $this->view->load('espace/index', $data, $data2, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -175,9 +175,9 @@ class ClientController extends Controller {
         $data["publication"] = Publication::find_etudiant_tutorats($_SESSION["courriel"]);
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('espace/index', $data, $data2=null, 'sidebar');
+            $this->view->load('tutorats/index', $data, $data2=null, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -188,7 +188,7 @@ class ClientController extends Controller {
         if (isset($_SESSION["courriel"])) {
             $this->view->load('espace/index', $data, $data2=null, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -197,9 +197,9 @@ class ClientController extends Controller {
         $data["publication"] = Publication::find_etudiant_astuces($_SESSION["courriel"]);
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('espace/index', $data, $data2=null, 'sidebar');
+            $this->view->load('astuces/index', $data, $data2=null, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -210,7 +210,7 @@ class ClientController extends Controller {
         if (isset($_SESSION["courriel"])) {
             $this->view->load('mes_amis/index', $data, $data2=null, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -238,7 +238,7 @@ class ClientController extends Controller {
         if (isset($_SESSION["courriel"])) {
             $this->view->load('ami/index', $data, $data2, 'sidebar');
         } else {
-            header("Location:identification");
+            header("Location:".path."client/identification");
         }
     }
 
@@ -264,18 +264,18 @@ class ClientController extends Controller {
         if (isset($_POST['accepte_ami'])) {
             Utilisateur::accepte_demande ($_SESSION['courriel'],$_POST['accepte_ami']);
             Utilisateur::ajouter_ami($_SESSION['courriel'],$_POST['accepte_ami']);
-            header("Location:espace/".$_SESSION['courriel']);
+            header("Location:".path."client/espace/".$_SESSION['courriel']);
         }
         if (isset($_POST['refuse_ami'])) {
             Utilisateur::refuse_demande ($_SESSION['courriel'],$_POST['refuse_ami']);
-            header("Location:espace/".$_SESSION['courriel']);
+            header("Location:".path."client/espace/".$_SESSION['courriel']);
         }
     }
     public function retirer_ami() {
         Utilisateur::retire_ami ($_SESSION['courriel'],$_REQUEST['target']);
     }
 
-    public function testAllUsers () {
+   /* public function testAllUsers () {
         $user=Utilisateur::all();
         print_r($user);
     }
@@ -303,17 +303,17 @@ class ClientController extends Controller {
     public function testFindEvaluation () {
         $evaluation = Evaluation::find($_SESSION["courriel"]);
         print_r($evaluation);
-    }
+    }*/
 
     public function ajouterPublication () {
         Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],$_POST["url"],$_SESSION["courriel"],$_SESSION["courriel"]);
-        header("Location:../espace/".$this->request->getParam());
+        header("Location:".path."client/espace/".$this->request->getParam());
     }
 
     public function ajouterPublicationAmi () {
         Publication::enregistrer($_POST["typePub"],$_POST["titre"],$_POST["publications"],$_POST["url"],$_SESSION["courriel"],$this->request->getParam());
         NotificationPub::enregistrer("message",$this->request->getParam(),NotificationPub::last());
-        header("Location:../ami/".$this->request->getParam());
+        header("Location:".path."client/ami/".$this->request->getParam());
     }
 
     /**
@@ -383,24 +383,24 @@ class ClientController extends Controller {
         $this->view->load('publiDetail/index',$data,$param,'sidebar');
     }
 
-    public function testAllMessages () {
+    /*public function testAllMessages () {
         $message = Message::all();
         print_r($message);
-    }
+    }*/
 
-    public function testFindMessage () {
+   /* public function testFindMessage () {
         $param = $this->request->getParam();
         $message = Message::find($param);
         print_r($message);
-    }
+    }*/
 
     public function ajouterMessage () {
         $param = $this->request->getParam();
         Message::enregistrer($_POST["sujet"],$_POST["messages"],$_POST["url"],$param,$_POST["courrielAmi"]);
-        header("Location:../afficherMessage/".$param);
+        header("Location:".path."client/afficherMessage/".$param);
     }
 
-    public function testAllPartages () {
+    /*public function testAllPartages () {
         $partage = Partage::all();
         print_r($partage);
     }
@@ -409,24 +409,24 @@ class ClientController extends Controller {
         $param = $this->request->getParam();
         $partage = Partage::find($param);
         print_r($partage);
-    }
+    }*/
 
     public function ajouterPartage () {
         $param = $this->request->getParam();
         Partage::enregistrer($_POST["destinataire"],$_POST["idPublication"],$param,$_POST["courrielAmi"]);
-        header("Location:../afficherPartage/".$param);
+        header("Location:".path."client/afficherPartage/".$param);
     }
 
-    public function testFindPubliDetail () {
+   /* public function testFindPubliDetail () {
         $param = $this->request->getParam();
         $publiDetail = PubliDetail::find($param);
         print_r($publiDetail);
-    }
+    }*/
 
     public function ajouterEvaluation () {
         $param = $this->request->getParam();
         Evaluation::enregistrer($_POST["evaluations"],$_POST["note"],$_POST["idPublication"],$_SESSION["courriel"]);
-        header("Location:../espace/".$param);
+        header("Location:".path."client/espace/".$param);
     }
 
     public function findEvaluation () {

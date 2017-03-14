@@ -23,16 +23,16 @@ if($key){
     switch ($data["btn_ajouter"]) {
         case 1:
             $ajouter = '<form action="' . path . 'client/demande_ami" method="post">
-    <button name="demande_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >ajouter comme ami</button>
+    <button class="btn btn-warning btn-sm" name="demande_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >ajouter comme ami</button>
 </form>';
             break;
         case 2:
-            $ajouter = '<h2 style="color:blue;">demande deja enjoyé</h2>';
+            $ajouter = '<p style="color:blue;">Demande en cours</p>';
             break;
         case 3:
             $ajouter = '<form action="' . path . 'client/accepte_ami" method="post">
-    <button name="accepte_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >accepte comme ami</button>
-    <button name="refuse_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >refusé la demande </button>
+    <button class="btn btn-warning btn-sm" name="accepte_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >accepte comme ami</button>
+    <button class="btn btn-warning btn-sm" name="refuse_ami" type="submit"  value="' . $data["courriel_xx"] . ' "  >refusé la demande </button>
 </form>';
             break;
     }
@@ -43,26 +43,26 @@ if($key){
         <div class="titre">
 
         <?php
-    echo '<h5 class="textcenter">Espace de  '.$data["user"]->prenom." ".$data["user"]->nom.'</h5>';
-    echo $ajouter;
+    echo '<h5 class="textcenter">Espace de  '.$data["user"]->prenom." ".$data["user"]->nom.$ajouter.'</h5>';
+
     if(isset($data["publication_ami"])){
 
         ?>
         </div>
 
-     <ul class="nav nav-tabs">
+     <ul class="nav nav-tabs tabs_amis">
          <li class="active"><a href="#">Accueil</a></li>
          <li><a href="#">Messages</a></li>
          <li><a href="#">Tutorats</a></li>
          <li><a href="#">Astuces</a></li>
      </ul>
-     <br><br><br><br>
+     <br><br><br>
         <button class="btn btn-primary creer_pub" id="openerPublication">Nouvelle Publication</button>
 
         <div id="dialog" title="Nouvelle Publication">
 
 
-            <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
+            <form action="<?php echo path; ?>client/ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home">Message</a></li>
                     <li><a data-toggle="tab" href="#menu1">Tutorat</a></li>
@@ -71,8 +71,7 @@ if($key){
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
-                            <br><br>
+                        <form action="<?php echo path; ?>client/ajouterPublicationAmi/<?php echo $data2; ?>" method="post">                            <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
                                 <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
@@ -85,8 +84,7 @@ if($key){
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
-                            <br><br>
+                        <form action="<?php echo path; ?>client/ajouterPublicationAmi/<?php echo $data2; ?>" method="post">                            <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
                                 <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
@@ -103,8 +101,7 @@ if($key){
                         </form>
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
-                            <br><br>
+                        <form action="<?php echo path; ?>client/ajouterPublicationAmi/<?php echo $data2; ?>" method="post">                            <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
                                 <!--                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
