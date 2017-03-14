@@ -1,28 +1,8 @@
-<section>
-    <p id="util"><?php
-
-        echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
-
-
-        ?></p>
-    <nav id="menu-gauche"><br><br><br>
-
-        <ul>
-            <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
-            <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz>">Quiz</a></li>
-            <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
-        </ul>
-        <div id="demandes_recu">
-
-    </nav>
-    <article class="center">
+ <article class="center">
 <?php
 /*espace d un utilisateur*/
 
 //Ajout d'un ami
-if(isset($data["liste_mes_amis"])){
 /*if($data["btn_ajouter"]==true){
 echo 'tu peut ajouter';
 $disabled = '';
@@ -57,28 +37,32 @@ if($key){
             break;
     }
 }
-}
 
-    if(isset($data["publication_ami"])||isset($data["utilisateur_ami"])){
-    echo '<h1>espace  '.$data["courriel_xx"].'</h1>';
+
+    if(isset($data["publication_ami"])||isset($data["utilisateur_ami"])){ ?>
+        <div class="titre">
+
+        <?php
+    echo '<h5 class="textcenter">Espace de  '.$data["user"]->prenom." ".$data["user"]->nom.'</h5>';
     echo $ajouter;
     if(isset($data["publication_ami"])){
 
         ?>
+        </div>
 
-        <!--   <form action="../ajouterPublication/<?php /*echo $data2; */?>" method="post">
-        <input type="text" id="titrePub"><br>
-<textarea name="publications">
-</textarea><br>
-        <input type="text" name="url">
-        <input type="submit">
-    </form>-->
-        <button class="btn btn-primary creer_pub" id="opener">Nouvelle Publication</button>
+     <ul class="nav nav-tabs">
+         <li class="active"><a href="#">Accueil</a></li>
+         <li><a href="#">Messages</a></li>
+         <li><a href="#">Tutorats</a></li>
+         <li><a href="#">Astuces</a></li>
+     </ul>
+     <br><br><br><br>
+        <button class="btn btn-primary creer_pub" id="openerPublication">Nouvelle Publication</button>
 
         <div id="dialog" title="Nouvelle Publication">
 
 
-            <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+            <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#home">Message</a></li>
                     <li><a data-toggle="tab" href="#menu1">Tutorat</a></li>
@@ -87,7 +71,7 @@ if($key){
 
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
-                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
                             <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
@@ -97,11 +81,11 @@ if($key){
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="4">
-                            <input type="submit" class="btn btn-primary" value="Enovyer"></input>
+                            <input type="submit" class="btn btn-primary" value="Envoyer"></input>
                         </form>
                     </div>
                     <div id="menu1" class="tab-pane fade">
-                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
                             <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
@@ -115,11 +99,11 @@ if($key){
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="1">
-                            <input type="submit" class="btn btn-primary" value="Envoyer"></input>
+                            <input type="submit" class="btn btn-primary" value="Envoyer">
                         </form>
                     </div>
                     <div id="menu2" class="tab-pane fade">
-                        <form action="../ajouterPublicationAmi/<?php echo $data2; ?>" method="post">
+                        <form action="../ajouterPublication/<?php echo $data2; ?>" method="post">
                             <br><br>
                             <div class="form-group">
                                 <input name="titre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre">
@@ -133,67 +117,96 @@ if($key){
                                 <textarea name="publications" class="form-control" id="exampleTextarea"  placeholder="Texte" rows="3"></textarea>
                             </div>
                             <input type="hidden" name="typePub" value="2">
-                            <input type="submit" class="btn btn-primary" value="Envoyer"></input>
+                            <input type="submit" class="btn btn-primary" value="Envoyer">
                         </form>
                     </div>
                 </div>
             </form>
         </div>
-
+<div id="publications">
         <?php
     foreach($data["publication_ami"] as $publication) {
     ?>
         <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+            <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
 
+            <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+            <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
 
-            <p><?php echo $publication->texte?></p>
-            <p> <?php //echo $publication->url ?> </p>
+            <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active"><br>
+                            <div class="form-group">
+                                <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                <p><?php echo $publication->texte ?></p>
+                                <p><?php echo $publication->url   ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-            <img src="<?php echo path?>templates/images/suivre.png"   width="20" height="20">&nbsp;</img><a class="droite" href="../afficherPubliDetail/<?php echo $publication->id ?>">Suivre</a>
-            <img src="<?php echo path?>templates/images/partager.png" width="20" height="20">&nbsp;</img><a class="droite" href="#">Partager</a>
-            <img src="<?php echo path?>templates/images/evaluer.png"  width="20" height="20">&nbsp;</img><a href="../afficherEvaluation/<?php  echo $publication->id; ?>">Évaluer</a>
+            <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active"><br>
+                            <div class="form-group">
+                                <textarea name="evaluations"></textarea>
+                                <input type="number" name="note" id="note" min="0" max="5" value="0">
+                            </div>
+                            <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                            foreach ($data["amis"] as $ami) {
+                                echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                            }
+                            ?>
+										</select>-->
+                            <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                            <input type="submit" class="btn btn-primary"></input>
+                        </div>
+                    </div>
+                    <div class="notes"></div>
+                </form>
+            </div>
+
         </div>
-    </article></section>
+
     <?php
     }
-    }
-    if(isset($data["utilisateur_ami"])){
-    echo "<h1>Amis</h1>";
-    foreach ($data["utilisateur_ami"] as $utilisateur) {
-    if($utilisateur->courriel == $_SESSION['courriel']){
-    echo "<a href='".path."client/espace/$utilisateur->courriel'>".$utilisateur->courriel."</a><br>";
+    ?>
+</div>
+     <?php
 
-    }else{
-    echo "<a href=../ami/$utilisateur->courriel>".$utilisateur->courriel."</a><br>";
-    }
-
-    }
-
-    }
 
 
     }
 
 
     ?>
-<script>
-    $( function() {
-        $( "#dialog" ).dialog({
-            width: 500,
-            autoOpen: false,
-            position: { my: "center", at: "top" },
-            show: {
-                effect: "clip",
-                duration: 1000
-            },
-            hide: {
-                effect: "drop",
-                duration: 1000
-            }
-        });
+ </article>
+ <article class="rightbar">
 
-        $( "#opener" ).on( "click", function() {
-            $( "#dialog" ).dialog( "open" );
-        });
-    } );
-</script>
+
+ <?php
+ }
+ if(isset($data["utilisateur_ami"])){
+ echo "<h5>Amis</h5>";
+ foreach ($data["utilisateur_ami"] as $utilisateur) {
+ if($utilisateur->courriel == $_SESSION['courriel']){
+ echo "<a href='".path."client/espace/$utilisateur->courriel'>".$utilisateur->courriel."</a><br>";
+
+ }else{
+ echo "<a href=../ami/$utilisateur->courriel>".$utilisateur->courriel."</a><br>";
+ }
+
+ }
+
+ }
+
+ ?>
+ </article>
+</section>
+ <script type="text/javascript" src="<?php echo path; ?>templates/js/dialog.js"></script>

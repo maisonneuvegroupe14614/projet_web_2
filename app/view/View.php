@@ -9,31 +9,18 @@
 
 
 class View {
-    public function load ($view, $data=null, $data2=null , $header=null, $sidebar=null, $footer=null) {
-        if(!is_null($header)) {
-            require "templates/".$header.".php";
-        } else {
+    public function load ($view, $data=null, $data2=null , $sidebar=null) {
+        if(is_null($sidebar)) {
             require "templates/common/header.php";
-        }
-
-        if(!is_null($sidebar)) {
-            require "templates/".$sidebar.".php";
-        }
-
-        require "templates/".$view.".php";
-
-        if(!is_null($footer)) {
-            require "templates/".$footer.".php";
-        } else {
-            require "templates/common/footer.php";
-        }
-
-    }
-
-    public function loadWithSidebar ($view, $data=null, $data2=null, $sidebar) {
-            require "templates/common/header.php";
-            require "templates/".$sidebar.".php";
             require "templates/".$view.".php";
             require "templates/common/footer.php";
+        } else {
+            require "templates/common/header.php";
+            require "templates/common/".$sidebar.".php";
+            require "templates/".$view.".php";
+            require "templates/common/footer.php";
+        }
+
     }
+
 }

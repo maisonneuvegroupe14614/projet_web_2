@@ -66,7 +66,6 @@ class Publication {
 
     public static function find_etudiant_tutorats ($courriel) {
         self::initialiserDB();
-        /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
         self::$database->query("SELECT * from publication  
                 JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
                 JOIN ami ON publication.courrielUtil = ami.courrielUtil
@@ -77,9 +76,20 @@ class Publication {
         return self::$database->liste("Publication");
     }
 
+    public static function find_etudiant_messages ($courriel) {
+        self::initialiserDB();
+        self::$database->query("SELECT * from publication  
+                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
+                JOIN ami ON publication.courrielUtil = ami.courrielUtil
+                WHERE ami.courrielAmi='$courriel' 
+                AND publication.idCategorie = 4 or 
+                ( publication.idCategorie = 4)group by publication.id DESC "
+        );
+        return self::$database->liste("Publication");
+    }
+
     public static function find_etudiant_astuces ($courriel) {
         self::initialiserDB();
-        /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
         self::$database->query("SELECT * from publication  
                 JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
                 JOIN ami ON publication.courrielUtil = ami.courrielUtil
@@ -94,5 +104,15 @@ class Publication {
         self::initialiserDB();
         self::$database->query('SELECT * from Publication where idCategorie = 1');
         return self::$database->liste("Publication");
+    }
+
+    public static function quizFait ($courrielUtil,$idQuiz,$note) {
+        self::initialiserDB();
+        self::$database->query(" INSERT INTO QuizFait (courrielUtil, idQuiz, note)
+          values (:courrielUtil, :idQuiz, :note)");
+        self::$database->bind(':courrielUtil', $courrielUtil);
+        self::$database->bind(':idQuiz', $idQuiz);
+        self::$database->bind(':note', $note);
+        self::$database->execute();
     }
 }

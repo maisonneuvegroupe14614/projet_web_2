@@ -6,43 +6,71 @@
 	margin: 0 0 0 0;
 }
 
+.glyphicon span
+{
+	display: none;
+}
+
 #notificationResult {
 	margin-left:20px;
-	padding:20px;
+	padding:10px;
+}
+
+#notificationMessage {
+	width:140px;
+}
+
+#notificationAstuce {
+	width:140px;
+}
+
+#notificationTutorat {
+	width:140px;
+}
+
+.nav-tabs {
+	position: absolute;
+	z-index: 1;
+	width: 38%;
+	height: 66.5%;
+	left: 35%;
+}
+
+.titre {
+	margin-left: 20px;
+	margin-top:-20px;
+}
+
+.textcenter {
+	margin-left:20%;
 }
 
 #notificationResult .btn {
 	margin:5px;
 }
 
-#demandes_recu{
-	margin-left:45px;
-
+#demandes_recu .btn {
+	width:140px;
+	margin-left:35px;
 }
 
 .creer_pub {
-	margin-left:150px;
+	margin-left:38%;
 }
 
 .center {
 	float:left;
 	height:auto;
+	width:50%;
 }
-
-.highlight {
-	position:absolute;
-	top:10px;
-}
-
-.highlight2{
-	background-color: #5cb85c;
-	color:black;
+.btn_amis {
+	float:right;
 }
 
 
-.ui-icon { display: none; }
-
-
+.badge {
+	float:right;
+}
 
 @font-face
 {
@@ -62,7 +90,7 @@
 	margin: auto auto;
 }
 
-/* Style de l'en-t�te */
+/* Style de l'en-tête */
 header
 {
 	position: absolute;
@@ -109,7 +137,7 @@ section #hamburger
 
 #menu
 {
-	margin-left: 18px; 								/* + D�place tout le menu vers la droite */
+	margin-left: 18px; 								/* + Déplace tout le menu vers la droite */
 }
 
 #menu li 
@@ -230,7 +258,7 @@ section #hamburger
 
 #menu li:hover > ul { opacity: 1; }
 
-/* Le sous-menu est initialement cach�  */
+/* Le sous-menu est initialement caché  */
 #menu ul li 
 {
 	/*  height: 0;  */
@@ -240,12 +268,12 @@ section #hamburger
 }
 
 
-/* En cas de survol d'un �l�ment du menu */
+/* En cas de survol d'un élément du menu */
 #menu li:hover > ul li 
 {
 	height: 50px;
 	
-	display:block;  /* On obtient le m�me effet avec:  overflow: visible;  */
+	display:block;  /* On obtient le même effet avec:  overflow: visible;  */
 	padding: 0;
 }
 
@@ -261,7 +289,7 @@ section #hamburger
 }
 
 
-/* Pas de soulignement du dernier �l�ment du sous-menu   */
+/* Pas de soulignement du dernier élément du sous-menu   */
 #menu ul li:last-child a { border: none; }
 
 #menu ul li:last-child a:hover
@@ -291,11 +319,11 @@ section #hamburger
 	z-index: 0;
 	margin: auto auto;
 	width: 94%;
-	height: 1100px;
-	background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
-	background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
-	background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
-	background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+	min-height: 800px;
+	background: #91C4DC; /* Pour les navigateurs qui ne supportent pas les gradients */
+	background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 à 6.0 */
+	background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 à 12.0 */
+	background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 à 15 */
 	background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
 }
 
@@ -304,6 +332,7 @@ section #hamburger
 	margin-left: -20px;
 	width: 26%;
 	float: left;
+	margin-top:15px;
 }
 
 #menu-gauche ul li
@@ -331,7 +360,6 @@ section #hamburger
 	position: absolute;
 	z-index: 1;
 	width: 35%;
-	height: 800px;
 	left: 32%;
 	overflow: scroll;
 }
@@ -352,13 +380,19 @@ section #hamburger
 
 .droite
 {
+	cursor: pointer;
 	margin-right: 17%;
+}
+
+.droite:hover
+{
+	text-decoration: none;
 }
 
 .centre
 {
-	margin-top: -40px;
-	margin-left: 45%;
+	margin-top: -44px;
+	margin-left: 40%;
 	-webkit-transform: rotate(-20deg);
     -moz-transform: rotate(-20deg);
     -o-transform: rotate(-20deg);
@@ -450,14 +484,22 @@ footer section a:nth-child(2)
 footer section a:nth-child(5)
 {
 	margin-left: 30%;
-	margin-right: 280px;
+	margin-right: 282px;
 }
 
 footer section a
 {
-	text-decoration: none;
 	color: #7c3840;
 	margin-right: 300px;
+	font-size: 11pt;
+	transition: font-size 0.75s;
+}
+
+footer section a:hover
+{
+	text-decoration: none;
+	color: #7c3840;
+	font-size: 12pt;
 }
 
 footer p
@@ -474,14 +516,15 @@ footer p
 /*************************************
  * Style de la page d'inscription    *
  *************************************/
-#section_inscription
-{
-	padding-top: 170px;
-}
  
-section>div:first-child
+section>h1:nth-child(3)
 {
-	padding-top: 170px;
+	margin-top: -35px;
+	text-align: center;
+	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	font-weight: bold;
+	color: #1A3A49;
 }
  
 .bs-callout-warning
@@ -501,7 +544,7 @@ section>div:first-child
 
 form label
 {
-	display:inline-block;
+	display: inline-block;
 	width: 350px;
 	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
 	font-size: 22pt;
@@ -519,14 +562,8 @@ form input
 	/*box-shadow: 6px 6px 6px 1px lightgrey inset;*/
 }
 
-select
+button:nth-child(40)
 {
-	font-size: 16pt;
-}
-
-button:nth-child(37)
-{
-	float: right;
 	width: 300px;
 	height: 45px;
 	border-radius: 5px;
@@ -536,6 +573,8 @@ button:nth-child(37)
 	background-color: #1A3A49;
 	border: 2px solid #51A2C8;
 	color: #91C4DC;
+	display: block;
+	margin: auto auto;
 }
 
 
@@ -546,9 +585,65 @@ button:nth-child(37)
 /*******************************
  * Style de la page login      *
  *******************************/
-button:nth-child(10)
+button:nth-child(10), #bouton_inscription
 {
-	float: right;
+	display: block;
+	margin: auto auto;
+	width: 300px;
+	height: 45px;
+	border-radius: 5px;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	font-size: 17pt;
+	font-weight: bold;
+	background-color: #1A3A49;
+	border: 2px solid #51A2C8;
+	color: #91C4DC;
+	text-align: center;
+	text-decoration: none;
+	line-height: 42px;
+}
+
+#choix_acces
+{
+	font-weight: bold;
+	font-size: 20pt;
+	color: #1A3A49;
+	text-align: center;
+}
+
+section>h1:nth-child(3)
+{
+	padding-top: 170px;
+	text-align: center;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	font-weight: bold;
+	color: #1A3A49;
+}
+
+
+
+
+
+
+
+/***********************************
+ * Style de la Boîte de réception  *
+ ***********************************/
+section>h1:first-child
+{
+	padding-top: 170px;
+	text-align: center;
+	font-family: menu_titres_articles_1, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	font-weight: bold;
+	color: #1A3A49;
+}
+ 
+#bouton_reception
+{
+	display: block;
+	margin-top: 15px;
 	width: 300px;
 	height: 45px;
 	border-radius: 5px;
@@ -560,23 +655,37 @@ button:nth-child(10)
 	color: #91C4DC;
 }
 
-section h1
+#form_reception
 {
-	padding-top: 100px;
-	text-align: center;
+	margin-left: 37%;
 	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
 	font-size: 22pt;
 	color: #1A3A49;
-	margin-top: 100px;
+}
+
+#courrielAmi
+{
+	width: 373px;
+	font-family: menu_titres_articles_2, "Times New Roman", Arial, Verdana;
+	font-size: 22pt;
+	color: #1A3A49;
+	border: 2px solid #1A3A49;
+	border-radius: 5px;
+}
+
+#messages
+{
+	width: 373px;
+	border: 2px solid #1A3A49;
+	border-radius: 5px;
 }
 
 
 
 
 
-
 /*****************
- * Adaptativit�  *
+ * Adaptativité  *
  *****************/
 @media screen and (min-resolution: 97dpi)
 {
@@ -588,6 +697,11 @@ section h1
 
 @media screen and (min-width: 769px) and (max-width: 1366px)
 {
+	.glyphicon span
+	{
+		display: none;
+	}
+	
 	#conteneur
 	{
 		width: 1001px;
@@ -636,7 +750,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: 14px; 								/* + D�place tout le menu vers la droite */
+		margin-left: 14px; 								/* + Déplace tout le menu vers la droite */
 	}
 
 	#menu li 
@@ -676,7 +790,7 @@ section h1
 				border-radius: 2.5px 2.5px 2.5px 2.5px;
 	}
 	
-	/* En cas de survol d'un �l�ment du menu */
+	/* En cas de survol d'un élément du menu */
 	#menu li:hover > ul li 
 	{
 		height: 35.5px;
@@ -731,7 +845,6 @@ section h1
 		width: 38%;
 		height: 66.5%;
 		left: 31.5%;
-		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
@@ -781,7 +894,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(37)
+	button:nth-child(10), button:nth-child(40)
 	{
 		width: 213.4px;
 		height: 32px;
@@ -833,6 +946,11 @@ section h1
 /* Tablettes orientation portrait*/
 @media screen and (min-width: 737px) and (max-width: 1024px) and (orientation : portrait)
 {
+	.glyphicon span
+	{
+		display: none;
+	}
+	
 	#conteneur
 	{
 		width: 750px;
@@ -844,9 +962,9 @@ section h1
 		height: 820px;
 		
 		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
-		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
-		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
-		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 à 6.0 */
+		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 à 12.0 */
+		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 à 15 */
 		background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
 	}
 	
@@ -924,7 +1042,7 @@ section h1
 				border-radius: 2.5px 2.5px 2.5px 2.5px;
 	}
 	
-	/* En cas de survol d'un �l�ment du menu */
+	/* En cas de survol d'un élément du menu */
 	#menu li:hover > ul li 
 	{
 		height: 30.4px;
@@ -979,7 +1097,6 @@ section h1
 		width: 55%;
 		height: 66.5%;
 		left: 26%;
-		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
@@ -1030,7 +1147,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(37)
+	button:nth-child(10), button:nth-child(40)
 	{
 		width: 160px;
 		height: 27px;
@@ -1080,13 +1197,17 @@ section h1
 	
 	body
 	{
-		overflow: hidden;
+		/*overflow: hidden;*/
 	}
 }
 
 /* Tablettes orientation paysage*/
 @media screen and (min-width: 737px) and (max-width: 1024px) and (max-height: 768px) and (orientation : landscape)
 {
+	.glyphicon span
+	{
+		display: none;
+	}
 	
 	#conteneur
 	{
@@ -1099,9 +1220,9 @@ section h1
 		height: 800px;
 		
 		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
-		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
-		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
-		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 à 6.0 */
+		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 à 12.0 */
+		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 à 15 */
 		background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
 	}
 	
@@ -1128,7 +1249,7 @@ section h1
 		height: 40.5px;
 		margin-top: -37px;
 		margin-right: -10px; 							/* + Augmente la largeur du sous menu vide */
-		margin-left: 101px; 								/* + D�place le hamburger vers la droite */
+		margin-left: 101px; 								/* + Déplace le hamburger vers la droite */
 	}
 	
 	
@@ -1136,7 +1257,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: 48px; 								/* + D�place tout le menu vers la droite */
+		margin-left: 48px; 								/* + Déplace tout le menu vers la droite */
 	}
 	
 	#menu li 
@@ -1176,7 +1297,7 @@ section h1
 				border-radius: 2.5px 2.5px 2.5px 2.5px;
 	}
 	
-	/* En cas de survol d'un �l�ment du menu */
+	/* En cas de survol d'un élément du menu */
 	#menu li:hover > ul li 
 	{
 		height: 30.4px;
@@ -1228,7 +1349,6 @@ section h1
 		width: 55%;
 		height: 66.5%;
 		left: 26%;
-		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
@@ -1279,7 +1399,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(37)
+	button:nth-child(10), button:nth-child(40)
 	{
 		width: 160px;
 		height: 27px;
@@ -1327,13 +1447,13 @@ section h1
 	
 	body
 	{
-		overflow: hidden;
+		/*overflow: hidden;*/
 	}
 }
 
 /* Cellulaires orientation portrait*/
 @media screen and (min-width: 320px) and (max-width: 736px) and (orientation : portrait)
-{
+{	
 	#conteneur
 	{
 		width: 365px;
@@ -1345,9 +1465,9 @@ section h1
 		height: 750px;
 		
 		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
-		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
-		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
-		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 à 6.0 */
+		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 à 12.0 */
+		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 à 15 */
 		background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
 	}
 	
@@ -1377,8 +1497,8 @@ section h1
 		width: 38.4px;
 		height: 40.5px;
 		margin-top: -38px;
-		margin-right: 42px; 							/* + Augmente la largeur du sous menu vide */
-		margin-left: 35px; 								/* + D�place le hamburger vers la droite */
+		margin-right: 28px; 							/* + Augmente la largeur du sous menu vide */
+		margin-left: 65px; 								/* + Déplace le hamburger vers la droite */
 	}
 	
 	
@@ -1386,7 +1506,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: -50px; 								/* + D�place tout le menu vers la droite */
+		margin-left: -67px; 								/* + Déplace tout le menu vers la droite */
 	}
 	
 	#menu li 
@@ -1411,7 +1531,7 @@ section h1
 	#menu-principal>ul >li:last-child a[class="actif"],
 	#menu li:hover > a
 	{
-		height: 32px;
+		height: 31.5px;
 	}
 	
 	/* Sous Menu */
@@ -1426,7 +1546,7 @@ section h1
 				border-radius: 2.5px 2.5px 2.5px 2.5px;
 	}
 	
-	/* En cas de survol d'un �l�ment du menu */
+	/* En cas de survol d'un élément du menu */
 	#menu li:hover > ul li 
 	{
 		height: 30.4px;
@@ -1435,7 +1555,7 @@ section h1
 	/*  Apparence du sous-menu    */
 	#menu ul li a 
 	{
-		width: 135px;							/* + Augmente la largeur du premier lien du sous menu */
+		width: 150px;							/* + Augmente la largeur du premier lien du sous menu */
 		padding: 2.4px 0 2.4px 10.6px;
 		border: 1px solid #51A2C8;
 	}
@@ -1460,8 +1580,8 @@ section h1
 	
 	#menu-gauche
 	{
-		margin-top: -50px;
-		margin-left: 50px;
+		margin-top: -90px;
+		margin-left: 0px;
 		width: 90%;
 		height: 60px;
 		/*border: solid 1px black;*/
@@ -1496,12 +1616,44 @@ section h1
 		font-size: 14.2pt;
 	}
 	
+	.glyphicon
+	{
+		position: relative;
+		z-index: 4;
+	}
+ 
+	.glyphicon:hover
+	{
+		z-index: 5;
+	}
+ 
+	.glyphicon span
+	{
+		display: none
+	}
+	
+	.glyphicon:hover span
+	{
+		display: block;
+		position: absolute;
+		top: -25px; left: -25px; width: 170px;
+		color: #7c3840;
+		text-align: left;
+		font-weight: bold;
+	}
+	
+	/* publications */
+	#opener
+	{
+		position: relative;
+		top: 100px;
+	}
+	
 	#publications
 	{
 		width: 98%;
 		height: 66.5%;
 		left: 0%;
-		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
@@ -1579,7 +1731,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(37)
+	button:nth-child(10), button:nth-child(40)
 	{
 		width: 160px;
 		height: 27px;
@@ -1637,7 +1789,7 @@ section h1
 
 /* Cellulaires orientation paysage*/
 @media screen and (min-width: 320px) and (max-width: 736px) and (max-height: 320px) and (orientation : landscape)
-{
+{	
 	#conteneur
 	{
 		width: 650px;
@@ -1649,9 +1801,9 @@ section h1
 		height: 750px;
 		
 		background: red; /* Pour les navigateurs qui ne supportent pas les gradients */
-		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 � 6.0 */
-		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 � 12.0 */
-		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 � 15 */
+		background: -webkit-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Safari 5.1 à 6.0 */
+		background: -o-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Opera 11.1 à 12.0 */
+		background: -moz-linear-gradient(#91C4DC, white, #91C4DC); /* Pour Firefox 3.6 à 15 */
 		background: linear-gradient(#91C4DC, white, #91C4DC); /* Syntaxe standard */
 	}
 	
@@ -1681,8 +1833,8 @@ section h1
 		width: 38.4px;
 		height: 40.5px;
 		margin-top: -38px;
-		margin-right: 42px; 							/* + Augmente la largeur du sous menu vide */
-		margin-left: 35px; 								/* + D�place le hamburger vers la droite */
+		margin-right: 30px; 							/* + Augmente la largeur du sous menu vide */
+		margin-left: 65px; 								/* + Déplace le hamburger vers la droite */
 	}
 	
 	
@@ -1690,7 +1842,7 @@ section h1
 	/* Menu principal*/
 	#menu
 	{
-		margin-left: 14px; 								/* + D�place tout le menu vers la droite */
+		margin-left: -5px; 								/* + Déplace tout le menu vers la droite */
 	}
 	
 	#menu li 
@@ -1730,7 +1882,7 @@ section h1
 				border-radius: 2.5px 2.5px 2.5px 2.5px;
 	}
 	
-	/* En cas de survol d'un �l�ment du menu */
+	/* En cas de survol d'un élément du menu */
 	#menu li:hover > ul li 
 	{
 		height: 30.4px;
@@ -1739,7 +1891,7 @@ section h1
 	/*  Apparence du sous-menu    */
 	#menu ul li a 
 	{
-		width: 135px;							/* + Augmente la largeur du premier lien du sous menu */
+		width: 153px;							/* + Augmente la largeur du premier lien du sous menu */
 		padding: 2.4px 0 2.4px 10.6px;
 		border: 1px solid #51A2C8;
 	}
@@ -1764,11 +1916,11 @@ section h1
 	
 	#menu-gauche
 	{
-		margin-top: -50px;
-		margin-left: 180px;
+		position: relative;
+		top: -100px;
+		margin-left: 30px;
 		width: 90%;
 		height: 400px;
-		overflow:scroll;
 		/*border: solid 1px black;*/
 		float: initial;
 	}
@@ -1801,12 +1953,44 @@ section h1
 		font-size: 14.2pt;
 	}
 	
+	.glyphicon
+	{
+		position: relative;
+		z-index: 4;
+	}
+ 
+	.glyphicon:hover
+	{
+		z-index: 5;
+	}
+ 
+	.glyphicon span
+	{
+		display: none
+	}
+	
+	.glyphicon:hover span
+	{
+		display: block;
+		position: absolute;
+		top: -25px; left: -25px; width: 170px;
+		color: #7c3840;
+		text-align: left;
+		font-weight: bold;
+	}
+	
+	/* publications */
+	#opener
+	{
+		position: relative;
+		top: 100px;
+	}
+	
 	#publications
 	{
 		width: 98%;
 		height: 66.5%;
 		left: 0%;
-		overflow: scroll;
 		/*border: solid 1px black;*/
 	}
 	
@@ -1884,7 +2068,7 @@ section h1
 		border: 1px solid #1A3A49;
 	}
 	
-	button:nth-child(10), button:nth-child(37)
+	button:nth-child(10), button:nth-child(40)
 	{
 		width: 160px;
 		height: 27px;

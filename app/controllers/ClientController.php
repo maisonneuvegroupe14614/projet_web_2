@@ -126,7 +126,7 @@ class ClientController extends Controller {
      */
     public function desinscription () {
         Utilisateur::desinscription($_SESSION["courriel"]);
-        $this->logout();
+        session_destroy();
     }
 
     /**
@@ -155,7 +155,7 @@ class ClientController extends Controller {
             $data["publication"] = Publication::find($_SESSION["courriel"]);
             $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
             $data2=$param = $this->request->getParam();
-            return $this->view->load('espace/index', $data, $data2);
+            return $this->view->load('espace/index', $data, $data2, 'sidebar');
         } else {
             header("Location:identification");
         }
@@ -175,7 +175,18 @@ class ClientController extends Controller {
         $data["publication"] = Publication::find_etudiant_tutorats($_SESSION["courriel"]);
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('espace/index', $data);
+            $this->view->load('espace/index', $data, $data2=null, 'sidebar');
+        } else {
+            header("Location:identification");
+        }
+    }
+
+    public function messages() {
+        $data["demandes_recu"] = Utilisateur::demande_recu($_SESSION["courriel"]);
+        $data["publication"] = Publication::find_etudiant_messages($_SESSION["courriel"]);
+        $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
+        if (isset($_SESSION["courriel"])) {
+            $this->view->load('espace/index', $data, $data2=null, 'sidebar');
         } else {
             header("Location:identification");
         }
@@ -186,7 +197,7 @@ class ClientController extends Controller {
         $data["publication"] = Publication::find_etudiant_astuces($_SESSION["courriel"]);
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('espace/index', $data);
+            $this->view->load('espace/index', $data, $data2=null, 'sidebar');
         } else {
             header("Location:identification");
         }
@@ -197,7 +208,7 @@ class ClientController extends Controller {
         $data["utilisateur"] = Utilisateur::listeAmis($_SESSION['courriel']);
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('espace/index', $data);
+            $this->view->load('mes_amis/index', $data, $data2=null, 'sidebar');
         } else {
             header("Location:identification");
         }
@@ -209,6 +220,7 @@ class ClientController extends Controller {
         $data["nom_utilisateur"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         $data["publication_ami"] = Publication::find($this->request->getParam());
         $data["utilisateur_ami"] = Utilisateur::listeAmis($this->request->getParam());
+        $data["user"] = Utilisateur::find($this->request->getParam());
         $data["courriel_xx"] = $this->request->getParam();
         $data2 = $this->request->getParam();
         $list_demande = Utilisateur::all_demande();
@@ -224,7 +236,7 @@ class ClientController extends Controller {
             }
         }
         if (isset($_SESSION["courriel"])) {
-            $this->view->load('ami/index', $data, $data2);
+            $this->view->load('ami/index', $data, $data2, 'sidebar');
         } else {
             header("Location:identification");
         }
@@ -308,7 +320,7 @@ class ClientController extends Controller {
      * @return mixed
      */
     public function afficherAjouterQuiz () {
-        return $this->view->load('quiz/afficherAjouter');
+        return $this->view->load('quiz/afficherAjouter', $data=null, $data2=null, 'sidebar');
     }
 
     public function ajouterQuiz () {
@@ -330,7 +342,7 @@ class ClientController extends Controller {
 
     public function afficherQuizUtilisateur () {
         $data["quiz"] = Publication::allQuiz();
-        $this->view->load("quiz/afficherQuizUtilisateur",$data);
+        $this->view->load("quiz/afficherQuizUtilisateur",$data, $data2=null, 'sidebar');
     }
 
     public function afficherQuizById () {
@@ -338,7 +350,7 @@ class ClientController extends Controller {
         $data["quiz"] = Publication::findQuiz($param);
         $data["question"] = Question::find($param);
         $data["choix"] = Question::allChoix($param);
-        $this->view->load("quiz/afficherQuizById", $data);
+        $this->view->load("quiz/afficherQuizById", $data, $param, 'sidebar');
 //        echo "<pre>".print_r($data,true)."</pre>";
     }
 
@@ -355,20 +367,20 @@ class ClientController extends Controller {
 
     public function afficherMessage () {
         $param = $this->request->getParam();
-        $data["message"] = Message::find($param);
-        $this->view->load('message/index',$data,$param);
+        $data["amis"] = Utilisateur::listeAmis($_SESSION['courriel']);
+        $this->view->load('message/index',$data,$param, 'sidebar');
     }
 
     public function afficherPartage () {
         $param = $this->request->getParam();
         $data["partage"] = Partage::find($param);
-        $this->view->load('partage/index',$data,$param);
+        $this->view->load('partage/index',$data,$param,'sidebar');
     }
 
     public function afficherPubliDetail () {
         $param = $this->request->getParam();
         $data["publiDetail"] = PubliDetail::find($param);
-        $this->view->load('publiDetail/index',$data,$param);
+        $this->view->load('publiDetail/index',$data,$param,'sidebar');
     }
 
     public function testAllMessages () {
@@ -420,6 +432,16 @@ class ClientController extends Controller {
     public function findEvaluation () {
         $data["evaluation"] = Evaluation::find($_POST["id"]);
         echo json_encode($data);
+    }
+
+    public function findMessage () {
+        $data["message"] = Message::find($_POST["courrielAmi"],$_SESSION["courriel"]);
+        echo json_encode($data);
+    }
+
+    public function scoreQuiz () {
+        Publication::quizFait($_SESSION["courriel"],$_POST["idQuiz"],$_POST["score"]);
+        echo "success";
     }
 
 

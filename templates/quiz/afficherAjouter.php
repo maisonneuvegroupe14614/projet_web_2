@@ -1,41 +1,4 @@
-<section>
-    <p id="util"><?php
-
-        echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
-
-
-        ?></p>
-<nav id="menu-gauche"><br><br><br>
-
-    <ul>
-        <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
-        <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz">Quiz</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
-    </ul>
-
-    <div id="notificationResult"></div>
-
-    <div>
-        <h4> demandes reçus  </h4>
-
-        <?php
-        foreach ($data['demandes_recu'] as $demande) {
-            echo '<form action="'.path.'client/accepte_ami" method="post">'.$demande->courrielUtil.'
-                        <button name="accepte_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Accepté</button>
-                        <button name="refuse_ami" type="submit"  value="'.$demande->courrielUtil.' "  >Refusé</button>
-                        </form>';
-        }
-        ?>
-
-
-
-
-    </div>
-
-</nav>
-<section>
+<article>
 <div id="success"></div>
 <div class="row">
     <form id="form1">
@@ -52,7 +15,7 @@
     </div>
     </form>
 </div>
-</section>
+</article>
 </section>
     <script>
     var count=0;
@@ -66,7 +29,7 @@
             "<div id=div"+count+"><div class='form-group'><div class='input-group'><input placeholder='Choix"+1+"'  " +
             "data-choix=1 class='choixReponse form-control' data-parsley-required-message='Vous devez renseigner le Choix 1 de la Question "+count+"' data-parsley-errors-container='#erreurs' data-parsley-required='true' data-question="+count+" type=text>" +
             "<span class='input-group-addon'><input class='checkboxReponses form-check-input' data-question=" +
-            "'"+count+"' data-choix='1' name='reponseQ"+count+"[]' data-parsley-multiple='reponseQ"+count+"' data-parsley-required-message='Vous devez cocher au moins une reponse a la Question"+count+"' data-parsley-errors-container='#erreurs' data-parsley-required='true' type='checkbox'></span></div></div></div>";
+            "'"+count+"' data-choix='1' name='reponseQ"+count+"[]' data-parsley-multiple='reponseQ"+count+"' data-parsley-required-message='Vous devez cocher au moins une reponse a la Question"+count+"' data-parsley-errors-container='#erreurs' data-parsley-required='true' type='radio'></span></div></div></div>";
 
         if($('.btnChoix').parent().next("div").length==0) {
             $('#results').html(htmlString);
@@ -89,7 +52,7 @@
                 (numeroChoix+1)+"' class='choixReponse form-control' data-parsley-required-message='Vous devez renseigner le Choix "+ parseInt(numeroChoix+1)+" de la Question "+noQuestion+"' data-parsley-errors-container='#erreurs' data-parsley-required='true' data-question='"+noQuestion+"' " +
                 "data-choix='"+parseInt(numeroChoix+1)+"' type='text'><span class='input-group-addon'><input " +
                 "class='checkboxReponses form-check-input' data-choix='"+ parseInt(numeroChoix+1)+"' data-question" +
-                "='"+noQuestion+"' name='reponseQ"+noQuestion+"[]' data-parsley-required='true' data-parsley-multiple='reponseQ"+noQuestion+"' data-parsley-required-message='Vous devez cocher au moins une reponse a la Question"+noQuestion+"' type='checkbox'></span></div></div>";
+                "='"+noQuestion+"' name='reponseQ"+noQuestion+"[]' data-parsley-required='true' data-parsley-multiple='reponseQ"+noQuestion+"' data-parsley-required-message='Vous devez cocher au moins une reponse a la Question"+noQuestion+"' type='radio'></span></div></div>";
 
             $('#div'+$(event.target).val()).append(htmlString);
         }

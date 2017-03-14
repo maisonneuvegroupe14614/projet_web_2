@@ -13,18 +13,19 @@ class Message {
         return self::$database->liste("Message");
     }
 
-    public static function find ($courriel) {
+    public static function find ($courrielAmi,$courrielUtil) {
         self::initialiserDB();
         self::$database->query("SELECT id, sujet, texte, url, dateCreation, courrielUtil, courrielAmi,
-          IF(courrielUtil='$courriel',courrielUtil,courrielAmi)  AS cUtil,
-          IF(courrielUtil='$courriel',courrielAmi ,courrielUtil) AS cAmi
-          FROM  Message
-          WHERE courrielUtil='$courriel' OR courrielAmi='$courriel'
-          ORDER BY cAmi, dateCreation DESC");
+          IF(courrielUtil='$courrielUtil',courrielUtil,courrielAmi)  AS cUtil,
+          IF(courrielUtil='$courrielUtil',courrielAmi ,courrielUtil) AS cAmi
+          FROM   Message
+          WHERE (courrielUtil='$courrielUtil' AND courrielAmi='$courrielAmi')
+          OR    (courrielUtil='$courrielAmi'  AND courrielAmi='$courrielUtil')
+          ORDER  BY cAmi, dateCreation DESC");
         return self::$database->liste("Message");
     }
-	
-	public static function enregistrer ($sujet,$texte,$url,$courrielUtil,$courrielAmi) {
+
+    public static function enregistrer ($sujet,$texte,$url,$courrielUtil,$courrielAmi) {
         self::initialiserDB();
         self::$database->query("INSERT INTO Message (sujet, texte, url, courrielUtil, courrielAmi)
           values (:sujet, :texte, :url, :courrielUtil, :courrielAmi)");
