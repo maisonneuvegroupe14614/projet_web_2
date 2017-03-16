@@ -1,3 +1,6 @@
+/**
+ * Document Ready JQuery
+ */
 $( function() {
     $( "#dialog" ).dialog({
         width: 500,
@@ -108,6 +111,24 @@ $( function() {
             $( ".affichage[data-id=" + $(this).data('id') + "]").dialog( "open" );
         });
     });
+
+    $( ".glyphicon-remove" ).each(function() {
+        $(this).on("click", function(event) {
+            var target = $( event.target );
+            console.log(target.data("id"));
+            $.post({
+                url : path+'retirerPublication',
+                data: { id: target.data("id") },
+                success : function(resultat, statut){
+                    target.parent().remove();
+                },
+                error : function(resultat, statut, erreur){
+                    console.log(resultat+statut+erreur);
+                }
+            });
+        });
+    });
+
 });
 
 var x = document.querySelectorAll(".retirer_ami");

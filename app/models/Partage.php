@@ -1,18 +1,35 @@
 <?php
 
+/**
+ * Class Partage
+ */
 class Partage {
     static $database;
 
+    /**
+     * Initialiser la BD
+     */
     public static function initialiserDB () {
         self::$database = new Database();
     }
 
+    /**
+     * Trouver tous les partages
+     *
+     * @return mixed
+     */
     public static function all () {
         self::initialiserDB();
         self::$database->query("SELECT * from Partage");
         return self::$database->liste("Partage");
     }
 
+    /**
+     * Trouver un partage
+     *
+     * @param $courriel
+     * @return mixed
+     */
     public static function find ($courriel) {
         self::initialiserDB();
         self::$database->query("SELECT * from Partage WHERE courrielUtil='$courriel' ORDER BY dateCreation DESC");
@@ -31,7 +48,15 @@ class Partage {
     //OR  ((destinataire="ami"   OR      destinataire="autre")
     //                          AND    P.courrielAmi ="guy@hotmail.com")
     //ORDER BY dateCreation DESC
-	
+
+    /**
+     * Enregistrer un partage
+     *
+     * @param $destinataire
+     * @param $idPublication
+     * @param $courrielUtil
+     * @param $courrielAmi
+     */
     public static function enregistrer ($destinataire,$idPublication,$courrielUtil,$courrielAmi) {
         self::initialiserDB();
         self::$database->query("INSERT INTO Partage (destinataire, idPublication, courrielUtil, courrielAmi)

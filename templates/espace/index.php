@@ -88,6 +88,7 @@
             <?php
             foreach($data["publication"] as $publication) { ?>
                 <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                    <span class="glyphicon glyphicon-remove" data-id="<?php echo $publication->id; ?>" style="color:red"></span>
                     <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
 
                     <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
@@ -131,6 +132,8 @@
                             <div class="notes"></div>
                         </form>
                     </div>
+
+
 
                 </div>
             <?php } ?>

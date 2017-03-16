@@ -7,8 +7,18 @@
  * Time: 6:26 PM
  */
 
-
+/**
+ * Class View
+ */
 class View {
+    /**
+     * Chargement d'une vueß
+     *
+     * @param $view
+     * @param null $data
+     * @param null $data2
+     * @param null $sidebar
+     */
     public function load ($view, $data=null, $data2=null , $sidebar=null) {
         if(is_null($sidebar)) {
             require "templates/common/header.php";

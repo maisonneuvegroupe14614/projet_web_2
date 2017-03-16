@@ -1,44 +1,30 @@
-<section>
-<p id="util"><?php
-
-    echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
-
-
-    ?></p>
-<nav id="menu-gauche"><br><br><br>
-
-    <ul>
-        <li><img src="<?php echo path?>templates/images/amis_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/mes_amis">Mes amis</a></li>
-        <li><img src="<?php echo path?>templates/images/prof.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/tutorats">Tutorats</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/astuces">Astuces</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/afficherAjouterQuiz">Quiz</a></li>
-        <li><img src="<?php echo path?>templates/images/ampoule_rouge.png" width="30" height="30">&nbsp;<a href="<?php echo path?>client/espace/<?php echo $_SESSION['courriel']?>">Accueil</a></li>
-    </ul>
-
-
-</nav>
-<section>
-    <article id="note"></article>
+ <article id="note"></article>
     <form id="repondreFormulaire">
 <?php
 
 //echo "<pre>".print_r($data,true)."</pre>";
   foreach ($data["quiz"] as $quiz) {
-     echo $quiz->titre."<br><br>";
+     echo "<h3>".$quiz->titre."</h3>";
   }
 
   foreach ($data["question"] as $question) {
-      echo "Question <div class=questions>".$question->noQuestion." ".$question->question."</div><br>";
+      echo "<article class='questions choix'><b>Question ".$question->noQuestion." ".$question->question."</b></article><br>";
       foreach ($data["choix"] as $choix) {
           if($choix->idQuestion==$question->id) {
-              echo "<div class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
-                data-question='$choix->idQuestion'></div>".$choix->choix."<input class='checkbox' type='checkbox'>";
+              if($choix->reponse==1) {
+                  echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+                data-question='$choix->idQuestion'><mark>".$choix->choix."</mark><input class='checkbox' type='checkbox'></article></article>";
+              } else {
+                  echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+                data-question='$choix->idQuestion'>".$choix->choix."<input class='checkbox' type='checkbox'></article>";
+              }
+
           }
       }
   }
   ?>
     <input type="hidden" data-param="<?php echo $data2; ?>" id="param">
-    <input id="submit" type="submit">
+        <article class="choix"><button id="submit" class="btn btn-primary" type="submit">Envoyer</button></article>
     </form>
 
 </section>
@@ -54,7 +40,7 @@
         $('.checkbox').each( function(index) {
             var idQuiz;
             var checked = $(this).is(":checked");
-            var reponse = $(this).prev().data("reponse");
+            var reponse = $(this).parent().data("reponse");
             if(checked && reponse==1) {
                 bonneReponses++;
                 console.log("bonne reponse");

@@ -51,6 +51,10 @@ class Validation {
         return $this->data;
     }
 
+    /**
+     * @param $data
+     * @return $this
+     */
     public function setInput($data){ 
         $this->data = $data;
         $this->data  = trim($this->data);
@@ -60,10 +64,18 @@ class Validation {
         return $this;
     }
 
+    /**
+     * Validation constructor.
+     */
     public function __construct() {
         $this->setREGEX_ERROR();
         
     }
+
+    /**
+     * @param $alpha
+     * @return mixed
+     */
     public function validate_alpha($alpha) {
         $this->setInput($alpha);
         if (!preg_match($this->REGEX_ERROR['nom']['regex'],$this->data)) {
@@ -71,8 +83,11 @@ class Validation {
         }
         
         }
-        
-        
+
+    /**
+     * @param $password
+     * @return mixed
+     */
     public function validate_password($password) {
     $this->setInput($password);
     if (!preg_match($this->REGEX_ERROR['passe']['regex'],$this->data)) {
@@ -82,7 +97,10 @@ class Validation {
 
     }
 
-
+    /**
+     * @param $email
+     * @return mixed
+     */
     public function validate_email($email) {
     $this->setInput($email);
     if (!filter_var($this->data, FILTER_VALIDATE_EMAIL)) {

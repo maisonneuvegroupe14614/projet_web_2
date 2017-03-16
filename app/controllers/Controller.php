@@ -1,17 +1,17 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Michael
- * Date: 2017-02-13
- * Time: 6:26 PM
+ * Class Controller
  */
-
-
 class Controller {
     protected $view;
     protected $request;
 
+    /**
+     * Controller constructor.
+     * @param $view
+     * @param $request
+     */
     public function __construct($view,$request) {
        $this->view = $view;
        $this->request = $request;

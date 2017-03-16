@@ -6,8 +6,15 @@
  * Time: 11:04 AM
  */
 
+/**
+ * Class Request
+ */
 class Request {
     private $param;
+
+    /**
+     * Request constructor.
+     */
     public function __construct() {
         $url = $_SERVER['REQUEST_URI'];
 

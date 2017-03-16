@@ -39,25 +39,266 @@ if($key){
 }
 
 
-    if(isset($data["publication_ami"])||isset($data["utilisateur_ami"])){ ?>
+  ?>
         <div class="titre">
 
         <?php
     echo '<h5 class="textcenter">Espace de  '.$data["user"]->prenom." ".$data["user"]->nom.$ajouter.'</h5>';
 
-    if(isset($data["publication_ami"])){
 
         ?>
         </div>
 
      <ul class="nav nav-tabs tabs_amis">
-         <li class="active"><a href="#">Accueil</a></li>
-         <li><a href="#">Messages</a></li>
-         <li><a href="#">Tutorats</a></li>
-         <li><a href="#">Astuces</a></li>
+         <li class="active"><a data-toggle="tab" href="#accueil">Accueil</a></li>
+         <li><a data-toggle="tab" href="#messagesAmi">Messages</a></li>
+         <li><a data-toggle="tab" href="#tutorats">Tutorats</a></li>
+         <li><a data-toggle="tab" href="#astuces">Astuces</a></li>
      </ul>
      <br><br><br>
-        <button class="btn btn-primary creer_pub" id="openerPublication">Nouvelle Publication</button>
+
+
+
+
+
+
+     <div class="tab-content">
+         <div id="accueil" class="tab-pane fade in active">
+             <div id="publications">
+                 <button class="btn btn-primary creer_pub" id="openerPublication">Nouvelle Publication</button>
+                 <?php
+                 foreach($data["publication_ami"] as $publication) {
+                     ?>
+                     <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                         <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
+
+                         <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+                         <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
+
+                         <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                             <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                             <p><?php echo $publication->texte ?></p>
+                                             <p><?php echo $publication->url   ?></p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+
+                         <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                             <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <textarea name="evaluations"></textarea>
+                                             <input type="number" name="note" id="note" min="0" max="5" value="0">
+                                         </div>
+                                         <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                                         foreach ($data["amis"] as $ami) {
+                                             echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                                         }
+                                         ?>
+										</select>-->
+                                         <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                                         <input type="submit" class="btn btn-primary"></input>
+                                     </div>
+                                 </div>
+                                 <div class="notes"></div>
+                             </form>
+                         </div>
+
+                     </div>
+
+                     <?php
+                 }
+                 ?>
+             </div>
+
+         </div>
+         <div id="messagesAmi" class="tab-pane fade">
+             <div id="publications">
+                 <?php
+                 foreach($data["publication_ami_messages"] as $publication) {
+                     ?>
+                     <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                         <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
+
+                         <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+                         <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
+
+                         <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                             <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                             <p><?php echo $publication->texte ?></p>
+                                             <p><?php echo $publication->url   ?></p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+
+                         <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                             <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <textarea name="evaluations"></textarea>
+                                             <input type="number" name="note" id="note" min="0" max="5" value="0">
+                                         </div>
+                                         <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                                         foreach ($data["amis"] as $ami) {
+                                             echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                                         }
+                                         ?>
+										</select>-->
+                                         <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                                         <input type="submit" class="btn btn-primary"></input>
+                                     </div>
+                                 </div>
+                                 <div class="notes"></div>
+                             </form>
+                         </div>
+
+                     </div>
+
+                     <?php
+                 }
+                 ?>
+             </div>
+         </div>
+         <div id="tutorats" class="tab-pane fade">
+             <div id="publications">
+                 <?php
+                 foreach($data["publication_ami_tutorats"] as $publication) {
+                     ?>
+                     <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                         <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
+
+                         <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+                         <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
+
+                         <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                             <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                             <p><?php echo $publication->texte ?></p>
+                                             <p><?php echo $publication->url   ?></p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+
+                         <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                             <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <textarea name="evaluations"></textarea>
+                                             <input type="number" name="note" id="note" min="0" max="5" value="0">
+                                         </div>
+                                         <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                                         foreach ($data["amis"] as $ami) {
+                                             echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                                         }
+                                         ?>
+										</select>-->
+                                         <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                                         <input type="submit" class="btn btn-primary"></input>
+                                     </div>
+                                 </div>
+                                 <div class="notes"></div>
+                             </form>
+                         </div>
+
+                     </div>
+
+                     <?php
+                 }
+                 ?>
+             </div>
+         </div>
+
+         <div id="astuces" class="tab-pane fade">
+             <div id="publications">
+                 <?php
+                 foreach($data["publication_ami_astuces"] as $publication) {
+                     ?>
+                     <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
+                         <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
+
+                         <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
+                         <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
+
+                         <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
+                             <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
+                                             <p><?php echo $publication->texte ?></p>
+                                             <p><?php echo $publication->url   ?></p>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+
+                         <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
+                             <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
+                                 <div class="tab-content">
+                                     <div id="home" class="tab-pane fade in active"><br>
+                                         <div class="form-group">
+                                             <textarea name="evaluations"></textarea>
+                                             <input type="number" name="note" id="note" min="0" max="5" value="0">
+                                         </div>
+                                         <!--<select name="destinataire">
+											<option value="1">Amis  </option>
+											<option value="2">Public</option>
+											<?php
+                                         foreach ($data["amis"] as $ami) {
+                                             echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
+                                         }
+                                         ?>
+										</select>-->
+                                         <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
+                                         <input type="submit" class="btn btn-primary"></input>
+                                     </div>
+                                 </div>
+                                 <div class="notes"></div>
+                             </form>
+                         </div>
+
+                     </div>
+
+                     <?php
+                 }
+                 ?>
+             </div>
+         </div>
+     </div>
+
+
+
+
 
         <div id="dialog" title="Nouvelle Publication">
 
@@ -120,75 +361,11 @@ if($key){
                 </div>
             </form>
         </div>
-<div id="publications">
-        <?php
-    foreach($data["publication_ami"] as $publication) {
-    ?>
-        <div class='publication'><img src="<?php echo path?>/templates/images/punaise.png"  width="30" height="30" class="centre"><br>
-            <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation."<br>".$publication->titre ?></p>
-
-            <img src="<?php echo path; ?>templates/images/lire.png"    width="20" height="20">&nbsp;</img><span class="droite afficher" style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Lire   </span>
-            <img src="<?php echo path; ?>templates/images/evaluer.png" width="20" height="20">&nbsp;</img><span class="droite evaluer"  style="font-size:9pt; color:#7C3840;" data-id="<?php echo $publication->id ?>">Évaluer</span>
-
-            <div class="affichage" title="<?php echo $publication->titre ?>" data-id="<?php echo $publication->id ?>">
-                <form action="../afficherPubliDetail/<?php echo $data2; ?>" method="post">
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active"><br>
-                            <div class="form-group">
-                                <p><?php echo $publication->courrielUtil.", ".$publication->dateCreation ?></p>
-                                <p><?php echo $publication->texte ?></p>
-                                <p><?php echo $publication->url   ?></p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="evaluation" title="Évaluer une Publication" data-id="<?php echo $publication->id ?>">
-                <form action="<?php echo path; ?>client/ajouterEvaluation/<?php echo $data2; ?>" method="post">
-                    <div class="tab-content">
-                        <div id="home" class="tab-pane fade in active"><br>
-                            <div class="form-group">
-                                <textarea name="evaluations"></textarea>
-                                <input type="number" name="note" id="note" min="0" max="5" value="0">
-                            </div>
-                            <!--<select name="destinataire">
-											<option value="1">Amis  </option>
-											<option value="2">Public</option>
-											<?php
-                            foreach ($data["amis"] as $ami) {
-                                echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
-                            }
-                            ?>
-										</select>-->
-                            <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
-                            <input type="submit" class="btn btn-primary"></input>
-                        </div>
-                    </div>
-                    <div class="notes"></div>
-                </form>
-            </div>
-
-        </div>
-
-    <?php
-    }
-    ?>
-</div>
-     <?php
-
-
-
-    }
-
-
-    ?>
  </article>
  <article class="rightbar">
 
 
- <?php
- }
+<?php
  if(isset($data["utilisateur_ami"])){
  echo "<h5>Amis</h5>";
  foreach ($data["utilisateur_ami"] as $utilisateur) {
@@ -204,6 +381,6 @@ if($key){
  }
 
  ?>
- </article>
+ </article></article>
 </section>
  <script type="text/javascript" src="<?php echo path; ?>templates/js/dialog.js"></script>

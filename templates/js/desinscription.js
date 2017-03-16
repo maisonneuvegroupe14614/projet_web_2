@@ -1,4 +1,10 @@
+/**
+ * Document Ready JQuery
+ */
 $( function() {
+    /**
+     * Dialog de desinscription
+     */
     $( "#dialog-desinscription" ).dialog({
         resizable: false,
         autoOpen: false,
@@ -8,6 +14,9 @@ $( function() {
         buttons: {
             "Oui": function() {
 
+                /**
+                 * Ajax Call desinscription
+                 */
                 $.post({
                     url : path+'desinscription',
                     success : function(resultat, statut){

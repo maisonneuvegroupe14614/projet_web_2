@@ -6,6 +6,11 @@ var on;
 var onTutorat;
 var onAstuce;
 
+/**
+ * Temps de rafraichissement de recuperation des donnees
+ *
+ * @param timeoutPeriod
+ */
 function timedRefresh(timeoutPeriod) {
     setTimeout(update,timeoutPeriod);
 }
