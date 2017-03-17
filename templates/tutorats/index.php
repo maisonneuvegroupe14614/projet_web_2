@@ -4,6 +4,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#menu1">Tutorat</a></li>
             </ul>
+
             <div class="tab-content">
                 <div id="menu1" class="tab-pane fade in active">
                     <form data-parsley-validate action="<?php echo path; ?>client/ajouterPublication/<?php echo $data2; ?>" class="parsley_pub" method="post">
@@ -60,11 +61,6 @@
                                     <input type="number" name="note" id="note" min="1" max="5" value="1">
                                 </div>
 
-                                <?php
-                                foreach ($data["amis"] as $ami) {
-                                    echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
-                                }
-                                ?>
                                 <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
                                 <input type="submit" class="btn btn-primary"></input>
                             </div>

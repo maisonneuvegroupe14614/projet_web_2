@@ -72,15 +72,7 @@
                                     <textarea data-parsley-required="true" data-parsley-required-message="Ce champ est requis" name="evaluations"></textarea>
                                     <input type="number" name="note" id="note" min="1" max="5" value="1">
                                 </div>
-                                <!--<select name="destinataire">
-											<option value="1">Amis  </option>
-											<option value="2">Public</option>
-											<?php
-                                foreach ($data["amis"] as $ami) {
-                                    echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
-                                }
-                                ?>
-										</select>-->
+
                                 <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
                                 <input type="submit" class="btn btn-primary"></input>
                             </div>

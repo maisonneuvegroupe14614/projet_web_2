@@ -1,8 +1,9 @@
 <section>
     <p id="util"><?php
+if(isset($data["nom_utilisateur"])) {
+    echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
 
-        echo $data["nom_utilisateur"]->nom."  ".$data["nom_utilisateur"]->prenom."  <b> ".$data["nom_utilisateur"]->description."</b>";
-
+}
 
         ?></p>
     <nav id="menu-gauche">
@@ -20,22 +21,32 @@
 
         <div id="demandes_recu">
             <div id="dropdownAmis" class="btn-group"><button class="btn btn-sm btn-danger dropdown-toggle btn-block" type="button"
-                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Demandes <span class="badge"><?php echo sizeof($data["demandes_recu"]) ?></span>
+                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Demandes <span class="badge"><?php if(isset($data["demandes_recu"])) { echo sizeof($data["demandes_recu"]); } ?></span>
                 </button><div class="dropdown-menu">
                     <?php
-                    foreach ($data['demandes_recu'] as $demande) { ?>
+                    if(isset($data['demandes_recu'])) {
+                        foreach ($data['demandes_recu'] as $demande) { ?>
 
 
-                        <form action="<?php echo path.'client/accepte_ami'; ?>" method="post"><p><?php echo $demande->courrielUtil ?>
+                            <form action="<?php echo path.'client/accepte_ami'; ?>" method="post"><p><?php echo $demande->courrielUtil ?>
                                 <div class="btn-group">
-                                <button name="accepte_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?>" >Accepté</button>
-                                <button name="refuse_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?> " >Refusé</button>
-                </div>
-                        </form>
+                                    <button name="accepte_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?>" >Accepté</button>
+                                    <button name="refuse_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?> " >Refusé</button>
+                                </div>
+                            </form>
 
 
-                    <?php } ?>
-                </div></div>
+                        <?php }
+                    echo "</div></div>";
+                    }?>
+
         </div>
+        <div id="dialogListeConnecte" title="Liste Amis"></div>
+        <div id="chat_group" title="Zone de clavardage"><h3 id="mon_ami"></h3><div id='text_chat'></div>
+            <textarea id="message_chat" name="chat" style="width:100%;"></textarea><input id="destinataire" name="destinataire" type="hidden" value=""></input><button onclick="envoyer_chat();" type="submit">Envoyer</button>
+        </div>
+        <button id="openerListeConnecte"  href="#" class="btn btn-success btn-sm chat_btn">Utilisateurs Chat Online</button>
     </nav>
-   <script type="text/javascript" src="<?php echo path; ?>templates/js/notifications.js"></script>
+
+    <script type="text/javascript" src="<?php echo path; ?>templates/js/notifications.js"></script>
+    <script type="text/javascript" src="<?php echo path; ?>templates/js/chat.js"></script>

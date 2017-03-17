@@ -126,13 +126,13 @@ class Publication {
     public static function find_all_publication_amis ($courriel) {
         self::initialiserDB();
         /*SELECT * from publication JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel JOIN ami ON publication.courrielUtil = ami.courrielUtil WHERE ami.courrielAmi='gilles@hotmail.com' AND publication.destinataire = 'amis'*/
-        self::$database->query("SELECT distinct * from publication 
-                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel 
-                JOIN ami ON publication.courrielUtil = ami.courrielUtil 
-                WHERE (ami.courrielAmi='$courriel' 
-                and publication.destinataire='amis') or
-                ( publication.destinataire='public') 
-                group by publication.id" );
+        self::$database->query("SELECT distinct * from Publication 
+                JOIN Utilisateur ON Publication.courrielUtil = Utilisateur.courriel 
+                JOIN Ami ON Publication.courrielUtil = Ami.courrielUtil 
+                WHERE (Ami.courrielAmi='$courriel' 
+                and Publication.destinataire='amis') or
+                ( Publication.destinataire='public') 
+                group by Publication.id" );
         return self::$database->liste("Publication");
     }
 
@@ -146,7 +146,7 @@ class Publication {
         self::initialiserDB();
         self::$database->query("SELECT * from Publication  
                 WHERE courrielAmi='$courriel' 
-                AND publication.idCategorie = 1 GROUP BY Publication.id DESC ");
+                AND Publication.idCategorie = 1 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -160,7 +160,7 @@ class Publication {
         self::initialiserDB();
         self::$database->query("SELECT * from Publication  
                 WHERE courrielAmi='$courriel' 
-                AND publication.idCategorie = 4 GROUP BY Publication.id DESC ");
+                AND Publication.idCategorie = 4 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -174,7 +174,7 @@ class Publication {
         self::initialiserDB();
         self::$database->query("SELECT * from Publication  
                 WHERE courrielAmi='$courriel' 
-                AND publication.idCategorie = 2 GROUP BY Publication.id DESC ");
+                AND Publication.idCategorie = 2 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -224,7 +224,7 @@ class Publication {
      */
     public static function supprimer ($id) {
         self::initialiserDB();
-        self::$database->query(" DELETE FROM publication WHERE id = :id ");
+        self::$database->query(" DELETE FROM Publication WHERE id = :id ");
         self::$database->bind(':id', $id);
         self::$database->execute();
     }

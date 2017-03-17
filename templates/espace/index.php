@@ -89,11 +89,6 @@
                                     <input type="number" name="note" id="note" min="1" max="5" value="1">
                                 </div>
 
-                                        <?php
-                                foreach ($data["amis"] as $ami) {
-                                    echo "<option value='".$ami->courriel."'>".$ami->courriel."</option>";
-                                }
-                                ?>
                                 <input type="hidden" name="idPublication" value="<?php echo $publication->id ?>">
                                 <input type="submit" class="btn btn-primary"></input>
                             </div>

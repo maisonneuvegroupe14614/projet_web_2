@@ -617,4 +617,47 @@ class ClientController extends Controller {
         Publication::supprimer($_POST["idPublication"]);
         header("Location:".path."client/espace/".$param);
     }
+
+    /**
+     * Masquer un utilisateur pour le chat
+     */
+    public function masquer() {
+        Utilisateur::masque ($_SESSION['courriel']);
+        header ("Location: $_SERVER[HTTP_REFERER]" );
+    }
+
+    /**
+     * Masquer un utilisateur pour le chat
+     */
+    public function demasquer() {
+        Utilisateur::connecte ($_SESSION['courriel']);
+        header ("Location: $_SERVER[HTTP_REFERER]" );
+    }
+
+    /**
+     * Liste des utilisateurs connectes pour le chat
+     */
+    public function liste_connecte(){
+        $liste_connecte['moi'] = $_SESSION["courriel"];
+        $liste_connecte['connectes'] = Utilisateur::all_connecte($_SESSION["courriel"]);
+        echo json_encode($liste_connecte);
+
+    }
+
+    /**
+     * Systeme de chat
+     */
+    public function chat(){
+        Utilisateur::chat($_SESSION['courriel'], $_POST['destinataire'],$_POST['chat']);
+        $chat_messages['chat'] = Utilisateur::chat_messages($_SESSION['courriel'], $_POST['destinataire']);
+        echo json_encode($chat_messages);
+    }
+
+    /**
+     * Messages Chat
+     */
+    public function chat_messages(){
+        $chat_messages[] = Utilisateur::chat_messages($_SESSION['courriel'], $_POST['destinataire']);
+        echo json_encode($chat_messages);
+    }
 }

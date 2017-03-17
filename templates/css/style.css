@@ -37,6 +37,11 @@ tr:nth-child(even) {
     left:100px;
 }
 
+.chat_btn {
+    margin-left:30px;
+    margin-top:20px;
+}
+
 .quizId {
     width: 55%;
     height: 66.5%;

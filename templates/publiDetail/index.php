@@ -7,12 +7,10 @@ foreach($data["publiDetail"] as $publiDetail) {
         echo $publiDetail->titre."<br>";
         echo $publiDetail->texte."<br>";
         echo $publiDetail->url."<br>";
-        echo $publiDetail->destinataire."<br>";
         echo $publiDetail->dateCreation."<br>";
         echo $publiDetail->courrielUtil."<br><br>";
 }
 
 ?>
-
-<a href="../logout">Logout</a>
-<a href="../confirmationDesinscription">Désinscrire</a>
+</section>
+<script type="text/javascript" src="<?php echo path; ?>templates/js/notifications.js"></script>

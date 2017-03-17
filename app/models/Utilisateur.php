@@ -103,7 +103,7 @@ class Utilisateur {
      */
     public static function find_user_status ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT * from Utilisateur JOIN statut ON Utilisateur.idStatut = statut.id WHERE courriel='$courriel'");
+        self::$database->query("SELECT * from Utilisateur JOIN Statut ON Utilisateur.idStatut = Statut.id WHERE courriel='$courriel'");
         return self::$database->rangee("Utilisateur");
     }
 
@@ -115,7 +115,7 @@ class Utilisateur {
      */
     public static function demande_ami ($user_mail,$user_ami) {
         self::initialiserDB();
-        self::$database->query("INSERT INTO demandeami (courrielUtil, courrielAmi, statut, dateCreation)
+        self::$database->query("INSERT INTO DemandeAmi (courrielUtil, courrielAmi, statut, dateCreation)
                                 VALUES 
                                 ( :user_mail, :user_ami, 'a', CURRENT_TIMESTAMP);");
         self::$database->bind(':user_mail', $user_mail);
@@ -131,7 +131,7 @@ class Utilisateur {
      */
     public static function retire_ami ($user1,$user2) {
         self::initialiserDB();
-        self::$database->query("DELETE FROM ami                                
+        self::$database->query("DELETE FROM Ami                                
                                 WHERE  (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1)");
         self::$database->bind(':user1', $user1);
         self::$database->bind(':user2', $user2);
@@ -145,7 +145,7 @@ class Utilisateur {
      */
     public static function all_demande () {
         self::initialiserDB();
-        self::$database->query("SELECT courrielUtil, courrielAmi from demandeami WHERE statut = 'a'");
+        self::$database->query("SELECT courrielUtil, courrielAmi from DemandeAmi WHERE statut = 'a'");
         return self::$database->liste("Utilisateur");
     }
 
@@ -157,7 +157,7 @@ class Utilisateur {
      */
     public static function demande_recu ($user_ami) {
         self::initialiserDB();
-        self::$database->query("SELECT courrielUtil, courrielAmi from demandeami WHERE statut = 'a' AND courrielAmi = '$user_ami'");
+        self::$database->query("SELECT courrielUtil, courrielAmi from DemandeAmi WHERE statut = 'a' AND courrielAmi = '$user_ami'");
         return self::$database->liste("Utilisateur");
     }
 
@@ -169,7 +169,7 @@ class Utilisateur {
      */
     public static function accepte_demande ($user1,$user2) {
         self::initialiserDB();
-        self::$database->query("UPDATE demandeami
+        self::$database->query("UPDATE DemandeAmi
                                 SET statut = 'c'
                                 WHERE (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1)");
         self::$database->bind(':user1', $user1);
@@ -185,7 +185,7 @@ class Utilisateur {
      */
     public static function ajouter_ami ($user1,$user2) {
         self::initialiserDB();
-        self::$database->query("INSERT INTO ami (courrielUtil, courrielAmi)                               
+        self::$database->query("INSERT INTO Ami (courrielUtil, courrielAmi)                               
                                 VALUES  (:user1 , :user2),
                                         (:user2 ,:user1)");
         self::$database->bind(':user1', $user1);
@@ -201,7 +201,7 @@ class Utilisateur {
      */
     public static function refuse_demande ($user1,$user2) {
         self::initialiserDB();
-        self::$database->query("DELETE FROM demandeami                                
+        self::$database->query("DELETE FROM DemandeAmi                                
                                 WHERE (statut = 'a' AND (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1))");
         self::$database->bind(':user1', $user1);
         self::$database->bind(':user2', $user2);
@@ -216,11 +216,95 @@ class Utilisateur {
      */
     public static function retirer_demande ($user1,$user2) {
         self::initialiserDB();
-        self::$database->query("DELETE FROM demandeami                                
+        self::$database->query("DELETE FROM DemandeAmi                                
                                 WHERE (statut = 'c' AND (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1))");
         self::$database->bind(':user1', $user1);
         self::$database->bind(':user2', $user2);
         self::$database->execute();
+    }
+
+    /**
+     * Chat
+     *
+     * @param $user1
+     * @param $user2
+     * @param $text
+     */
+    public static function chat ($user1,$user2,$text) {
+        self::initialiserDB();
+        self::$database->query("INSERT INTO Chat (courrielUtil, courrielAmi, text)                               
+                                VALUES  (:user1 , :user2, :text)");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        self::$database->bind(':text', $text);
+        self::$database->execute();
+
+    }
+
+    /**
+     * Message Chat
+     *
+     * @param $user1
+     * @param $user2
+     * @return mixed
+     */
+    public static function chat_messages($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("select * from Chat where ((courrielUtil = :user1 and courrielAmi = :user2) 
+						or (courrielUtil = :user2 and courrielAmi = :user1)) AND text != ''");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        return self::$database->liste("Utilisateur");
+    }
+
+    /**
+     * Insertion BD Utilisateurs Connectes
+     *
+     * @param $user
+     */
+    public static function connecte($user) {
+        self::initialiserDB();
+        self::$database->query("INSERT INTO Connecte                              
+                             VALUES  (:user )");
+        self::$database->bind(':user', $user);
+        self::$database->execute();
+    }
+
+    /**
+     * Masquer utilisateur chat
+     *
+     * @param $user
+     */
+    public static function masque($user) {
+        self::initialiserDB();
+        self::$database->query("DELETE FROM Connecte                              
+                                WHERE  (courrielUtil = :user)");
+        self::$database->bind(':user', $user);
+        self::$database->execute();
+    }
+
+    /**
+     * Tous les utilisateurs connectes
+     *
+     * @return mixed
+     */
+    public static function all_connecte() {
+        self::initialiserDB();
+        self::$database->query("SELECT * FROM Connecte");
+        return self::$database->liste("Utilisateur");
+
+    }
+
+    /**
+     * Tous les utilisateurs connectes et moi
+     *
+     * @return mixed
+     */
+    public static function all_connecte_and_me() {
+        self::initialiserDB();
+        self::$database->query("SELECT * FROM Connecte ");
+        return self::$database->liste("Utilisateur");
+
     }
 
 
