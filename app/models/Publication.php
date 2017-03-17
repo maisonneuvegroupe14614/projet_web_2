@@ -113,7 +113,7 @@ class Publication {
      */
     public static function findQuizByUser ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT id,titre,dateCreation from Publication  WHERE idCategorie=3 AND courrielUtil='$courriel'");
+        self::$database->query("SELECT count(Question.idQuiz) as count, Publication.id,Publication.titre,Publication.dateCreation from Publication JOIN Question ON Question.idQuiz=Publication.id WHERE idCategorie=3 AND courrielUtil='$courriel' GROUP BY Publication.titre");
         return self::$database->liste("Publication");
     }
 
@@ -144,13 +144,9 @@ class Publication {
      */
     public static function find_etudiant_tutorats ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT * from publication  
-                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
-                JOIN ami ON publication.courrielUtil = ami.courrielUtil
-                WHERE ami.courrielAmi='$courriel' 
-                AND publication.idCategorie = 1 or 
-                ( publication.idCategorie = 1)group by publication.id DESC "
-        );
+        self::$database->query("SELECT * from Publication  
+                WHERE courrielAmi='$courriel' 
+                AND publication.idCategorie = 1 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -162,13 +158,9 @@ class Publication {
      */
     public static function find_etudiant_messages ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT * from publication  
-                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
-                JOIN ami ON publication.courrielUtil = ami.courrielUtil
-                WHERE ami.courrielAmi='$courriel' 
-                AND publication.idCategorie = 4 or 
-                ( publication.idCategorie = 4)group by publication.id DESC "
-        );
+        self::$database->query("SELECT * from Publication  
+                WHERE courrielAmi='$courriel' 
+                AND publication.idCategorie = 4 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -180,13 +172,9 @@ class Publication {
      */
     public static function find_etudiant_astuces ($courriel) {
         self::initialiserDB();
-        self::$database->query("SELECT * from publication  
-                JOIN utilisateur ON publication.courrielUtil = utilisateur.courriel
-                JOIN ami ON publication.courrielUtil = ami.courrielUtil
-                WHERE ami.courrielAmi='$courriel' 
-                AND publication.idCategorie = 2 or 
-                ( publication.idCategorie = 2)group by publication.id DESC "
-        );
+        self::$database->query("SELECT * from Publication  
+                WHERE courrielAmi='$courriel' 
+                AND publication.idCategorie = 2 GROUP BY Publication.id DESC ");
         return self::$database->liste("Publication");
     }
 
@@ -228,4 +216,32 @@ class Publication {
         self::$database->query(" DELETE FROM Publication WHERE id='$id'");
         self::$database->execute();
     }
+
+    /**
+     * Supprimer une publication
+     *
+     * @param $id
+     */
+    public static function supprimer ($id) {
+        self::initialiserDB();
+        self::$database->query(" DELETE FROM publication WHERE id = :id ");
+        self::$database->bind(':id', $id);
+        self::$database->execute();
+    }
+
+    /**
+     * Trouver les quiz fait par un utilisateur
+     *
+     * @param $courriel
+     * @return mixed
+     */
+    public static function quizFaitEtudiant ($courriel) {
+        self::initialiserDB();
+        self::$database->query("SELECT COUNT(*) as count,Publication.id,Publication.titre,AVG(QuizFait.note) as 
+          note from QuizFait JOIN Publication ON Publication.id=QuizFait.idQuiz WHERE QuizFait.courrielUtil='$courriel' 
+          GROUP BY Publication.titre DESC");
+        return self::$database->liste("Publication");
+    }
+
+
 }

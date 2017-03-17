@@ -262,6 +262,7 @@ class ClientController extends Controller {
         $data["publication_ami_messages"] = Publication::findType($this->request->getParam(),4);
         $data["publication_ami_tutorats"] = Publication::findType($this->request->getParam(),1);
         $data["publication_ami_astuces"] = Publication::findType($this->request->getParam(),2);
+        $data["publication_ami_quiz"] = Publication::findType($this->request->getParam(),3);
         $data["utilisateur_ami"] = Utilisateur::listeAmis($this->request->getParam());
         $data["user"] = Utilisateur::find($this->request->getParam());
         $data["courriel_xx"] = $this->request->getParam();
@@ -332,6 +333,7 @@ class ClientController extends Controller {
      */
     public function retirer_ami() {
         Utilisateur::retire_ami ($_SESSION['courriel'],$_REQUEST['target']);
+        Utilisateur::retirer_demande ($_SESSION['courriel'],$_REQUEST['target']);
     }
 
    /* public function testAllUsers () {
@@ -397,7 +399,7 @@ class ClientController extends Controller {
     }
 
     public function ajouterQuiz () {
-        Publication::Enregistrer(3,$_POST["nomQuiz"],"","","michael@hotmail.com");
+        Publication::Enregistrer(3,$_POST["nomQuiz"],"","",$_SESSION["courriel"],$_SESSION["courriel"]);
         $denierId = Publication::dernier();
         foreach ($_POST["questionnaire"] as $data) {
                 Question::Enregistrer($data["question"],$data["valeur"],"multiple",$denierId);
@@ -421,8 +423,14 @@ class ClientController extends Controller {
      * @return mixed
      */
     public function afficherQuizUtilisateur () {
-        $data["quiz"] = Publication::findQuizByUser($_SESSION["courriel"]);
-        return $this->view->load("quiz/afficherQuizUtilisateur",$data, $data2=null, 'sidebar');
+        $statut= Utilisateur::find_user_status($_SESSION["courriel"]);
+        if($statut->idStatut==1) {
+            $data["quiz"] = Publication::findQuizByUser($_SESSION["courriel"]);
+            return $this->view->load("quiz/afficherQuizUtilisateur",$data, $data2=null, 'sidebar');
+        } elseif ($statut->idStatut==2) {
+            $data["quiz"] = Publication::quizFaitEtudiant($_SESSION["courriel"]);
+            return $this->view->load("quiz/afficherQuizEtudiant",$data, $data2=null, 'sidebar');
+        }
     }
 
     /**
@@ -437,6 +445,7 @@ class ClientController extends Controller {
         $data["quiz"] = Publication::findQuiz($param);
         $data["question"] = Question::find($param);
         $data["choix"] = Question::allChoix($param);
+        $data["statut"] = Utilisateur::find_user_status($_SESSION["courriel"]);
         return $this->view->load("quiz/afficherQuizById", $data, $param, 'sidebar');
     }
 
@@ -594,9 +603,18 @@ class ClientController extends Controller {
     }
 
     /**
-     * Retirer une publication
+     * Retirer une publication Ajax
      */
     public function retirerPublication () {
         Publication::effacer($_POST["id"]);
+    }
+
+    /**
+     * Supprimer une publication
+     */
+    public function supprimerPub() {
+        $param = $this->request->getParam();
+        Publication::supprimer($_POST["idPublication"]);
+        header("Location:".path."client/espace/".$param);
     }
 }

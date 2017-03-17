@@ -129,6 +129,27 @@ $( function() {
         });
     });
 
+    $( ".suppression" ).dialog( {
+        width: 500,
+        autoOpen: false,
+        position: { my: "center", at: "center" },
+        show: {
+            effect: "clip",
+            duration: 1000
+        },
+        hide: {
+            effect: "drop",
+            duration: 1000
+        }
+    });
+
+    $( ".supprimer" ).each(function() {
+        $(this).on("click", function() {
+            console.log($(this).data('id'));
+            $( ".suppression[data-id=" + $(this).data('id') + "]" ).dialog( "open" );
+        });
+    });
+
 });
 
 var x = document.querySelectorAll(".retirer_ami");

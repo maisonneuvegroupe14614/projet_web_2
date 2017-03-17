@@ -1,4 +1,4 @@
-    <form id="form_reception" action="../ajouterMessage/<?php echo $data2; ?>" method="post">
+    <form id="form_reception" action="<?php echo path; ?>client/ajouterMessage/<?php echo $data2; ?>" method="post">
         <select id="courrielAmi" name="courrielAmi">
             <option disabled selected value>Mes amis</option>
             <?php
@@ -10,9 +10,9 @@
 
         <div class="messages"></div>
 
-        Sujet       <br><input    type="text" name="sujet"  ><br>
-        Message     <br><textarea id="messages" name="messages"></textarea><br>
-        Pièce jointe<br><input    type="text" name="url">
+        <label class="label_reception">Sujet       </label><br><input    type="text"     name="sujet"   ><br>
+        <label class="label_reception">Message     </label><br><textarea id  ="messages" name="messages"></textarea><br>
+        <label class="label_reception">Pièce jointe</label><br><input    type="text"     name="url">
 
         <button id="bouton_reception" type="submit"><span>Envoyer</span></button><br><br>
     </form>
@@ -28,9 +28,12 @@
                         var res=JSON.parse(resultat);
                         var str="<br>";
                         for (var i=0; i<res.message.length; i++) {
-                            str += "<p>" + res.message[i].courrielUtil + "<br>" + res.message[i].dateCreation + "<br>" +
-                                res.message[i].sujet        + "<br>" + res.message[i].texte        + "<br>" +
-                                res.message[i].url          + "</p><br>";
+                            str += "<p>"                + res.message[i].dateCreation
+                                +  "<br><b>De: </b>"    + res.message[i].courrielUtil
+                                +  "<br><b>Sujet: </b>" + res.message[i].sujet
+                                +  "<br>"               + res.message[i].texte
+                                +  "<br><b>pj: </b>"    + res.message[i].url
+                                +  "</p><br>";
                         }
                         $( ".messages" ).html(str);
                         console.log(resultat+statut);

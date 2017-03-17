@@ -27,9 +27,10 @@
 
 
                         <form action="<?php echo path.'client/accepte_ami'; ?>" method="post"><p><?php echo $demande->courrielUtil ?>
-                                <button name="accepte_ami" type="submit" value="<?php echo $demande->courrielUtil ?>" >Accepté</button>
-                                <button name="refuse_ami"  type="submit" value="<?php echo $demande->courrielUtil ?> " >Refusé</button>
-                            </p>
+                                <div class="btn-group">
+                                <button name="accepte_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?>" >Accepté</button>
+                                <button name="refuse_ami" class="btn btn-danger btn-sm" type="submit" value="<?php echo $demande->courrielUtil ?> " >Refusé</button>
+                </div>
                         </form>
 
 

@@ -10,7 +10,7 @@
         </tr>
     <?php foreach ($data["quiz"] as $quiz) :
         echo "<tr><td><a href='afficherQuizById/$quiz->id'>".$quiz->titre."</a></td>";
-        echo "<td>3</td>";
+        echo "<td>".$quiz->count."</td>";
         echo "<td>".$quiz->dateCreation."</td></tr>";
     endforeach; ?>
         </table>

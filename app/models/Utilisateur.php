@@ -208,5 +208,20 @@ class Utilisateur {
         self::$database->execute();
     }
 
+    /**
+     * Retirer une demande d'ami
+     *
+     * @param $user1
+     * @param $user2
+     */
+    public static function retirer_demande ($user1,$user2) {
+        self::initialiserDB();
+        self::$database->query("DELETE FROM demandeami                                
+                                WHERE (statut = 'c' AND (courrielUtil = :user1 AND courrielAmi = :user2) OR (courrielUtil = :user2 AND courrielAmi = :user1))");
+        self::$database->bind(':user1', $user1);
+        self::$database->bind(':user2', $user2);
+        self::$database->execute();
+    }
+
 
 }

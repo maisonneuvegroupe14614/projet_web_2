@@ -12,7 +12,7 @@
  */
 class View {
     /**
-     * Chargement d'une vueß
+     * Chargement d'une vue
      *
      * @param $view
      * @param null $data

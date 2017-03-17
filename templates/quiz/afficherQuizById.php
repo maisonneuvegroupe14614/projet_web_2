@@ -1,34 +1,74 @@
- <article id="note"></article>
-    <form id="repondreFormulaire">
-<?php
+ <article>
+     <article id="note"></article>
+     <div class="row">
+         <div class="col-lg-6 col-md-6">
 
-//echo "<pre>".print_r($data,true)."</pre>";
-  foreach ($data["quiz"] as $quiz) {
-     echo "<h3>".$quiz->titre."</h3>";
-  }
+                 <?php
+    if($data["statut"]->idStatut==1) {
+        echo '<form id="repondreFormulaire">';
 
-  foreach ($data["question"] as $question) {
-      echo "<article class='questions choix'><b>Question ".$question->noQuestion." ".$question->question."</b></article><br>";
-      foreach ($data["choix"] as $choix) {
-          if($choix->idQuestion==$question->id) {
-              if($choix->reponse==1) {
-                  echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
-                data-question='$choix->idQuestion'><mark>".$choix->choix."</mark><input class='checkbox' type='checkbox'></article></article>";
-              } else {
-                  echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+        foreach ($data["quiz"] as $quiz) {
+            echo "<h3>".$quiz->titre."</h3>";
+        }
+
+        foreach ($data["question"] as $question) {
+            echo "<article class='questions choix'><b>Question ".$question->noQuestion." ".$question->question."</b></article><br>";
+            foreach ($data["choix"] as $choix) {
+                if($choix->idQuestion==$question->id) {
+                    if($choix->reponse==1) {
+                        echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+                data-question='$choix->idQuestion'><mark>".$choix->choix."</mark><input disabled class='checkbox' type='checkbox'></article>";
+                    } else {
+                        echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+                data-question='$choix->idQuestion'>".$choix->choix."<input disabled class='checkbox' type='checkbox'></article>";
+                    }
+
+                }
+            }
+        }
+
+        ?> <input type="hidden" data-param="<?php echo $data2; ?>" id="param">
+        <?php
+    } elseif ($data["statut"]->idStatut==2) {
+        echo '<form id="repondreFormulaire">';
+
+        foreach ($data["quiz"] as $quiz) {
+            echo "<h3>".$quiz->titre."</h3>";
+        }
+
+                 foreach ($data["question"] as $question) {
+                     echo "<article class='questions choix'><b>Question ".$question->noQuestion." ".$question->question."</b></article><br>";
+                     foreach ($data["choix"] as $choix) {
+                         if($choix->idQuestion==$question->id) {
+                             if($choix->reponse==1) {
+                                 echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
                 data-question='$choix->idQuestion'>".$choix->choix."<input class='checkbox' type='checkbox'></article>";
-              }
+                             } else {
+                                 echo "<article class='choix' data-reponse='$choix->reponse' data-id='$choix->id' data-quiz='$choix->idQuiz' 
+                data-question='$choix->idQuestion'>".$choix->choix."<input class='checkbox' type='checkbox'></article>";
+                             }
 
-          }
-      }
-  }
-  ?>
-    <input type="hidden" data-param="<?php echo $data2; ?>" id="param">
-        <article class="choix"><button id="submit" class="btn btn-primary" type="submit">Envoyer</button></article>
-    </form>
+                         }
+                     }
+                 }
 
+        ?> <input type="hidden" data-param="<?php echo $data2; ?>" id="param">
+                 <article class="choix"><button id="submit" class="btn btn-primary" type="submit">Envoyer</button></article>
+                 <?php
+
+    }
+
+                 //echo "<pre>".print_r($data,true)."</pre>";
+
+                 ?>
+
+             </form>
+         </div>
+     </div>
+
+ </article>
 </section>
-</section>
+
 <script>
     $("#repondreFormulaire").on("submit", function (e) {
         console.log("prevent");
@@ -59,11 +99,11 @@
                 $("#repondreFormulaire").remove();
                 if(score>60) {
                     var str = "<div id='quizSuccess' class='alert alert-success'><strong>Reussite!</strong><br> " +
-                        "Votre note est de " + score + " %</div>";
+                        "Votre note est de " + score + " %</div><a href='../afficherQuizUtilisateur'>Retour Section Quiz</a>";
                     $("#note").html(str);
                 } else {
                     var str = "<div id='quizEchec' class='alert alert-danger'><strong>Echec!</strong><br> " +
-                        "Votre note est de " + score + " %</div>";
+                        "Votre note est de " + score + " %</div><a href='../afficherQuizUtilisateur'>Retour Section Quiz</a>";
                     $("#note").html(str);
                 }
 

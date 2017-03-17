@@ -1,6 +1,6 @@
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="<?php echo path; ?>templates/css/style.css">
 
-    <title>Social Net</title>
+    <title>Scholar Net</title>
 </head>
 <div id="conteneur">
     <header>
