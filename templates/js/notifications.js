@@ -74,34 +74,34 @@ function update() {
 
         for(var i=0;i<data.message.length;i++) {
             if(data.message[i].notificationVue==null) {
-                strMessage += '<mark><a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="'+path+'afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte+" par : "+data.message[i].courrielUtil+'</a></mark><br><br>';
+                strMessage += '<mark><a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="'+path+'afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte.substr(0,20)+" par : "+data.message[i].courrielUtil+'</a></mark><br><br>';
 
             } else {
                 console.log("hello");
                 console.log(data.message[i]);
-                strMessage += '<a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="'+path+'afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte+" par : "+data.message[i].courrielUtil+'</a><br><br>';
+                strMessage += '<a class="dropdown-item messageAll" data-notification="'+data.message[i].id+'" href="'+path+'afficherPubliDetail/'+data.message[i].idPublication+'">'+data.message[i].texte.substr(0,20)+" par : "+data.message[i].courrielUtil+'</a><br><br>';
             }
         }
 
         for(var i=0;i<data.tutorat.length;i++) {
             if(data.tutorat[i].notificationVue==null) {
-                strTutorat += '<mark><a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="'+path+'afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte+" par : "+data.tutorat[i].courrielUtil+'</a></mark><br><br>';
+                strTutorat += '<mark><a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="'+path+'afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte.substr(0,20)+" par : "+data.tutorat[i].courrielUtil+'</a></mark><br><br>';
 
             } else {
                 console.log("hello");
                 console.log(data.message[i]);
-                strTutorat += '<a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="'+path+'afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte+" par : "+data.tutorat[i].courrielUtil+'</a><br><br>';
+                strTutorat += '<a class="dropdown-item tutoratAll" data-notification="'+data.tutorat[i].id+'" href="'+path+'afficherPubliDetail/'+data.tutorat[i].idPublication+'">'+data.tutorat[i].texte.substr(0,20)+" par : "+data.tutorat[i].courrielUtil+'</a><br><br>';
             }
         }
 
         for(var i=0;i<data.astuce.length;i++) {
             if(data.astuce[i].notificationVue==null) {
-                strAstuce += '<mark><a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="'+path+'afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte+" par : "+data.astuce[i].courrielUtil+'</a></mark><br><br>';
+                strAstuce += '<mark><a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="'+path+'afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte.substr(0,20)+" par : "+data.astuce[i].courrielUtil+'</a></mark><br><br>';
 
             } else {
                 console.log("hello");
                 console.log(data.astuce[i]);
-                strTutorat += '<a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="'+path+'afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte+" par : "+data.astuce[i].courrielUtil+'</a><br><br>';
+                strTutorat += '<a class="dropdown-item astuceAll" data-notification="'+data.astuce[i].id+'" href="'+path+'afficherPubliDetail/'+data.astuce[i].idPublication+'">'+data.astuce[i].texte.substr(0,20)+" par : "+data.astuce[i].courrielUtil+'</a><br><br>';
             }
         }
         console.log(data.message);
